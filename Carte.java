@@ -7,27 +7,32 @@
  */
 public class Carte
 {
-    // variables d'instance - remplacez l'exemple qui suit par le vôtre
-    private int x;
+    private int aPrix;
+    private boolean aDeplacement;
+    private String aDescription;
 
     /**
-     * Constructeur d'objets de classe Carte
+     * Constructeur d'objets de classe CarteCommunaute
      */
-    public Carte()
+    public Carte(int pPrix, boolean pDeplacement, String pDescription)
     {
-        // initialisation des variables d'instance
-        x = 0;
+        this.aPrix = pPrix;
+        this.aDeplacement = pDeplacement;
+        this.aDescription = pDescription;
     }
 
-    /**
-     * Un exemple de méthode - remplacez ce commentaire par le vôtre
-     *
-     * @param  y   le paramètre de la méthode
-     * @return     la somme de x et de y
-     */
-    public int sampleMethod(int y)
+    public int getPrix()
     {
-        // Insérez votre code ici
-        return x + y;
+        return this.aPrix;
+    }
+    
+    public boolean getDeplacement()
+    {
+        return this.aDeplacement;
+    }
+    
+    public String getDescription()
+    {
+        return this.aDescription;
     }
 }
