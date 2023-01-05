@@ -1,4 +1,6 @@
 
+import java.util.Random;
+
 /**
  * Décrivez votre classe De ici.
  *
@@ -8,26 +10,20 @@
 public class De
 {
     // variables d'instance - remplacez l'exemple qui suit par le vôtre
-    private int x;
+    private int aNbDe;
 
     /**
      * Constructeur d'objets de classe De
      */
     public De()
     {
-        // initialisation des variables d'instance
-        x = 0;
+        aNbDe = 1;
     }
 
-    /**
-     * Un exemple de méthode - remplacez ce commentaire par le vôtre
-     *
-     * @param  y   le paramètre de la méthode
-     * @return     la somme de x et de y
-     */
-    public int sampleMethod(int y)
+    public int lanceDe()
     {
-        // Insérez votre code ici
-        return x + y;
+        Random random = new Random();
+        aNbDe =+ random.nextInt(6);
+        return aNbDe;
     }
 }
