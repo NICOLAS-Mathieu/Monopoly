@@ -9,31 +9,23 @@ public class Pion
 {
     // variables d'instance - remplacez l'exemple qui suit par le vôtre
     private String aCouleur;
-    private int aPosition;
+    private String aPosition;
 
     /**
      * Constructeur d'objets de classe Pion
      */
-    public Pion()
+    public Pion(String pCouleur)
     {
         // initialisation des variables d'instance
-        aPosition = 0;
-    }
-
-    /**
-     * Modifie la couleur du pion
-     *
-     */
-    public void setCouleur(String pCouleur)
-    {
         this.aCouleur = pCouleur;
+        this.aPosition = "Depart";
     }
     
     /**
      * Modifie la position du pion
      *
      */
-    public void setPosition(int pPosition)
+    public void setPosition(String pPosition)
     {
         this.aPosition = pPosition;
     }
@@ -53,7 +45,7 @@ public class Pion
      *
      * @return     la position du pion
      */
-    public int getPosition()
+    public String getPosition()
     {
         return this.aPosition;
     }
