@@ -12,10 +12,9 @@ public class Gare extends Propriete
     /**
      * Constructeur d'objets de classe Gare
      */
-    public Gare(final int pPrixDeVente, final int pLoyer, final Joueur pProprietaire)
+    public Gare(final int pNum, final String pDescription, final int pPrixDeVente, final int pLoyer, final Joueur pProprietaire)
     {
-        // initialisation des variables d'instance
-        super(pPrixDeVente, pLoyer, pProprietaire);
+        super(pNum, pDescription, pPrixDeVente, pLoyer, pProprietaire);
     }
 
 }

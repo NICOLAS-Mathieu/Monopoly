@@ -9,7 +9,6 @@ import java.util.Random;
  */
 public class De
 {
-    // variables d'instance - remplacez l'exemple qui suit par le vôtre
     private int aNbDe;
 
     /**
@@ -17,13 +16,19 @@ public class De
      */
     public De()
     {
-        aNbDe = 1;
+        aNbDe = 0;
     }
 
     public int lanceDe()
     {
         Random random = new Random();
         aNbDe =+ random.nextInt(6);
+        return aNbDe+1;
+    }
+
+    public int getNbDe()
+    {
         return aNbDe;
     }
+
 }
