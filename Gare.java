@@ -1,14 +1,8 @@
-
 /**
- * Décrivez votre classe Gare ici.
- *
- * @author (votre nom)
- * @version (un numéro de version ou une date)
+ * Type de propriete particulière. Le loyer dépend du nombre de gares que le joueur possède.
  */
 public class Gare extends Propriete
 {
-    // variables d'instance - remplacez l'exemple qui suit par le vôtre
-
     /**
      * Constructeur d'objets de classe Gare
      */
@@ -16,5 +10,6 @@ public class Gare extends Propriete
     {
         super(pNum, pDescription, pPrixDeVente, pLoyer, pProprietaire);
     }
+
 
 }

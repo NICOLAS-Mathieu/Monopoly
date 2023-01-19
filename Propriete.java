@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 /**
  * Décrivez votre classe Propriete ici.
@@ -9,7 +10,7 @@ public class Propriete extends Case
 {
     // variables d'instance - remplacez l'exemple qui suit par le vôtre
     private int aPrixDeVente;
-    private int aLoyer;
+    private ArrayList aLoyer;
     private Joueur aProprietaire;
 
     /**

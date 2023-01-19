@@ -1,9 +1,6 @@
 
 /**
- * Décrivez votre classe Pion ici.
- *
- * @author (votre nom)
- * @version (un numéro de version ou une date)
+ * Un pion est la représentation d'un joueur sur le plateau. Il indique sa position.
  */
 public class Pion
 {

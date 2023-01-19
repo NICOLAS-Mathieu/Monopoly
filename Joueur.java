@@ -1,14 +1,11 @@
 import java.util.ArrayList;
 
 /**
- * Décrivez votre classe Joueur ici.
- *
- * @author (votre nom)
- * @version (un numéro de version ou une date)
+ * On décrit un joueur par l'argent qu'il possède, le pion qui le représente
+ * et la liste de propriétés qu'il possède.
  */
 public class Joueur
 {
-    // variables d'instance - remplacez l'exemple qui suit par le vôtre
     private int aArgent;
     private Pion aPion;
     private ArrayList aProprietes;
@@ -16,42 +13,79 @@ public class Joueur
     /**
      * Constructeur d'objets de classe Joueur
      */
-    public Joueur()
+    public Joueur(final String pCouleur)
     {
         // initialisation des variables d'instance
         int aArgent = 150000;
-        Pion aPion = new Pion();
+        Pion aPion = new Pion(pCouleur);
         ArrayList aProprietes = new ArrayList();
     }
 
     /**
-     * Un exemple de méthode - remplacez ce commentaire par le vôtre
-     *
-     * @return     la somme de x et de y
+     * @return l'argent qu'un joueur possède.
      */
-    public int getArgent()
-    {
-        // Insérez votre code ici
-        return this.aArgent;
-    }
-    
+    public int getArgent() {return this.aArgent;}
+    //getArgent()
+
+    /**
+     * @return le pion qui représente le joueur.
+     */
     public Pion getPion()
     {
         return this.aPion;
     }
-    
+    //getPion()
+
+    /**
+     * @return la liste des proprietes du joueur.
+     */
     public ArrayList getProprietes()
     {
         return this.aProprietes;
     }
-    
+    //getProprietes()
+
+    /**
+     * @param pDifference Argent à prélever ou ajouter au joueur.
+     */
     public void addArgent(int pDifference)
     {
         this.aArgent += pDifference;
     }
-    
+    //addArgent(.)
+
+    /**
+     * @param pPropriete Propriete à ajouter au joueur.
+     */
     public void addPropriete(Carte pPropriete)
     {
         this.aProprietes.add(pPropriete);
     }
+    //addPropriete(.)
+
+    /**
+     * @return Le nombre de gare qu'un joueur possède.
+     */
+    public int nbGares()
+    {
+        int n = 0;
+        for (Propriete vPropriete : this.getProprietes())
+        {
+            if (vPropriete instanceof Gare) {n+=1;}
+        }
+        return n;
+    }//nbGares()
+
+    /**
+     * @return Le nombre de compagnie qu'un joueur possède.
+     */
+    public int nbCompagnies()
+    {
+        int n = 0;
+        for (Propriete vPropriete : this.getProprietes())
+        {
+            if (vPropriete instanceof Compagnie) {n+=1;}
+        }
+        return n;
+    }//nbGares()
 }
