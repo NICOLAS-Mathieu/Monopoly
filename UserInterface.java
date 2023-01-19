@@ -12,7 +12,17 @@ public class UserInterface {
     private JTextField aEntryField;
     private JTextArea  aLog;
     private JLabel     aImage;
-    private JButton    aBouton;
+    private JButton    aB_De;
+    private JButton    aB_help;
+    private JButton    aB_carte;
+    private JButton    aB_propriete1;
+    private JButton    aB_propriete2;
+    private JButton    aB_propriete3;
+    private JButton    aB_propriete4;
+    private JButton    aB_propriete5;
+    private JButton    aB_propriete6;
+    private JButton    aB_propriete7;
+    private JButton    aB_propriete8;
 
     /**
      * constructeur de user Interface
@@ -76,7 +86,17 @@ public class UserInterface {
     {
         this.aMyFrame = new JFrame( "Monopoly" ); // change the title
         this.aEntryField = new JTextField( 34 );
-        this.aBouton = new JButton ("help");
+        this.aB_De = new JButton ("lancer les dés");
+        this.aB_help = new JButton ("help");
+        this.aB_carte = new JButton ("carte");
+        this.aB_propriete1 = new JButton ("propriete1");
+        this.aB_propriete2 = new JButton ("propriete2");
+        this.aB_propriete3 = new JButton ("propriete3");
+        this.aB_propriete4 = new JButton ("propriete4");
+        this.aB_propriete5 = new JButton ("propriete5");
+        this.aB_propriete6 = new JButton ("propriete6");
+        this.aB_propriete7 = new JButton ("propriete7");
+        this.aB_propriete8 = new JButton ("propriete8");
 
         this.aLog = new JTextArea();
         this.aLog.setEditable( false );
@@ -87,17 +107,76 @@ public class UserInterface {
         JPanel vPanel = new JPanel();
         this.aImage = new JLabel();
 
-        vPanel.setLayout( new BorderLayout() ); // ==> only five places
-        vPanel.add( this.aImage, BorderLayout.NORTH );
-        vPanel.add( vListScroller, BorderLayout.CENTER );
-        vPanel.add( this.aEntryField, BorderLayout.SOUTH );
-        vPanel.add( this.aBouton, BorderLayout.EAST );
+        JPanel vPanel_Droite = new JPanel();
+        JPanel vPanel_Haut = new JPanel();
+        JPanel vPanel_Centre= new JPanel();
+        JPanel vPanel_Bas = new JPanel();
+        JPanel vPanel_Droite2 = new JPanel();
+        JPanel vPanel_Gauche2 = new JPanel();
+
+        JPanel vPanel_Bas1= new JPanel();
+        JPanel vPanel_Bas2= new JPanel();
+        JPanel vPanel_Bas3= new JPanel();
+        JPanel vPanel_Bas4= new JPanel();
+        JPanel vPanel_Bas5= new JPanel();
+        JPanel vPanel_Bas6= new JPanel();
+        JPanel vPanel_Bas7= new JPanel();
+        JPanel vPanel_Bas8= new JPanel();
+
+        vPanel_Gauche.setLayout( new BorderLayout() ); // ==> only five places
+        vPanel_Droite.setLayout(new BorderLayout());
+        vPanel_Haut.setLayout(new BorderLayout());
+        vPanel_Centre.setLayout(new BorderLayout());
+        vPanel_Bas.setLayout( new GridLayout(2, 4) );
+        vPanel_Droite2.setLayout(new BorderLayout());
+        vPanel_Gauche2.setLayout( new BorderLayout() );
+
+        vPanel_Bas1.setLayout(new BorderLayout());
+        vPanel_Bas2.setLayout(new BorderLayout());
+        vPanel_Bas3.setLayout(new BorderLayout());
+        vPanel_Bas4.setLayout(new BorderLayout());
+        vPanel_Bas5.setLayout(new BorderLayout());
+        vPanel_Bas6.setLayout(new BorderLayout());
+        vPanel_Bas7.setLayout(new BorderLayout());
+        vPanel_Bas8.setLayout(new BorderLayout());
+
+        vPanel_Gauche.add( this.aImage, BorderLayout.WEST );
+        vPanel_Gauche.add( vPanel_Droite, BorderLayout.EAST );
+
+        vPanel_Droite.add( vPanel_Haut, BorderLayout.NORTH);
+        vPanel_Droite.add( vPanel_Centre, BorderLayout.CENTER);
+        vPanel_Droite.add( vPanel_Bas, BorderLayout.SOUTH);
+
+        vPanel_Centre.add(this.aEntryField, BorderLayout.WEST);
+        vPanel_Centre.add( vListScroller, BorderLayout.EAST );
+
+        vPanel_Haut.add( vPanel_Gauche2, BorderLayout.WEST);
+        vPanel_Haut.add( vPanel_Droite2, BorderLayout.EAST);
+
+        vPanel_Droite2.add( this.aB_De, BorderLayout.NORTH );
+
+        vPanel_Gauche2.add( this.aB_help, BorderLayout.WEST);
+        vPanel_Gauche2.add( this.aB_carte, BorderLayout.EAST);
+
+        vPanel_Bas.add(this.vPanel1);
+        vPanel_Bas.add(this.vPanel2);
+        vPanel_Bas.add(this.vPanel3);
+        vPanel_Bas.add(this.vPanel4);
+        vPanel_Bas.add(this.vPanel5);
+        vPanel_Bas.add(this.vPanel6);
+        vPanel_Bas.add(this.vPanel7);
+        vPanel_Bas.add(this.vPanel8);
+
+
+
+
+
 
         this.aMyFrame.getContentPane().add( vPanel, BorderLayout.CENTER );
 
         // add some event listeners to some components
-        this.aEntryField.addActionListener( this );
-        this.aBouton.addActionListener( this );
+        this.aEntryField.addActionListener(this );
+        this.aB_De.addActionListener( this );
 
         // to end program when window is closed
         this.aMyFrame.addWindowListener( new WindowAdapter() {
@@ -115,7 +194,7 @@ public class UserInterface {
     public void actionPerformed( final ActionEvent pE )
     {
         Object vObjet = pE.getSource();
-        if (vObjet == aBouton)
+        if (vObjet == aB_De)
         {
             this.aEngine.processCommand("Lancer dés");
         }
