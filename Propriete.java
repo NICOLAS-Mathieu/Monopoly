@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 
 /**
  * Décrivez votre classe Propriete ici.
@@ -10,13 +9,14 @@ public class Propriete extends Case
 {
     // variables d'instance - remplacez l'exemple qui suit par le vôtre
     private int aPrixDeVente;
-    private ArrayList aLoyer;
+    private int[] aLoyer;
     private Joueur aProprietaire;
 
     /**
      * Constructeur d'objets de classe Propriete
      */
-    public Propriete(final int pNum, final String pDescription, final int pPrixDeVente, final int pLoyer, final Joueur pProprietaire)
+    public Propriete(final int pNum, final String pDescription, final int pPrixDeVente,
+                     final int[] pLoyer, final Joueur pProprietaire)
     {
         // initialisation des variables d'instance
         super(pNum, pDescription);
@@ -33,9 +33,9 @@ public class Propriete extends Case
         return this.aPrixDeVente;
     }
     
-    public int getLoyer()
+    public int getLoyer(final int pIndex)
     {
-        return this.aLoyer;
+        return this.aLoyer[pIndex];
     }
     
     public Joueur getProprietaire()
@@ -51,9 +51,9 @@ public class Propriete extends Case
         this.aPrixDeVente = pPrixDeVente;
     }
     
-    public void setLoyer(final int pLoyer)
+    public void setLoyer(final int pIndex, final int pLoyer)
     {
-        this.aLoyer = pLoyer;
+        this.aLoyer[pIndex] = pLoyer;
     }
 
     public void setProprietaire(final Joueur pProprietaire)

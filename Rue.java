@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 
 /**
  * Décrivez votre classe Rue ici.
@@ -19,12 +18,14 @@ public class Rue extends Propriete
      */
     public Rue(final int pNum, final String pDescription,
                final String pCouleur, final int pPrixDeVente,
-               final ArrayList pLoyer, final int pPrixConstrucion, final int pPrixHypotheque,
+               final int[] pLoyer, final int pPrixConstruction, final int pPrixHypotheque,
                final Joueur pProprietaire)
     {
         // initialisation des variables d'instance
         super(pNum, pDescription, pPrixDeVente, pLoyer, pProprietaire);
         this.aCouleur = pCouleur;
+        this.aPrixConstruction = pPrixConstruction;
+        this.aPrixHypotheque = pPrixHypotheque;
         this.aNbMaisons = 0;
         this.aNbHotels = 0;
     }
