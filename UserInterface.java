@@ -74,7 +74,7 @@ public class UserInterface {
      */
     private void createGUI()
     {
-        this.aMyFrame = new JFrame( "Zork" ); // change the title
+        this.aMyFrame = new JFrame( "Monopoly" ); // change the title
         this.aEntryField = new JTextField( 34 );
         this.aBouton = new JButton ("help");
 
@@ -117,7 +117,7 @@ public class UserInterface {
         Object vObjet = pE.getSource();
         if (vObjet == aBouton)
         {
-            this.aEngine.processCommand("help");
+            this.aEngine.processCommand("Lancer dés");
         }
 
         this.processCommand(); // never suppress this line
