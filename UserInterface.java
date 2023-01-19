@@ -104,7 +104,7 @@ public class UserInterface {
         vListScroller.setPreferredSize( new Dimension(200, 200) );
         vListScroller.setMinimumSize( new Dimension(100,100) );
 
-        JPanel vPanel = new JPanel();
+        JPanel vPanel_Gauche = new JPanel();
         this.aImage = new JLabel();
 
         JPanel vPanel_Droite = new JPanel();
@@ -172,7 +172,7 @@ public class UserInterface {
 
 
 
-        this.aMyFrame.getContentPane().add( vPanel, BorderLayout.CENTER );
+        this.aMyFrame.getContentPane().add( vPanel_Gauche, BorderLayout.CENTER );
 
         // add some event listeners to some components
         this.aEntryField.addActionListener(this );
@@ -197,6 +197,46 @@ public class UserInterface {
         if (vObjet == aB_De)
         {
             this.aEngine.processCommand("Lancer dés");
+        }
+        if (vObjet == aB_carte)
+        {
+            this.aEngine.processCommand("carte");
+        }
+        if (vObjet == aB_help)
+        {
+            this.aEngine.processCommand("help");
+        }
+        if (vObjet == aB_propriete1)
+        {
+            this.aEngine.processCommand("Propriete 1");
+        }
+        if (vObjet == aB_propriete2)
+        {
+            this.aEngine.processCommand("Propriete 2");
+        }
+        if (vObjet == aB_propriete3)
+        {
+            this.aEngine.processCommand("Propriete 3");
+        }
+        if (vObjet == aB_propriete4)
+        {
+            this.aEngine.processCommand("Propriete 4");
+        }
+        if (vObjet == aB_propriete5)
+        {
+            this.aEngine.processCommand("Propriete 5");
+        }
+        if (vObjet == aB_propriete6)
+        {
+            this.aEngine.processCommand("Propriete 6");
+        }
+        if (vObjet == aB_propriete7)
+        {
+            this.aEngine.processCommand("Propriete 7");
+        }
+        if (vObjet == aB_propriete8)
+        {
+            this.aEngine.processCommand("Propriete 8");
         }
 
         this.processCommand(); // never suppress this line
