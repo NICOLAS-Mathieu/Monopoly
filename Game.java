@@ -1,24 +1,22 @@
-import java.util.ArrayList;
-
 /**
- * Décrivez votre classe Game ici.
+ * La classe Game permet la création du jeu.
  *
- * @author (votre nom)
- * @version (un numéro de version ou une date)
+ * @author NICOLAS Mathieu
+ * @version 02/01/2022
  */
 public class Game
 {
-    // variables d'instance - remplacez l'exemple qui suit par le vôtre
-    private Plateau aPlateau;
-    private ArrayList aJoueurs;
+    private UserInterface aGui;
+    private GameEngine aEngine;
 
     /**
-     * Constructeur d'objets de classe Game
+     * Crée le jeu et initialise sa carte.
      */
     public Game()
     {
-        // initialisation des variables d'instance
-        this.aPlateau = new Plateau();
-        this.aJoueurs = new ArrayList();
-    }
-}
+        this.aEngine = new GameEngine();
+        this.aGui = new UserInterface( this.aEngine );
+        this.aEngine.setGUI( this.aGui );
+    }//Game()
+
+} // Game

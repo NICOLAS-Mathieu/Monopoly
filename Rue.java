@@ -7,16 +7,23 @@
  */
 public class Rue extends Propriete
 {
+    private int aPrixConstruction;
+    private int aPrixHypotheque;
+    private String aCouleur;
     private int aNbMaisons;
     private int aNbHotels;
     
     /**
      * Constructeur d'objets de classe Rue
      */
-    public Rue(final int pPrixDeVente, final int pLoyer, final Joueur pProprietaire)
+    public Rue(final int pNum, final String pDescription,
+               final String pCouleur, final int pPrixDeVente,
+               final ArrayList pLoyer, final int pPrixConstrucion, final int pPrixHypotheque,
+               final Joueur pProprietaire)
     {
         // initialisation des variables d'instance
-        super(pPrixDeVente, pLoyer, pProprietaire);
+        super(pNum, pDescription, pPrixDeVente, pLoyer, pProprietaire);
+        this.aCouleur = pCouleur;
         this.aNbMaisons = 0;
         this.aNbHotels = 0;
     }

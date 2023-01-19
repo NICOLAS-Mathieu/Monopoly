@@ -14,21 +14,17 @@ public class Case
     /**
      * Constructeur d'objets de classe Case
      */
-    public Case()
+    public Case(final int pNum, final String pDescription)
     {
         // initialisation des variables d'instance
-        this.aNumero = 0;
-    }
+        this.aDescription = pDescription;
+        this.aNumero = pNum;
+    }//Case(.)
 
-    /**
-     * Un exemple de méthode - remplacez ce commentaire par le vôtre
-     *
-     * @param  y   le paramètre de la méthode
-     * @return     la somme de x et de y
-     */
+
     public int getNumero()
     {
         // Insérez votre code ici
         return this.aNumero;
-    }
+    }//getNumero()
 }

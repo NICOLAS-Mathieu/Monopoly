@@ -15,9 +15,10 @@ public class Propriete extends Case
     /**
      * Constructeur d'objets de classe Propriete
      */
-    public Propriete(final int pPrixDeVente, final int pLoyer, final Joueur pProprietaire)
+    public Propriete(final int pNum, final String pDescription, final int pPrixDeVente, final int pLoyer, final Joueur pProprietaire)
     {
         // initialisation des variables d'instance
+        super(pNum, pDescription);
         this.aPrixDeVente = pPrixDeVente;
         this.aLoyer = pLoyer;
         this.aProprietaire = pProprietaire;
