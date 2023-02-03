@@ -123,6 +123,32 @@ public class UserInterface {
         this.aB_propriete6 = new JButton ("propriete6");
         this.aB_propriete7 = new JButton ("propriete7");
         this.aB_propriete8 = new JButton ("propriete8");
+        this.aNom1 = new JTextArea("Joueur1");
+        this.aNom2 = new JTextArea("Joueur2");
+        this.aNom3 = new JTextArea("Joueur3");
+        this.aNom4 = new JTextArea("Joueur4");
+        this.aNom5 = new JTextArea("Joueur5");
+        this.aNom6 = new JTextArea("Joueur6");
+        this.aNom7 = new JTextArea("Joueur7");
+        this.aNom8 = new JTextArea("Joueur8");
+        this.aSom1 = new JTextArea("150000");
+        this.aSom2 = new JTextArea("150000");
+        this.aSom3 = new JTextArea("150000");
+        this.aSom4 = new JTextArea("150000");
+        this.aSom5 = new JTextArea("150000");
+        this.aSom6 = new JTextArea("150000");
+        this.aSom7 = new JTextArea("150000");
+        this.aSom8 = new JTextArea("150000");
+
+        this.aNom1.setBackground(Color.PINK);
+        this.aNom2.setBackground(Color.BLUE);
+        this.aNom3.setBackground(Color.RED);
+        this.aNom4.setBackground(Color.GREEN);
+        this.aNom5.setBackground(Color.CYAN);
+        this.aNom6.setBackground(Color.ORANGE);
+        this.aNom7.setBackground(Color.MAGENTA);
+        this.aNom8.setBackground(Color.LIGHT_GRAY);
+
 
         this.aLog = new JTextArea();
         this.aLog.setEditable( false );
@@ -136,6 +162,7 @@ public class UserInterface {
         JPanel vPanel_Droite = new JPanel();
         JPanel vPanel_Haut = new JPanel();
         JPanel vPanel_Centre= new JPanel();
+        GridLayout vGrid_Bas = new GridLayout(2,4);
         JPanel vPanel_Bas = new JPanel();
         JPanel vPanel_Droite2 = new JPanel();
         JPanel vPanel_Gauche2 = new JPanel();
@@ -156,6 +183,15 @@ public class UserInterface {
         vPanel_Bas.setLayout( vGrid_Bas );
         vPanel_Droite2.setLayout(new BorderLayout());
         vPanel_Gauche2.setLayout( new BorderLayout() );
+
+        vPanel_Bas.add(vPanel_Bas1);
+        vPanel_Bas.add(vPanel_Bas2);
+        vPanel_Bas.add(vPanel_Bas3);
+        vPanel_Bas.add(vPanel_Bas4);
+        vPanel_Bas.add(vPanel_Bas5);
+        vPanel_Bas.add(vPanel_Bas6);
+        vPanel_Bas.add(vPanel_Bas7);
+        vPanel_Bas.add(vPanel_Bas8);
 
         vPanel_Bas1.setLayout(new BorderLayout());
         vPanel_Bas2.setLayout(new BorderLayout());
@@ -216,8 +252,18 @@ public class UserInterface {
         this.aMyFrame.getContentPane().add( vPanel_Gauche, BorderLayout.CENTER );
 
         // add some event listeners to some components
-        this.aEntryField.addActionListener(this );
-        this.aB_De.addActionListener( this );
+        this.aEntryField.addActionListener((ActionListener) this);
+        this.aB_De.addActionListener((ActionListener) this);
+        this.aB_help.addActionListener((ActionListener) this);
+        this.aB_carte.addActionListener((ActionListener) this);
+        this.aB_propriete1.addActionListener((ActionListener) this);
+        this.aB_propriete2.addActionListener((ActionListener) this);
+        this.aB_propriete3.addActionListener((ActionListener) this);
+        this.aB_propriete4.addActionListener((ActionListener) this);
+        this.aB_propriete5.addActionListener((ActionListener) this);
+        this.aB_propriete6.addActionListener((ActionListener) this);
+        this.aB_propriete7.addActionListener((ActionListener) this);
+        this.aB_propriete8.addActionListener((ActionListener) this);
 
         // to end program when window is closed
         this.aMyFrame.addWindowListener( new WindowAdapter() {
