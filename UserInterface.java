@@ -158,15 +158,30 @@ public class UserInterface {
         vPanel_Gauche2.add( this.aB_help, BorderLayout.WEST);
         vPanel_Gauche2.add( this.aB_carte, BorderLayout.EAST);
 
-        vPanel_Bas.add(this.vPanel1);
-        vPanel_Bas.add(this.vPanel2);
-        vPanel_Bas.add(this.vPanel3);
-        vPanel_Bas.add(this.vPanel4);
-        vPanel_Bas.add(this.vPanel5);
-        vPanel_Bas.add(this.vPanel6);
-        vPanel_Bas.add(this.vPanel7);
-        vPanel_Bas.add(this.vPanel8);
-
+        vPanel_Bas1.add( this.aNom1, BorderLayout.NORTH);
+        vPanel_Bas2.add( this.aNom2, BorderLayout.NORTH);
+        vPanel_Bas3.add( this.aNom3, BorderLayout.NORTH);
+        vPanel_Bas4.add( this.aNom4, BorderLayout.NORTH);
+        vPanel_Bas5.add( this.aNom5, BorderLayout.NORTH);
+        vPanel_Bas6.add( this.aNom6, BorderLayout.NORTH);
+        vPanel_Bas7.add( this.aNom7, BorderLayout.NORTH);
+        vPanel_Bas8.add( this.aNom8, BorderLayout.NORTH);
+        vPanel_Bas1.add( this.aSom1, BorderLayout.CENTER);
+        vPanel_Bas2.add( this.aSom2, BorderLayout.CENTER);
+        vPanel_Bas3.add( this.aSom3, BorderLayout.CENTER);
+        vPanel_Bas4.add( this.aSom4, BorderLayout.CENTER);
+        vPanel_Bas5.add( this.aSom5, BorderLayout.CENTER);
+        vPanel_Bas6.add( this.aSom6, BorderLayout.CENTER);
+        vPanel_Bas7.add( this.aSom7, BorderLayout.CENTER);
+        vPanel_Bas8.add( this.aSom8, BorderLayout.CENTER);
+        vPanel_Bas1.add( this.aB_propriete1, BorderLayout.SOUTH);
+        vPanel_Bas2.add( this.aB_propriete2, BorderLayout.SOUTH);
+        vPanel_Bas3.add( this.aB_propriete3, BorderLayout.SOUTH);
+        vPanel_Bas4.add( this.aB_propriete4, BorderLayout.SOUTH);
+        vPanel_Bas5.add( this.aB_propriete5, BorderLayout.SOUTH);
+        vPanel_Bas6.add( this.aB_propriete6, BorderLayout.SOUTH);
+        vPanel_Bas7.add( this.aB_propriete7, BorderLayout.SOUTH);
+        vPanel_Bas8.add( this.aB_propriete8, BorderLayout.SOUTH);
 
 
 

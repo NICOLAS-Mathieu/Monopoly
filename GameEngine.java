@@ -10,6 +10,11 @@ public class GameEngine {
     public GameEngine()
     {
         this.createProprietes();
+        this.createGare();
+        this.createCompagnie();
+        this.createCase();
+
+        this.createCarte();
     }//GameEngine()
 
     /**
@@ -37,10 +42,91 @@ public class GameEngine {
         Rue vBoulevardMalesherbes = new Rue(23, "Boulevard Malesherbes", "Rouge", 220, new int[]{18,90,250,700,875,1050}, 150, 110, null);
         Rue vAvenueHenriMartin = new Rue(24, "Avenue Henri-Martin", "Rouge", 240, new int[]{20,100,300,750,925,1100}, 150, 120, null);
         //Jaune
+        Rue vFaubourgSaintHonore = new Rue(26, "Faubourg Saint-Honoré", "Jaune", 260, new int[]{22,110,330,800,975,1150}, 150, 130, null);
+        Rue vPlaceDeLaBourse = new Rue(27, "Place de la Bourse", "Jaune", 260, new int[]{22,110,330,800,975,1150}, 150, 130, null);
+        Rue vRueLaFayette= new Rue(29, "Rue La Fayette", "Jaune", 280, new int[]{24,120,360,850,1025,1200}, 150, 140, null);
         //Vert
+        Rue vAvenueDeBreteuil = new Rue(31, "Avenue de Breteuil", "Vert", 300,  new int[]{26,130,390,900,1100,1275}, 200, 150, null);
+        Rue vAvenueFoch = new Rue(32, "Avenue Foch", "Vert", 300, new int[]{26,130,390,900,1100,1275}, 200, 150,null);
+        Rue vBoulevardDesCapucines = new Rue(34, "Boulevard des Capucines", "Vert", 320, new int[]{28,150,450,1000,1200,1400}, 200, 160, null);
         //Bleu foncé
+        Rue vAvenueChampsElisees = new Rue(37, "Avenue Champs-Élysées", "BleuFonce", 350, new int[]{35,175,500,1100,1300,1500}, 200, 175, null);
+        Rue vRueDeLaPaix = new Rue(39, "Rue de la  Paix", "BleuFonce", 400, new int[]{50,200,600,1400,1700,2000}, 200, 200, null);
     }//createProprietes()
 
+    public void createGare()
+    {
+        Gare vGareMontparnasse = new Gare(5, "Gare Montparnasse", 200, new int[]{25,50,100,200}, 100, null);
+        Gare vGareDeLyon = new Gare(15, "Gare de Lyon", 200, new int[]{25,50,100,200}, 100, null);
+        Gare vGareDuNord = new Gare(25, "Gare du Nord", 200, new int[]{25,50,100,200}, 100, null);
+        Gare vGareSaintLazare = new Gare(35, "Gare Saint-Lazare", 200, new int[]{25,50,100,200}, 100, null);
+    }//createGare()
+
+    public void createCompagnie()
+    {
+        Compagnie vElectricite = new Compagnie(12, "Compagnie de distribution d'électricité'", 150, new int[]{4,10}, 75, null);
+        Compagnie vEau = new Compagnie(28, "Compagnie de distribution des eaux", 150, new int[]{4,10}, 75, null);
+    }//createCompagnie()
+
+    public void createCase()
+    {
+        Case vCaisseDeCommunaute1 = new Case(2, "Caisse de Communauté");
+        Case vCaisseDeCommunaute2 = new Case(17, "Caisse de Communauté");
+        Case vCaisseDeCommunaute3 = new Case(33, "Caisse de Communauté");
+
+        Case vChance1 = new Case(7, "Chance");
+        Case vChance2 = new Case(22, "Chance");
+        Case vChance3 = new Case(36, "Chance");
+
+        Case vDepart = new Case(0, "Départ");
+        Case vPrison = new Case(10, "Prison");
+        Case vParcGratuit = new Case(20, "Parc Gratuit");
+        Case vAllezEnPrison = new Case(30, "Allez en Prison");
+
+        Case vImpot = new Case(4, "Impôt sur le revenu");
+        Case vTaxeDeLuxe = new Case(38, "Taxe de Luxe");
+    }//createCase
+
+
+    public void createCarte()
+    {
+        //Liste des cartes chances
+        Carte vCarteChance1 = new Carte(0, 39, "Rendez-vous à la Rue de la Paix", 0);
+        Carte vCarteChance2 = new Carte(0, 0, "Avancer jusqu'à la case départ", 0);
+        Carte vCarteChance3 = new Carte(0, 24, "Rendez-vous à l'Avenue Henri-Martin. Si vous passez par la case départ, recevez 200€", 0);
+        Carte vCarteChance4 = new Carte(0, 11, "Avancez au Boulevard de La Villette. Si vous passez par la case départ, recevez 200€", 0);
+        Carte vCarteChance5 = new Carte(0, -1, "Vous êtes imposé pour les réparations de voirie à raison de 40€ par maison et 115€ par hotêl", 1);
+        Carte vCarteChance6 = new Carte(0, 15, "Avancez jusqu'à la Gare de Lyon. Si vous passez par la case départ, recevez 200€", 0);
+        Carte vCarteChance7 = new Carte(100,-1, "Vous gagnez le prix de mots croisés. Recevez 100€", 0);
+        Carte vCarteChance8 = new Carte(50, -1, "La banque vous verse un dividende de 50€", 0);
+        Carte vCarteChance9 = new Carte(0, -1, "Vous êtes libéré de prison. Cette carte peut être conservée jusqu'à ce qu'elle soit utilisée ou vendue.", 2);
+        Carte vCarteChance10 = new Carte(0,-1, "Reculez de trois cases", 3);
+        Carte vCarteChance11 = new Carte(0, 10, "Allez en prison. Rendez-vous directement en prison. Ne franchissez pas la case départ, ne touchez pas 200€", 4);
+        Carte vCarteChance12 = new Carte(0, -1, "Faites des réparations dans toutes vos maisons. Versez pour chaque maison 25€. Versez pour chaque hôtel 100€", 5);
+        Carte vCarteChance13 = new Carte(-15, -1, "Amende pour excès de vitesse 15€", 0);
+        Carte vCarteChance14 = new Carte(-150, -1, "Payez pour frais de scolarité 150€", 0);
+        Carte vCarteChance15 = new Carte(-20, -1, "Amende pour ivresse 20€", 0);
+        Carte vCarteChance16 = new Carte(150, -1, "Votre immeuble et votre prêt rapportent. Vous devez toucher 150€", 0);
+
+        //Liste des cartes Caisse de Communauté
+        Carte vCarteCom1 = new Carte(0, 0, "Placez-vous sur la case départ", 0);
+        Carte vCarteCom2 = new Carte(200, -1, "Erreur de la banque en votre faveur. Recevez 200€", 0);
+        Carte vCarteCom3 = new Carte(-50, -1, "Payez la  note du médecin 50€", 0);
+        Carte vCarteCom4 = new Carte(50, -1, "La vente de votre stock vous rapporte 50€", 0);
+        Carte vCarteCom5 = new Carte(0, -1, "Vous êtes libéré de prison. Cette carte peut être conservée jusqu'à ce qu'elle soit utilisée ou vendue.", 6);
+        Carte vCarteCom6 = new Carte(0, 10, "Allez en prison. Rendez-vous directement en prison. Ne franchissez pas la case départ, ne touchez pas 200€", 7);
+        Carte vCarteCom7 = new Carte(0,1, "Retournez à Belleville", 8);
+        Carte vCarteCom8 = new Carte(100, -1, "Recevez votre revenu annuel 100€", 0);
+        Carte vCarteCom9 = new Carte(0, -1, "C'est votre anniversaire. Chaque joueur doit vous donner 10€", 9);
+        Carte vCarteCom10 = new Carte(20, -1, "Les contributions vous remboursent la somme de 20€", 0);
+        Carte vCarteCom11 = new Carte(25, -1, "Recevez votre intérêt sur l'emprunt à 7% 25€", 0);
+        Carte vCarteCom12 = new Carte(-50, -1, "Payez votre Police d'Assurance 50€", 0);
+        Carte vCarteCom13 = new Carte(0, -1, "Payez une amende de 10€ ou bien tirez une carte <<CHANCE>>", 10);
+        Carte vCarteCom14 = new Carte(0, -1, "Rendez-vous à la gare la plus proche. Si vous pasez par la départ, recevez 200€", 11);
+        Carte vCarteCom15 = new Carte(10, -1, "Vous avez gagné le deuxième Prix de Beauté. Recevez 10€", 0);
+        Carte vCarteCom16 = new Carte(10, -1, "Vous héritez de 10€", 0);
+
+    }//createCarte
     public void processCommand( final String pCommandLine )
     {
 

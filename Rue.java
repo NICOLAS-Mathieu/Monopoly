@@ -8,7 +8,6 @@
 public class Rue extends Propriete
 {
     private int aPrixConstruction;
-    private int aPrixHypotheque;
     private String aCouleur;
     private int aNbMaisons;
     private int aNbHotels;
@@ -22,10 +21,9 @@ public class Rue extends Propriete
                final Joueur pProprietaire)
     {
         // initialisation des variables d'instance
-        super(pNum, pDescription, pPrixDeVente, pLoyer, pProprietaire);
+        super(pNum, pDescription, pPrixDeVente, pLoyer, pPrixHypotheque, pProprietaire);
         this.aCouleur = pCouleur;
         this.aPrixConstruction = pPrixConstruction;
-        this.aPrixHypotheque = pPrixHypotheque;
         this.aNbMaisons = 0;
         this.aNbHotels = 0;
     }

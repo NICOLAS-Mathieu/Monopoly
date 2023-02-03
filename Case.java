@@ -17,8 +17,8 @@ public class Case
     public Case(final int pNum, final String pDescription)
     {
         // initialisation des variables d'instance
-        this.aDescription = pDescription;
         this.aNumero = pNum;
+        this.aDescription = pDescription;
     }//Case(.)
 
 
