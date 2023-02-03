@@ -23,6 +23,23 @@ public class UserInterface {
     private JButton    aB_propriete6;
     private JButton    aB_propriete7;
     private JButton    aB_propriete8;
+    private JTextArea  aNom1;
+    private JTextArea  aNom2;
+    private JTextArea  aNom3;
+    private JTextArea  aNom4;
+    private JTextArea  aNom5;
+    private JTextArea  aNom6;
+    private JTextArea  aNom7;
+    private JTextArea  aNom8;
+    private JTextArea  aSom1;
+    private JTextArea  aSom2;
+    private JTextArea  aSom3;
+    private JTextArea  aSom4;
+    private JTextArea  aSom5;
+    private JTextArea  aSom6;
+    private JTextArea  aSom7;
+    private JTextArea  aSom8;
+
 
     /**
      * constructeur de user Interface
@@ -31,6 +48,7 @@ public class UserInterface {
     {
         this.aEngine = pGameEngine;
         this.createGUI();
+
     } // UserInterface(.)
 
     /**
@@ -78,6 +96,14 @@ public class UserInterface {
             this.aEntryField.removeActionListener((ActionListener)this); // won't react to entry
         }
     } // enable(.)
+
+    public void actualisation(int numero, String somme)
+    {
+        if(numero==1)
+        {
+
+        }
+    }
 
     /**
      * fonction premettant d'afficher a l'ecran
@@ -127,7 +153,7 @@ public class UserInterface {
         vPanel_Droite.setLayout(new BorderLayout());
         vPanel_Haut.setLayout(new BorderLayout());
         vPanel_Centre.setLayout(new BorderLayout());
-        vPanel_Bas.setLayout( new GridLayout(2, 4) );
+        vPanel_Bas.setLayout( vGrid_Bas );
         vPanel_Droite2.setLayout(new BorderLayout());
         vPanel_Gauche2.setLayout( new BorderLayout() );
 
@@ -209,6 +235,7 @@ public class UserInterface {
     public void actionPerformed( final ActionEvent pE )
     {
         Object vObjet = pE.getSource();
+
         if (vObjet == aB_De)
         {
             this.aEngine.processCommand("Lancer dés");
