@@ -1,9 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.net.URL;
 import java.awt.image.*;
-import javax.swing.JFrame;
+import java.net.URL;
 
 public class UserInterface {
 
@@ -39,6 +38,8 @@ public class UserInterface {
     private JTextArea  aSom6;
     private JTextArea  aSom7;
     private JTextArea  aSom8;
+    private JTextArea  aNbDe;
+    private JTextArea  aJoueur;
 
 
     /**
@@ -139,6 +140,8 @@ public class UserInterface {
         this.aSom6 = new JTextArea("150000");
         this.aSom7 = new JTextArea("150000");
         this.aSom8 = new JTextArea("150000");
+        this.aNbDe = new JTextArea("0");
+        this.aJoueur = new JTextArea("Joueur1");
 
         this.aNom1.setBackground(Color.PINK);
         this.aNom2.setBackground(Color.BLUE);
@@ -149,6 +152,24 @@ public class UserInterface {
         this.aNom7.setBackground(Color.MAGENTA);
         this.aNom8.setBackground(Color.LIGHT_GRAY);
 
+        this.aNom1.setText("Joueur1");
+        this.aNom2.setText("Joueur2");
+        this.aNom3.setText("Joueur3");
+        this.aNom4.setText("Joueur4");
+        this.aNom5.setText("Joueur5");
+        this.aNom6.setText("Joueur6");
+        this.aNom7.setText("Joueur7");
+        this.aNom8.setText("Joueur8");
+        this.aSom1.setText("getArgent1()");
+        this.aSom2.setText("getArgent2()");
+        this.aSom3.setText("getArgent3()");
+        this.aSom4.setText("getArgent4()");
+        this.aSom5.setText("getArgent5()"); //creer les fonctions pour recuperer l'argent des joueurs
+        this.aSom6.setText("getArgent6()");
+        this.aSom7.setText("getArgent7()");
+        this.aSom8.setText("getArgent8()");
+        this.aNbDe.setText("getLancerDe()"); //creer les fonctions pour recuperer le nb realiser par les dé
+        this.aJoueur.setText("getJoueur()"); //creer fonction qui dit quel joueur joue
 
         this.aLog = new JTextArea();
         this.aLog.setEditable( false );
@@ -176,7 +197,7 @@ public class UserInterface {
         JPanel vPanel_Bas7= new JPanel();
         JPanel vPanel_Bas8= new JPanel();
 
-        vPanel_Gauche.setLayout( new BorderLayout() ); // ==> only five places
+        vPanel_Gauche.setLayout( new BorderLayout() );
         vPanel_Droite.setLayout(new BorderLayout());
         vPanel_Haut.setLayout(new BorderLayout());
         vPanel_Centre.setLayout(new BorderLayout());
@@ -216,9 +237,11 @@ public class UserInterface {
         vPanel_Haut.add( vPanel_Droite2, BorderLayout.EAST);
 
         vPanel_Droite2.add( this.aB_De, BorderLayout.NORTH );
+        vPanel_Droite2.add( this.aNbDe, BorderLayout.SOUTH);
 
         vPanel_Gauche2.add( this.aB_help, BorderLayout.WEST);
         vPanel_Gauche2.add( this.aB_carte, BorderLayout.EAST);
+        vPanel_Gauche2.add( this.aJoueur, BorderLayout.NORTH);
 
         vPanel_Bas1.add( this.aNom1, BorderLayout.NORTH);
         vPanel_Bas2.add( this.aNom2, BorderLayout.NORTH);
