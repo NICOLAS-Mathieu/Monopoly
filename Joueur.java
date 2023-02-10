@@ -8,7 +8,7 @@ public class Joueur
 {
     private int aArgent;
     private Pion aPion;
-    private ArrayList aProprietes;
+    private ArrayList<Propriete> aProprietes;
     
     /**
      * Constructeur d'objets de classe Joueur
@@ -18,7 +18,7 @@ public class Joueur
         // initialisation des variables d'instance
         int aArgent = 150000;
         Pion aPion = new Pion(pCouleur);
-        ArrayList aProprietes = new ArrayList();
+        ArrayList<Propriete> aProprietes = new ArrayList<Propriete>();
     }
 
     /**
@@ -57,7 +57,7 @@ public class Joueur
     /**
      * @param pPropriete Propriete à ajouter au joueur.
      */
-    public void addPropriete(Carte pPropriete)
+    public void addPropriete(Propriete pPropriete)
     {
         this.aProprietes.add(pPropriete);
     }

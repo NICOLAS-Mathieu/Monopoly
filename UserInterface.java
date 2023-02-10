@@ -15,6 +15,8 @@ public class UserInterface implements ActionListener
     private JTextField aEntryField;
     private JTextArea  aLog;
     private JLabel     aImage;
+    private JLabel     aImageDe1;
+    private JLabel     aImageDe2;
     private JButton    aB_De;
     private JButton    aB_help;
     private JButton    aB_carte;
@@ -85,6 +87,28 @@ public class UserInterface implements ActionListener
         else {
             ImageIcon vIcon = new ImageIcon( vImageURL );
             this.aImage.setIcon( vIcon );
+            this.aMyFrame.pack();
+        }
+    } // showImage(.)
+
+    public void showImageDe( final String pImageName1, final String pImageName2 )
+    {
+        String vImagePath1 = "Images/" + pImageName1; // to change the directory
+        String vImagePath2 = "Images/" + pImageName2;
+        URL vImageURL1 = this.getClass().getClassLoader().getResource( vImagePath1 );
+        if ( vImageURL1 == null )
+            System.out.println( "Image not found : " + vImagePath1 );
+        else {
+            ImageIcon vIcon = new ImageIcon( vImageURL1 );
+            this.aImageDe1.setIcon( vIcon );
+            this.aMyFrame.pack();
+        }
+        URL vImageURL2 = this.getClass().getClassLoader().getResource( vImagePath2 );
+        if ( vImageURL2 == null )
+            System.out.println( "Image not found : " + vImagePath2 );
+        else {
+            ImageIcon vIcon = new ImageIcon( vImageURL2 );
+            this.aImageDe2.setIcon( vIcon );
             this.aMyFrame.pack();
         }
     } // showImage(.)
@@ -183,6 +207,8 @@ public class UserInterface implements ActionListener
 
         JPanel vPanel_Gauche = new JPanel();
         this.aImage = new JLabel();
+        this.aImageDe1 = new JLabel();
+        this.aImageDe2 = new JLabel();
 
         JPanel vPanel_Droite = new JPanel();
         JPanel vPanel_Haut = new JPanel();
@@ -200,6 +226,8 @@ public class UserInterface implements ActionListener
         JPanel vPanel_Bas6= new JPanel();
         JPanel vPanel_Bas7= new JPanel();
         JPanel vPanel_Bas8= new JPanel();
+
+        JPanel vPanel_BasHaut= new JPanel();
 
         vPanel_Gauche.setLayout( new BorderLayout() );
         vPanel_Droite.setLayout(new BorderLayout());
@@ -227,6 +255,8 @@ public class UserInterface implements ActionListener
         vPanel_Bas7.setLayout(new BorderLayout());
         vPanel_Bas8.setLayout(new BorderLayout());
 
+        vPanel_BasHaut.setLayout(new BorderLayout());
+
         vPanel_Gauche.add( this.aImage, BorderLayout.WEST );
         vPanel_Gauche.add( vPanel_Droite, BorderLayout.EAST );
 
@@ -241,7 +271,10 @@ public class UserInterface implements ActionListener
         vPanel_Haut.add( vPanel_Droite2, BorderLayout.EAST);
 
         vPanel_Droite2.add( this.aB_De, BorderLayout.NORTH );
-        vPanel_Droite2.add( this.aNbDe, BorderLayout.SOUTH);
+        vPanel_Droite2.add( this.aNbDe, BorderLayout.CENTER);
+        vPanel_Droite2.add( vPanel_BasHaut, BorderLayout.SOUTH);
+        vPanel_BasHaut.add( this.aImageDe1, BorderLayout.WEST);
+        vPanel_BasHaut.add( this.aImageDe2, BorderLayout.WEST);
 
         vPanel_Gauche2.add( this.aB_help, BorderLayout.WEST);
         vPanel_Gauche2.add( this.aB_carte, BorderLayout.EAST);
@@ -272,10 +305,6 @@ public class UserInterface implements ActionListener
         vPanel_Bas7.add( this.aB_propriete7, BorderLayout.SOUTH);
         vPanel_Bas8.add( this.aB_propriete8, BorderLayout.SOUTH);
 
-
-
-
-
         this.aMyFrame.getContentPane().add( vPanel_Gauche, BorderLayout.CENTER );
 
         // add some event listeners to some components
@@ -300,6 +329,7 @@ public class UserInterface implements ActionListener
         this.aMyFrame.pack();
         this.aMyFrame.setVisible( true );
         this.aEntryField.requestFocus();
+
     } // createGUI()
 
     /**
@@ -311,7 +341,7 @@ public class UserInterface implements ActionListener
 
         if (vObjet == aB_De)
         {
-            this.aEngine.processCommand("Lancer dés");
+            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("lancer"));
         }
         if (vObjet == aB_carte)
         {
@@ -360,14 +390,15 @@ public class UserInterface implements ActionListener
 
 
     /**
-     * la fonction processCommand
+     * Une commande a été entrée. Lis la commande et fait ce qui est
+     * nécessaire pour la traiter
      */
     private void processCommand()
     {
         String vInput = this.aEntryField.getText();
         this.aEntryField.setText( "" );
 
-        this.aEngine.processCommand( vInput );
+        this.aEngine.interpretCommand(this.aEngine.getParser().getCommand( vInput ));
     } // processCommand()
 
 

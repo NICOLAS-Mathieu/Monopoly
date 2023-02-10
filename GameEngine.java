@@ -3,6 +3,8 @@ import java.util.Arrays;
 
 public class GameEngine {
 
+    private Parser aParser;
+    private UserInterface aGui;
 
     /**
      * Constructeur pour les objets de la classe GameEngine
@@ -13,9 +15,25 @@ public class GameEngine {
         this.createGare();
         this.createCompagnie();
         this.createCase();
-
         this.createCarte();
+        this.aParser = new Parser();
+
     }//GameEngine()
+
+    /***
+     * Cette procedure affiche le message de bienvenue.
+     */
+    public void setGUI( final UserInterface pUserInterface )
+    {
+        this.aGui = pUserInterface;
+        this.aGui.showImage("plateau.jpg");
+    }
+
+    /**
+     * Accesseur pour le Parser.
+     */
+    public Parser getParser() { return this.aParser; } //getParser()
+
 
     /**
      * Créer toutes les propriétés du jeu.
@@ -127,9 +145,109 @@ public class GameEngine {
         Carte vCarteCom16 = new Carte(10, -1, "Vous héritez de 10€", 0);
 
     }//createCarte
-    public void processCommand( final String pCommandLine )
+    /**
+     * Exécute la commande donné
+     * @param pCommand La commande à traiter.
+     * @return true Si la commande termine le jeu, false dans le cas contraire.
+     */
+    public void interpretCommand(final Command pCommandLine)
     {
+        CommandWord vCommandWord = pCommandLine.getCommandWord();
 
+        String vWord1 = pCommandLine.getCommandWord().toString();
+        String vWord2 = pCommandLine.getSecondWord();
+
+        if(vWord2 != null)
+        {
+            this.aGui.println( "> " + vWord1 + " " + vWord2);
+        }
+        else
+        {
+            this.aGui.println( "> " + vWord1);
+        }
+
+
+        switch (vCommandWord)
+        {
+            case UNKNOWN :
+                this.aGui.println("Je ne comprends pas ce que vous voulez faire...");
+                return ;
+
+            case HELP :
+                this.printHelp();
+                break;
+
+            case QUITTER :
+                if ( pCommandLine.hasSecondWord() )
+                    this.aGui.println( "Quitter quoi ?" );
+                else
+                {
+                    this.quitter();
+                }
+                break;
+
+            case LANCER :
+                this.lancer();
+                break;
+
+            case CARTE :
+                this.carte();
+                break;
+
+            case PROPRIETE :
+                if ( pCommandLine.hasSecondWord() )
+                    this.propieteSelect(vWord2);
+                else
+                {
+                    this.aGui.println( "Quelle propriete ?" );
+                }
+                break;
+
+
+
+
+        }
+    }//interpretCommand(.)
+
+    private void printHelp()
+    {
+        this.aGui.println("Les commandes que tu peux utiliser sont :");
+        this.aGui.println(this.aParser.getCommandsList());
+    }//printHelp()
+
+    private void propieteSelect(final String pCommand)
+    {
+        for(int i=1; i<9; i++)
+        {
+            if(pCommand.equals(i+""));
+            {
+                this.aGui.println("Prop " + i);
+            }
+        }
     }
+
+    private void quitter()
+    {
+        this.aGui.println("merci. A Bientot");
+        this.aGui.enable( false );
+    }
+
+    private void carte()
+    {
+        this.aGui.println("ceci est une carte");
+    }
+
+    private void lancer()
+    {
+        De vDe1 = new De();
+        De vDe2 = new De();
+        vDe1.lanceDe();
+        vDe2.lanceDe();
+        this.aGui.showImageDe(vDe1.getNbDe()+".jpg", vDe2.getNbDe()+".jpg");
+        //int vPos = this.aJoueur.getPion().getposition();
+
+        
+    }//lancer()
+
 }
 

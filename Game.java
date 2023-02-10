@@ -16,10 +16,13 @@ public class Game
     {
         this.aEngine = new GameEngine();
         this.aGui = new UserInterface( this.aEngine );
-        this.aEngine.setGUI( this.aGui );
+        this.aEngine.setGUI(this.aGui);
     }//Game()
 
     public static void main(String[] args){
         Game game = new Game();
     }
 } // Game
+
+
+
