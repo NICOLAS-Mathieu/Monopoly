@@ -4,6 +4,9 @@ import java.awt.event.*;
 import java.awt.image.*;
 import java.net.URL;
 
+import javax.swing.JFrame;
+import javax.swing.border.Border;
+
 public class UserInterface implements ActionListener
 {
     public final UserInterface USER_INTERFACE = this;
@@ -312,43 +315,43 @@ public class UserInterface implements ActionListener
         }
         if (vObjet == aB_carte)
         {
-            this.aEngine.processCommand("carte");
+            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("carte"));
         }
         if (vObjet == aB_help)
         {
-            this.aEngine.processCommand("help");
+            this.aEngine.interpretCommand(USER_INTERFACE.aEngine.getParser().getCommand("help"));
         }
         if (vObjet == aB_propriete1)
         {
-            this.aEngine.processCommand("Propriete 1");
+            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete 1"));
         }
         if (vObjet == aB_propriete2)
         {
-            this.aEngine.processCommand("Propriete 2");
+            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete 2"));
         }
         if (vObjet == aB_propriete3)
         {
-            this.aEngine.processCommand("Propriete 3");
+            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete 3"));
         }
         if (vObjet == aB_propriete4)
         {
-            this.aEngine.processCommand("Propriete 4");
+            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete 4"));
         }
         if (vObjet == aB_propriete5)
         {
-            this.aEngine.processCommand("Propriete 5");
+            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete 5"));
         }
         if (vObjet == aB_propriete6)
         {
-            this.aEngine.processCommand("Propriete 6");
+            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete 6"));
         }
         if (vObjet == aB_propriete7)
         {
-            this.aEngine.processCommand("Propriete 7");
+            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete 7"));
         }
         if (vObjet == aB_propriete8)
         {
-            this.aEngine.processCommand("Propriete 8");
+            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete 8"));
         }
 
         this.processCommand(); // never suppress this line
