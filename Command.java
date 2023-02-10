@@ -1,13 +1,13 @@
 public class Command
 {
-    private String aCommandWord;
+    private CommandWord aCommandWord;
     private String aSecondWord;
 
     /***
      *
      * Constructeur de command avec initialisation de deux mots dans la barre de commande
      */
-    public Command(final String pCommandWord, final String pSecondWord)
+    public Command(final CommandWord pCommandWord, final String pSecondWord)
     {
         this.aCommandWord = pCommandWord;
         this.aSecondWord = pSecondWord;
@@ -16,7 +16,7 @@ public class Command
     /***
      * Cette methode permet d'obtenir le premier mot.
      */
-    public String getCommandWord()
+    public CommandWord getCommandWord()
     {
         return this.aCommandWord;
     }//getCommandWord()

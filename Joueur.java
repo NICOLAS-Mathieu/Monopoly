@@ -39,7 +39,7 @@ public class Joueur
     /**
      * @return la liste des proprietes du joueur.
      */
-    public ArrayList getProprietes()
+    public ArrayList<Propriete> getProprietes()
     {
         return this.aProprietes;
     }

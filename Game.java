@@ -19,4 +19,7 @@ public class Game
         this.aEngine.setGUI( this.aGui );
     }//Game()
 
+    public static void main(String[] args){
+        Game game = new Game();
+    }
 } // Game

@@ -3,36 +3,35 @@ import java.util.StringTokenizer;
 public class Parser {
     private CommandWords aValidCommands;
 
-    public Parser()
-    {
+    public Parser() {
         this.aValidCommands = new CommandWords();
     }//Parser()
 
-    public String getCommandString()
-    {
-        return this.aValidCommands.getCommandList();
-    }//getCommandString()
+    /**
+     * @return The next command from the user.
+     */
+    public Command getCommand(final String pInputLine) {
+        String vWord1 = null;
+        String vWord2 = null;
 
-    public Command getCommand( final String pInputLine )
-    {
-        String vWord1;
-        String vWord2;
+        StringTokenizer vTokenizer = new StringTokenizer(pInputLine);
 
-        StringTokenizer tokenizer = new StringTokenizer( pInputLine );
+        if (vTokenizer.hasMoreTokens()) {
+            vWord1 = vTokenizer.nextToken();      // recupere le premier mot
+            if (vTokenizer.hasMoreTokens()) {
+                vWord2 = vTokenizer.nextToken();  // recupere le deuxieme mot
+                    // note : on ignore tout le reste de la ligne tapee !
+                }
+            } // if
 
-        if( tokenizer.hasMoreTokens() )
-            vWord1 = tokenizer.nextToken();
-        else
-            vWord1 = null;
+        return new Command(this.aValidCommands.getCommandWord(vWord1), vWord2);
+    } // getCommand(.)
 
-        if( tokenizer.hasMoreTokens() )
-            vWord2 = tokenizer.nextToken();
-        else
-            vWord2 = null;
-
-        if ( this.aValidCommands.isCommand( vWord1 ) )
-            return new Command( vWord1, vWord2 );
-        else
-            return new Command( null, vWord2 );
-    }//getCommand
+    /**
+     * Affiche une liste des commandes valides.
+     */
+    public String getCommandsList() {
+        CommandWords vCommandWords = new CommandWords();
+        return aValidCommands.getAllCommands();
+    }//getCommandsList()
 }

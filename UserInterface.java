@@ -4,8 +4,9 @@ import java.awt.event.*;
 import java.awt.image.*;
 import java.net.URL;
 
-public class UserInterface {
-
+public class UserInterface implements ActionListener
+{
+    public final UserInterface USER_INTERFACE = this;
     private GameEngine aEngine;
     private JFrame     aMyFrame;
     private JTextField aEntryField;
@@ -74,7 +75,7 @@ public class UserInterface {
      */
     public void showImage( final String pImageName )
     {
-        String vImagePath = "Image/" + pImageName; // to change the directory
+        String vImagePath = "Images/" + pImageName; // to change the directory
         URL vImageURL = this.getClass().getClassLoader().getResource( vImagePath );
         if ( vImageURL == null )
             System.out.println( "Image not found : " + vImagePath );
