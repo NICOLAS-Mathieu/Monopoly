@@ -188,21 +188,21 @@ public class UserInterface implements ActionListener
         this.aNom6.setText("Joueur6");
         this.aNom7.setText("Joueur7");
         this.aNom8.setText("Joueur8");
-        this.aSom1.setText("getArgent1()");
-        this.aSom2.setText("getArgent2()");
-        this.aSom3.setText("getArgent3()");
-        this.aSom4.setText("getArgent4()");
-        this.aSom5.setText("getArgent5()"); //creer les fonctions pour recuperer l'argent des joueurs
-        this.aSom6.setText("getArgent6()");
-        this.aSom7.setText("getArgent7()");
-        this.aSom8.setText("getArgent8()");
-        this.aNbDe.setText("getLancerDe()"); //creer les fonctions pour recuperer le nb realiser par les dé
+        this.aSom1.setText("getArgent(1)");
+        this.aSom2.setText("getArgent(2)");
+        this.aSom3.setText("getArgent(3)");
+        this.aSom4.setText("getArgent(4)");
+        this.aSom5.setText("getArgent(5)"); //creer les fonctions pour recuperer l'argent des joueurs
+        this.aSom6.setText("getArgent(6)");
+        this.aSom7.setText("getArgent(7)");
+        this.aSom8.setText("getArgent(8)");
+        this.aNbDe.setText(this.aEngine.getLancer()+""); //creer les fonctions pour recuperer le nb realiser par les dé
         this.aJoueur.setText("getJoueur()"); //creer fonction qui dit quel joueur joue
 
         this.aLog = new JTextArea();
         this.aLog.setEditable( false );
         JScrollPane vListScroller = new JScrollPane( this.aLog );
-        vListScroller.setPreferredSize( new Dimension(200, 200) );
+        vListScroller.setPreferredSize( new Dimension(200, 350) );
         vListScroller.setMinimumSize( new Dimension(100,100) );
 
         JPanel vPanel_Gauche = new JPanel();
@@ -264,8 +264,8 @@ public class UserInterface implements ActionListener
         vPanel_Droite.add( vPanel_Centre, BorderLayout.CENTER);
         vPanel_Droite.add( vPanel_Bas, BorderLayout.SOUTH);
 
-        vPanel_Centre.add(this.aEntryField, BorderLayout.WEST);
-        vPanel_Centre.add( vListScroller, BorderLayout.EAST );
+        vPanel_Centre.add(this.aEntryField, BorderLayout.SOUTH);
+        vPanel_Centre.add( vListScroller, BorderLayout.NORTH );
 
         vPanel_Haut.add( vPanel_Gauche2, BorderLayout.WEST);
         vPanel_Haut.add( vPanel_Droite2, BorderLayout.EAST);
@@ -342,6 +342,7 @@ public class UserInterface implements ActionListener
         if (vObjet == aB_De)
         {
             this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("lancer"));
+            this.aNbDe.setText(this.aEngine.getLancer()+"");
         }
         if (vObjet == aB_carte)
         {
@@ -396,7 +397,7 @@ public class UserInterface implements ActionListener
     private void processCommand()
     {
         String vInput = this.aEntryField.getText();
-        this.aEntryField.setText( "" );
+        this.aEntryField.setText( "> " );
 
         this.aEngine.interpretCommand(this.aEngine.getParser().getCommand( vInput ));
     } // processCommand()

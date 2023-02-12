@@ -5,6 +5,7 @@ public class GameEngine {
 
     private Parser aParser;
     private UserInterface aGui;
+    private int aNBlancer;
 
     /**
      * Constructeur pour les objets de la classe GameEngine
@@ -147,7 +148,6 @@ public class GameEngine {
     }//createCarte
     /**
      * Exécute la commande donné
-     * @param pCommand La commande à traiter.
      * @return true Si la commande termine le jeu, false dans le cas contraire.
      */
     public void interpretCommand(final Command pCommandLine)
@@ -221,7 +221,7 @@ public class GameEngine {
         {
             if(pCommand.equals(i+""));
             {
-                this.aGui.println("Prop " + i);
+                this.aGui.println("Propriétées " + i);
             }
         }
     }
@@ -243,11 +243,15 @@ public class GameEngine {
         De vDe2 = new De();
         vDe1.lanceDe();
         vDe2.lanceDe();
+        this.aNBlancer = vDe1.getNbDe()+vDe2.getNbDe();
         this.aGui.showImageDe(vDe1.getNbDe()+".jpg", vDe2.getNbDe()+".jpg");
         //int vPos = this.aJoueur.getPion().getposition();
 
         
     }//lancer()
 
+    int getLancer(){
+        return this.aNBlancer;
+    }
 }
 

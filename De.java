@@ -22,8 +22,8 @@ public class De
     public int lanceDe()
     {
         Random random = new Random();
-        aNbDe =+ random.nextInt(6);
-        return aNbDe+1;
+        aNbDe =+ random.nextInt(1,7);
+        return aNbDe;
     }
 
     public int getNbDe()
