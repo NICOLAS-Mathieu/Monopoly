@@ -274,7 +274,7 @@ public class UserInterface implements ActionListener
         vPanel_Droite2.add( this.aNbDe, BorderLayout.CENTER);
         vPanel_Droite2.add( vPanel_BasHaut, BorderLayout.SOUTH);
         vPanel_BasHaut.add( this.aImageDe1, BorderLayout.WEST);
-        vPanel_BasHaut.add( this.aImageDe2, BorderLayout.WEST);
+        vPanel_BasHaut.add( this.aImageDe2, BorderLayout.EAST);
 
         vPanel_Gauche2.add( this.aB_help, BorderLayout.WEST);
         vPanel_Gauche2.add( this.aB_carte, BorderLayout.EAST);
