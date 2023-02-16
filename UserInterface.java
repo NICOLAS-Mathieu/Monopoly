@@ -344,31 +344,31 @@ public class UserInterface implements ActionListener
             this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("lancer"));
             this.aNbDe.setText(this.aEngine.getLancer()+"");
         }
-        if (vObjet == aB_carte)
+        else if (vObjet == aB_carte)
         {
             this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("carte"));
         }
-        if (vObjet == aB_help)
+        else if (vObjet == aB_help)
         {
             this.aEngine.interpretCommand(USER_INTERFACE.aEngine.getParser().getCommand("help"));
         }
-        if (vObjet == aB_propriete1)
+        else if (vObjet == aB_propriete1)
         {
             this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete 1"));
         }
-        if (vObjet == aB_propriete2)
+        else if (vObjet == aB_propriete2)
         {
             this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete 2"));
         }
-        if (vObjet == aB_propriete3)
+        else if (vObjet == aB_propriete3)
         {
             this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete 3"));
         }
-        if (vObjet == aB_propriete4)
+        else if (vObjet == aB_propriete4)
         {
             this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete 4"));
         }
-        if (vObjet == aB_propriete5)
+        else if (vObjet == aB_propriete5)
         {
             this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete 5"));
         }
