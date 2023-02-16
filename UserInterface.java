@@ -354,35 +354,35 @@ public class UserInterface implements ActionListener
         }
         else if (vObjet == aB_propriete1)
         {
-            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete 1"));
+            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete1"));
         }
         else if (vObjet == aB_propriete2)
         {
-            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete 2"));
+            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete2"));
         }
         else if (vObjet == aB_propriete3)
         {
-            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete 3"));
+            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete3"));
         }
         else if (vObjet == aB_propriete4)
         {
-            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete 4"));
+            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete4"));
         }
         else if (vObjet == aB_propriete5)
         {
-            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete 5"));
+            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete5"));
         }
         if (vObjet == aB_propriete6)
         {
-            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete 6"));
+            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete6"));
         }
         if (vObjet == aB_propriete7)
         {
-            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete 7"));
+            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete7"));
         }
         if (vObjet == aB_propriete8)
         {
-            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete 8"));
+            this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete8"));
         }
 
         this.processCommand(); // never suppress this line

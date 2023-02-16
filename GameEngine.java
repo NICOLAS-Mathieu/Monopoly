@@ -171,7 +171,7 @@ public class GameEngine {
         {
             case UNKNOWN :
                 this.aGui.println("Je ne comprends pas ce que vous voulez faire...");
-                return ;
+                break;
 
             case HELP :
                 this.printHelp();
@@ -254,6 +254,18 @@ public class GameEngine {
 
     int getLancer(){
         return this.aNBlancer;
+    }
+
+    private void passer()
+    {
+        if(aPosJoueurActuel+1>=aNbJoueur)
+        {
+            aPosJoueurActuel = 0;
+        }
+        else
+        {
+            aPosJoueurActuel = aPosJoueurActuel + 1;
+        }
     }
 }
 
