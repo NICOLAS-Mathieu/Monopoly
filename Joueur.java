@@ -7,17 +7,21 @@ import java.util.ArrayList;
 public class Joueur
 {
     private int aArgent;
-    private Pion aPion;
+    private String aNom;
+    //private Pion aPion;
+    private int aPosition;
     private ArrayList<Propriete> aProprietes;
     
     /**
      * Constructeur d'objets de classe Joueur
      */
-    public Joueur(final String pCouleur)
+    public Joueur(final String pNom)//, final String pCouleur)
     {
         // initialisation des variables d'instance
         int aArgent = 150000;
-        Pion aPion = new Pion(pCouleur);
+        aPosition = 0;
+        aNom = pNom;
+        //Pion aPion = new Pion(pCouleur);
         ArrayList<Propriete> aProprietes = new ArrayList<Propriete>();
     }
 

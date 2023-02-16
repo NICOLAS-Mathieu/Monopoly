@@ -397,10 +397,14 @@ public class UserInterface implements ActionListener
     private void processCommand()
     {
         String vInput = this.aEntryField.getText();
-        this.aEntryField.setText( "> " );
+        this.aEntryField.setText( "" );
 
         this.aEngine.interpretCommand(this.aEngine.getParser().getCommand( vInput ));
     } // processCommand()
 
+    public String getInput()
+    {
+        return this.aEntryField.getText();
+    }//getInput()
 
 }
