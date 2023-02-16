@@ -9,6 +9,7 @@ public class Game
     private UserInterface aGui;
     private GameEngine aEngine;
 
+
     /**
      * Crée le jeu et initialise sa carte.
      */

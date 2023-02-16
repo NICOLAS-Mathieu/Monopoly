@@ -372,20 +372,19 @@ public class UserInterface implements ActionListener
         {
             this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete5"));
         }
-        if (vObjet == aB_propriete6)
+        else if (vObjet == aB_propriete6)
         {
             this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete6"));
         }
-        if (vObjet == aB_propriete7)
+        else if (vObjet == aB_propriete7)
         {
             this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete7"));
         }
-        if (vObjet == aB_propriete8)
+        else if (vObjet == aB_propriete8)
         {
             this.aEngine.interpretCommand(this.aEngine.getParser().getCommand("propriete8"));
         }
-
-        this.processCommand(); // never suppress this line
+        else {this.processCommand(); }// never suppress this line
 
     } // actionPerformed(.)
 

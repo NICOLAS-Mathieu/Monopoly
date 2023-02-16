@@ -34,10 +34,7 @@ public class Joueur
     /**
      * @return le pion qui représente le joueur.
      */
-    public Pion getPion()
-    {
-        return this.aPion;
-    }
+    //public Pion getPion(){return this.aPion;}
     //getPion()
 
     /**

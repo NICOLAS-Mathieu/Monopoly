@@ -1,11 +1,15 @@
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Scanner;
 
 public class GameEngine {
 
     private Parser aParser;
     private UserInterface aGui;
     private int aNBlancer;
+    private Joueur aCurrentPlayer;
+    private ArrayList<Joueur> aListJoueur;
+    private int aNbJoueur;
+    private int aPosJoueurActuel;
 
     /**
      * Constructeur pour les objets de la classe GameEngine
@@ -18,6 +22,8 @@ public class GameEngine {
         this.createCase();
         this.createCarte();
         this.aParser = new Parser();
+        this.initialiseNbJoueur();
+        this.createJoueur(this.aNbJoueur);
 
     }//GameEngine()
 
@@ -146,6 +152,26 @@ public class GameEngine {
         Carte vCarteCom16 = new Carte(10, -1, "Vous héritez de 10€", 0);
 
     }//createCarte
+
+    public void initialiseNbJoueur()
+    {
+        this.aGui.println("Combien il-t-y a de joueur ?");
+        //Scanner sc = new Scanner(System.in);
+        //int str = sc.nextInt();
+        String nb = this.aGui.getInput();
+        int Nb = Integer.valueOf(nb);
+        this.aNbJoueur = Nb;
+    }
+
+    public void createJoueur(int nb)
+    {
+        Joueur joueur1 = new Joueur("Joueur 1");//this.aGui.getInpute());
+        this.aCurrentPlayer = joueur1;
+
+    }
+
+
+
     /**
      * Exécute la commande donné
      * @return true Si la commande termine le jeu, false dans le cas contraire.
@@ -203,9 +229,6 @@ public class GameEngine {
                 }
                 break;
 
-
-
-
         }
 
 
@@ -249,7 +272,6 @@ public class GameEngine {
         this.aGui.showImageDe(vDe1.getNbDe()+".jpg", vDe2.getNbDe()+".jpg");
         //int vPos = this.aJoueur.getPion().getposition();
 
-        
     }//lancer()
 
     int getLancer(){
