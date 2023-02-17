@@ -10,7 +10,17 @@ public class GameEngine {
     private Joueur aCurrentPlayer;
     private ArrayList<Joueur> aListJoueur;
     private int aNbJoueur;
-    private int aPosJoueurActuel;
+    private int aPosJoueurActuel = 0;
+    private int aNbActuelJoueur = 0;
+    private int aFiniInit = 0;
+    private int aPremiersLancer = 0;
+    private ArrayList<Integer> aListLancer;
+    private LinkedList<Carte> aListChance;
+    private LinkedList<Carte> aListCom;
+
+    private int aTestUnique = 0;
+    private ArrayList<Integer> aListGrand;
+
 
     /**
      * Constructeur pour les objets de la classe GameEngine
@@ -271,6 +281,38 @@ public class GameEngine {
                 }
                 break;
 
+            case JOUEUR :
+                if(pCommandLine.hasSecondWord())
+                {
+                    this.ajouterJoueur(vWord2);
+                }
+                else
+                {
+                    this.aGui.println("Il faut ajouter un nom au joueur");
+                }
+                break;
+
+            case START :
+                if(!pCommandLine.hasSecondWord())
+                {
+                    this.start();
+                }
+                else
+                {
+                    this.aGui.println("start ne prend pas de second mot");
+                }
+                break;
+
+            case PASSER :
+                if(!pCommandLine.hasSecondWord())
+                {
+                    this.passer();
+                }
+                else
+                {
+                    this.aGui.println("passer ne prend pas de second mot");
+                }
+                break;
         }
 
 
@@ -387,11 +429,87 @@ public class GameEngine {
         this.aNBlancer = vDe1.getNbDe()+vDe2.getNbDe();
         this.aGui.showImageDe(vDe1.getNbDe()+".jpg", vDe2.getNbDe()+".jpg");
         //int vPos = this.aJoueur.getPion().getposition();
-
+        if(this.aPremiersLancer == 0)
+        {
+            this.premierslancer(this.aNBlancer);
+            return;
+        }
+        if (vDe1.getNbDe() == vDe2.getNbDe())
+        {
+            this.aCurrentPlayer.setDouble();
+            this.aGui.println("Vous avez fait un double, vous pouvez rejouer!");
+            if (this.aCurrentPlayer.IsPrison()==1){
+                this.aCurrentPlayer.outPrison();
+            }
+        }
+        if (this.aCurrentPlayer.getDouble() == 3){
+            this.aGui.println("Dommage, vous avez fait des doubles 3 fois de suite,");
+            this.aGui.println("Vous allez en prison.");
+            this.aCurrentPlayer.goPrison();
+        }
+        this.descriptionPos();
     }//lancer()
 
     int getLancer(){
         return this.aNBlancer;
+    }
+
+    private void premierslancer(int NbrLancer)
+    {
+        if(aListLancer.size() <= aNbActuelJoueur)
+        {
+            aListLancer.add(NbrLancer);
+
+            if(aPosJoueurActuel+1>=aNbJoueur)
+            {
+                aPosJoueurActuel = 0;
+            }
+            else
+            {
+                aPosJoueurActuel = aPosJoueurActuel + 1;
+            }
+
+            this.aCurrentPlayer = this.aListJoueur.get(aPosJoueurActuel);
+
+            this.aGui.println(aCurrentPlayer + " à toi de lancer les dés.");
+        }
+        if(aListLancer.size() == aNbActuelJoueur)
+        {
+            if(aTestUnique==0)
+            {
+                aListGrand = this.plusgrands();
+
+                if (aListGrand.size() == 1) {
+                    this.lancerPartie();
+                }
+            }
+
+        }
+    }
+
+    private ArrayList<Integer> plusgrands()
+    {
+        ArrayList<Integer> vListPlusGrand = new ArrayList<Integer>();
+
+        int max = aListLancer.get(0);
+
+        for(int i = 1; i<aListLancer.size(); i++)
+        {
+            if(max<aListLancer.get(i))
+            {
+                max = aListLancer.get(i);
+            }
+        }
+
+        for(int i = 0; i<aListLancer.size(); i++)
+        {
+            if(max==aListLancer.get(i))
+            {
+                vListPlusGrand.add(i);
+            }
+        }
+
+        return vListPlusGrand;
     }
 
     private void passer()
@@ -404,6 +522,13 @@ public class GameEngine {
         {
             aPosJoueurActuel = aPosJoueurActuel + 1;
         }
+
+        this.aCurrentPlayer = this.aListJoueur.get(aPosJoueurActuel);
+
+        this.aGui.println(aCurrentPlayer.getNom() + " c'est a toi de jouer");
+        this.aGui.aJoueur.setText("Joueur "+ this.aCurrentPlayer.getNom());
+        this.ajouteCouleur();
+        this.debutDeTour();
     }
 
     private void debutDeTour()
