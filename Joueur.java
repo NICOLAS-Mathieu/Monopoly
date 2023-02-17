@@ -9,7 +9,7 @@ public class Joueur
     private int aArgent;
     private String aNom;
     //private Pion aPion;
-    private int aPosition;
+    private int aPos;
     private ArrayList<Propriete> aProprietes;
     
     /**
@@ -19,7 +19,7 @@ public class Joueur
     {
         // initialisation des variables d'instance
         int aArgent = 150000;
-        aPosition = 0;
+        aPos = 0;
         aNom = pNom;
         //Pion aPion = new Pion(pCouleur);
         ArrayList<Propriete> aProprietes = new ArrayList<Propriete>();

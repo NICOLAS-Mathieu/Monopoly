@@ -5,6 +5,7 @@ public class GameEngine {
 
     private Parser aParser;
     private UserInterface aGui;
+    private ArrayList<Case> aListCase = new ArrayList<Case>();
     private int aNBlancer;
     private Joueur aCurrentPlayer;
     private ArrayList<Joueur> aListJoueur;
@@ -28,18 +29,39 @@ public class GameEngine {
     }//GameEngine()
 
     /***
-     * Cette procedure affiche le message de bienvenue.
+     * Setteur.
      */
     public void setGUI( final UserInterface pUserInterface )
     {
         this.aGui = pUserInterface;
         this.aGui.showImage("plateau.jpg");
-    }
+        this.printWelcome();
+    }//setGUI(.)
 
     /**
      * Accesseur pour le Parser.
      */
     public Parser getParser() { return this.aParser; } //getParser()
+
+    /**
+     * Affichage du message d'acceuil au joueur.
+     */
+    private void printWelcome()
+    {
+        this.aGui.println("Bienvenue dans le jeu : Monopoly");
+        this.aGui.println("");
+        this.aGui.println("Pour jouer, chaque joueur devra chacun son tour quand il sera");
+        this.aGui.println("appelé, taper les commandes des actions qu'il souhaite faire");
+        this.aGui.println("dans l'invite de commande.");
+        this.aGui.println("Pour commencer à jouer, taper la commande ''joueur + nom du");
+        this.aGui.println("joueur'' pour chaque joueur.");
+        this.aGui.println("");
+        this.aGui.println("Une fois tous les joueurs enregistré, lancer la partie avec");
+        this.aGui.println("la fonction start !");
+        this.aGui.println("");
+        this.aGui.println("Si vous avez besoin d'aide, appuyer sur le bouton ''help''.");
+        this.aGui.println("");
+    }
 
 
     /**
@@ -225,7 +247,7 @@ public class GameEngine {
                     this.propieteSelect(vWord2);
                 else
                 {
-                    this.aGui.println( "Quelle propriete ?" );
+                    this.aGui.println( "Quelle propriété ?" );
                 }
                 break;
 
@@ -233,6 +255,78 @@ public class GameEngine {
 
 
     }//interpretCommand(.)
+
+    private void start()
+    {
+        this.aGui.println("Que la partie commence !");
+        aFiniInit += 1;
+        this.aGui.println("");
+        this.aGui.println("Chaque joueur doit lancer les dés,");
+        this.aGui.println("celui qui aura le plus gros score commencera.");
+        this.aGui.println("");
+        int max = 0;
+        int j1 = 0;
+        for (int i = 0; i < aNbActuelJoueur; i++){
+            this.aGui.println("C'est à " + this.aListJoueur.get(i).getNom() + " de lancer les dés");
+            this.lancer();
+            int Nb = getLancer();
+            if (Nb > max)
+            {
+                max = Nb;
+                j1 = i;
+            }
+        }
+        this.aPosJoueurActuel = j1;
+        this.aCurrentPlayer = this.aListJoueur.get(this.aPosJoueurActuel);
+        this.aGui.aJoueur.setText("Joueur "+ this.aCurrentPlayer.getNom());
+        this.ajouteCouleur();
+
+        this.debutDeTour();
+    }//start()
+
+    private void ajouteCouleur()
+    {
+        if (this.aPosJoueurActuel==0) {this.aGui.aJoueur.setBackground(Color.PINK);}
+        if (this.aPosJoueurActuel==1) {this.aGui.aJoueur.setBackground(Color.BLUE);}
+        if (this.aPosJoueurActuel==2) {this.aGui.aJoueur.setBackground(Color.RED);}
+        if (this.aPosJoueurActuel==3) {this.aGui.aJoueur.setBackground(Color.GREEN);}
+        if (this.aPosJoueurActuel==4) {this.aGui.aJoueur.setBackground(Color.CYAN);}
+        if (this.aPosJoueurActuel==5) {this.aGui.aJoueur.setBackground(Color.ORANGE);}
+        if (this.aPosJoueurActuel==6) {this.aGui.aJoueur.setBackground(Color.MAGENTA);}
+        if (this.aPosJoueurActuel==7) {this.aGui.aJoueur.setBackground(Color.LIGHT_GRAY);}
+    }
+
+    private void ajouterJoueur(String vNom)
+    {
+        if(aFiniInit == 0)
+        {
+            if(aNbActuelJoueur < 8) {
+
+                aListJoueur.add(new Joueur(vNom));
+                aNbActuelJoueur += 1;
+
+                this.aGui.println("Le joueur " + vNom + " à bien été ajouter.");
+                this.aGui.println("Il y a actuellement " + aNbActuelJoueur + " joueur(s) dans la partie.");
+            }
+            else
+            {
+                this.aGui.println("Vous ne pouvez pas avoir plus de 8 Joueur dans la même partie");
+            }
+        }
+        else
+        {
+            this.aGui.println("Vous ne pouvez pas rajouter de joueur après le début de la partie");
+        }
+
+        if(aNbActuelJoueur == 1) {this.aGui.aNom1.setText(aListJoueur.get(0).getNom());}
+        if(aNbActuelJoueur == 2) {this.aGui.aNom2.setText(aListJoueur.get(1).getNom());}
+        if(aNbActuelJoueur == 3) {this.aGui.aNom3.setText(aListJoueur.get(2).getNom());}
+        if(aNbActuelJoueur == 4) {this.aGui.aNom4.setText(aListJoueur.get(3).getNom());}
+        if(aNbActuelJoueur == 5) {this.aGui.aNom5.setText(aListJoueur.get(4).getNom());}
+        if(aNbActuelJoueur == 6) {this.aGui.aNom6.setText(aListJoueur.get(5).getNom());}
+        if(aNbActuelJoueur == 7) {this.aGui.aNom7.setText(aListJoueur.get(6).getNom());}
+        if(aNbActuelJoueur == 8) {this.aGui.aNom8.setText(aListJoueur.get(7).getNom());}
+    }
 
     private void printHelp()
     {
@@ -253,7 +347,7 @@ public class GameEngine {
 
     private void quitter()
     {
-        this.aGui.println("merci. A Bientot");
+        this.aGui.println("Merci. À Bientôt");
         this.aGui.enable( false );
     }
 
@@ -289,5 +383,17 @@ public class GameEngine {
             aPosJoueurActuel = aPosJoueurActuel + 1;
         }
     }
+
+    private void debutDeTour()
+    {
+        this.aGui.println(this.aCurrentPlayer.getNom() + " doit lancer les dés !");
+    }//debutDeTour()
+
+    private void descriptionPos()
+    {
+        this.aGui.println(this.aCurrentPlayer.getNom() + "arrive sur :");
+        Case vCurrentCase = this.aListCase.get(this.aCurrentPlayer.getPos());
+        this.aGui.println(vCurrentCase.getDescription());
+    }//descriptionPos()
 }
 

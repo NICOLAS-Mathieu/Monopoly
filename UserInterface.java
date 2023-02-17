@@ -401,9 +401,5 @@ public class UserInterface implements ActionListener
         this.aEngine.interpretCommand(this.aEngine.getParser().getCommand( vInput ));
     } // processCommand()
 
-    public String getInput()
-    {
-        return this.aEntryField.getText();
-    }//getInput()
 
 }

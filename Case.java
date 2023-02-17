@@ -21,7 +21,7 @@ public class Case
         this.aDescription = pDescription;
     }//Case(.)
 
-
+    public String getDescription() {return this.aDescription;}
     public int getNumero()
     {
         // Insérez votre code ici

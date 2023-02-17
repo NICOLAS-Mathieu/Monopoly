@@ -13,6 +13,9 @@ public class CommandWords {
         this.aValidCommands.put("quitter", CommandWord.QUITTER);
         this.aValidCommands.put("acheter", CommandWord.ACHETER);
         this.aValidCommands.put("vendre", CommandWord.VENDRE);
+        this.aValidCommands.put("joueur", CommandWord.JOUEUR);
+        this.aValidCommands.put("start", CommandWord.START);
+        this.aValidCommands.put("passer", CommandWord.PASSER);
     }//CommandWords()
 
 
