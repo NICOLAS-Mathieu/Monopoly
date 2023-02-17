@@ -324,24 +324,11 @@ public class GameEngine {
         this.aGui.println("Chaque joueur doit lancer les dés,");
         this.aGui.println("celui qui aura le plus gros score commencera.");
         this.aGui.println("");
-        int max = 0;
-        int j1 = 0;
-        for (int i = 0; i < aNbActuelJoueur; i++){
-            this.aGui.println("C'est à " + this.aListJoueur.get(i).getNom() + " de lancer les dés");
-            this.lancer();
-            int Nb = getLancer();
-            if (Nb > max)
-            {
-                max = Nb;
-                j1 = i;
-            }
-        }
-        this.aPosJoueurActuel = j1;
-        this.aCurrentPlayer = this.aListJoueur.get(this.aPosJoueurActuel);
-        this.aGui.aJoueur.setText("Joueur "+ this.aCurrentPlayer.getNom());
-        this.ajouteCouleur();
 
-        this.debutDeTour();
+        this.aCurrentPlayer = this.aListJoueur.get(0);
+        this.aGui.println(this.aCurrentPlayer.getNom() + " c'est à toi de lancer");
+
+
     }//start()
 
     private void ajouteCouleur()
@@ -470,36 +457,65 @@ public class GameEngine {
 
     private void premierslancer(int NbrLancer)
     {
-        if(aListLancer.size() <= aNbActuelJoueur)
+        if(this.aListLancer.size() <= this.aNbActuelJoueur)
         {
-            aListLancer.add(NbrLancer);
+            this.aGui.println("Au joueur suivant de lancer les dés.");
 
-            if(aPosJoueurActuel+1>=aNbJoueur)
-            {
-                aPosJoueurActuel = 0;
-            }
-            else
-            {
-                aPosJoueurActuel = aPosJoueurActuel + 1;
-            }
+            this.aListLancer.add(NbrLancer);
 
             prochain();
         }
-        if(aListLancer.size() == aNbActuelJoueur)
+        if(this.aListLancer.size() == this.aNbActuelJoueur)
         {
-            if(aTestUnique==0)
+
+            if(this.aTestUnique==0)
             {
-                aListGrand = this.plusgrands();
+                int vPG;
+                vPG = this.plusgrands();
+                
+                for(int i=0; i<this.aListGrand.size()-1; i++)
+                {
+                    this.aGui.println(this.aListJoueur.get(this.aListGrand.get(i)).getNom() + " a obtenu le plus grand nombre");
+                }
+
+                this.aGui.println(vPG + " est le plus grand nombre");
 
                 if (this.aListGrand.size() == 1) {
                     this.lancerPartie();
+                }
+                else
+                {
+                    this.aTestUnique = 1;
+                }
+            }
+
+            if(this.aTestUnique==1)
+            {
+                this.aCurrentPlayer = this.aListJoueur.get(this.aListGrand.get(0));
+
+                this.aListGrand.remove(0);
+
+                if(this.aListGrand.size() == 0)
+                {
+                    this.aTestUnique = 0;
                 }
             }
 
         }
     }
 
-    private ArrayList<Integer> plusgrands()
+    private void lancerPartie()
+    {
+        this.aPremiersLancer = 1;
+        this.aPosJoueurActuel = this.aListGrand.get(0);
+        this.aCurrentPlayer = this.aListJoueur.get(this.aPosJoueurActuel);
+        this.aGui.println(this.aCurrentPlayer.getNom() + " vous commencer a jouer");
+        this.aGui.aJoueur.setText("Joueur "+ this.aCurrentPlayer.getNom());
+        this.ajouteCouleur();
+        this.debutDeTour();
+    }
+
+    private int plusgrands()
     {
         ArrayList<Integer> vListPlusGrand = new ArrayList<Integer>();
 
@@ -520,8 +536,9 @@ public class GameEngine {
                 vListPlusGrand.add(i);
             }
         }
+        this.aListGrand = vListPlusGrand;
 
-        return vListPlusGrand;
+        return max;
     }
 
     private void passer()
@@ -533,6 +550,20 @@ public class GameEngine {
         this.aGui.aJoueur.setText("Joueur "+ this.aCurrentPlayer.getNom());
         this.ajouteCouleur();
         this.debutDeTour();
+    }
+
+    private void prochain()
+    {
+        if(this.aPosJoueurActuel+1<this.aNbJoueur)
+        {
+            this.aPosJoueurActuel+= 1;
+        }
+        else
+        {
+            this.aPosJoueurActuel = 0;
+        }
+
+        this.aCurrentPlayer = this.aListJoueur.get(this.aPosJoueurActuel);
     }
 
     private void debutDeTour()
