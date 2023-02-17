@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.awt.*;
+import java.util.*;
 
 public class GameEngine {
 
@@ -138,6 +138,8 @@ public class GameEngine {
     public void createCarte()
     {
         //Liste des cartes chances
+
+        this.aListChance = new LinkedList<Carte>();
         Carte vCarteChance1 = new Carte(0, 39, "Rendez-vous à la Rue de la Paix", 0);
         Carte vCarteChance2 = new Carte(0, 0, "Avancer jusqu'à la case départ", 0);
         Carte vCarteChance3 = new Carte(0, 24, "Rendez-vous à l'Avenue Henri-Martin. Si vous passez par la case départ, recevez 200€", 0);
@@ -154,8 +156,19 @@ public class GameEngine {
         Carte vCarteChance14 = new Carte(-150, -1, "Payez pour frais de scolarité 150€", 0);
         Carte vCarteChance15 = new Carte(-20, -1, "Amende pour ivresse 20€", 0);
         Carte vCarteChance16 = new Carte(150, -1, "Votre immeuble et votre prêt rapportent. Vous devez toucher 150€", 0);
+        this.aListChance.add(vCarteChance1);this.aListChance.add(vCarteChance2);this.aListChance.add(vCarteChance3);
+        this.aListChance.add(vCarteChance4);this.aListChance.add(vCarteChance5);this.aListChance.add(vCarteChance6);
+        this.aListChance.add(vCarteChance7);this.aListChance.add(vCarteChance8);this.aListChance.add(vCarteChance9);
+        this.aListChance.add(vCarteChance10);this.aListChance.add(vCarteChance11);this.aListChance.add(vCarteChance12);
+        this.aListChance.add(vCarteChance13);this.aListChance.add(vCarteChance14);this.aListChance.add(vCarteChance15);
+        this.aListChance.add(vCarteChance16);
+        Collections.shuffle(this.aListChance);
+
+
 
         //Liste des cartes Caisse de Communauté
+
+        this.aListCom = new LinkedList<Carte>();
         Carte vCarteCom1 = new Carte(0, 0, "Placez-vous sur la case départ", 0);
         Carte vCarteCom2 = new Carte(200, -1, "Erreur de la banque en votre faveur. Recevez 200€", 0);
         Carte vCarteCom3 = new Carte(-50, -1, "Payez la  note du médecin 50€", 0);
@@ -172,6 +185,13 @@ public class GameEngine {
         Carte vCarteCom14 = new Carte(0, -1, "Rendez-vous à la gare la plus proche. Si vous pasez par la départ, recevez 200€", 11);
         Carte vCarteCom15 = new Carte(10, -1, "Vous avez gagné le deuxième Prix de Beauté. Recevez 10€", 0);
         Carte vCarteCom16 = new Carte(10, -1, "Vous héritez de 10€", 0);
+        this.aListCom.add(vCarteCom1);this.aListCom.add(vCarteCom2);this.aListCom.add(vCarteCom3);
+        this.aListCom.add(vCarteCom4);this.aListCom.add(vCarteCom5);this.aListCom.add(vCarteCom6);
+        this.aListCom.add(vCarteCom7);this.aListCom.add(vCarteCom8);this.aListCom.add(vCarteCom9);
+        this.aListCom.add(vCarteCom10);this.aListCom.add(vCarteCom11);this.aListCom.add(vCarteCom12);
+        this.aListCom.add(vCarteCom13);this.aListCom.add(vCarteCom14);this.aListCom.add(vCarteCom15);
+        this.aListCom.add(vCarteCom16);
+        Collections.shuffle(this.aListCom);
 
     }//createCarte
 
@@ -353,6 +373,8 @@ public class GameEngine {
 
     private void carte()
     {
+        if (this.aCurrentPlayer.getPos()==(2|17|33)) {Carte vCarteTiree = this.aListCom.poll(); this.aListCom.push(vCarteTiree);}
+        else {Carte vCarteTiree = this.aListChance.poll(); this.aListChance.push(vCarteTiree);}
         this.aGui.println("ceci est une carte");
     }
 
