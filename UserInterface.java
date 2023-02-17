@@ -36,14 +36,14 @@ public class UserInterface implements ActionListener
     public JTextArea  aNom6;
     public JTextArea  aNom7;
     public JTextArea  aNom8;
-    private JTextArea  aSom1;
-    private JTextArea  aSom2;
-    private JTextArea  aSom3;
-    private JTextArea  aSom4;
-    private JTextArea  aSom5;
-    private JTextArea  aSom6;
-    private JTextArea  aSom7;
-    private JTextArea  aSom8;
+    public JTextArea  aSom1;
+    public JTextArea  aSom2;
+    public JTextArea  aSom3;
+    public JTextArea  aSom4;
+    public JTextArea  aSom5;
+    public JTextArea  aSom6;
+    public JTextArea  aSom7;
+    public JTextArea  aSom8;
     private JTextArea  aNbDe;
     public JTextArea  aJoueur;
 
@@ -90,6 +90,7 @@ public class UserInterface implements ActionListener
             this.aMyFrame.pack();
         }
     } // showImage(.)
+
 
     public void showImageDe( final String pImageName1, final String pImageName2 )
     {
@@ -185,12 +186,11 @@ public class UserInterface implements ActionListener
         this.aSom2.setText("getArgent(2)");
         this.aSom3.setText("getArgent(3)");
         this.aSom4.setText("getArgent(4)");
-        this.aSom5.setText("getArgent(5)"); //creer les fonctions pour recuperer l'argent des joueurs
+        this.aSom5.setText("getArgent(5)");
         this.aSom6.setText("getArgent(6)");
         this.aSom7.setText("getArgent(7)");
         this.aSom8.setText("getArgent(8)");
-        this.aNbDe.setText(this.aEngine.getLancer()+""); //creer les fonctions pour recuperer le nb realiser par les dé
-        this.aJoueur.setText("getJoueur()"); //creer fonction qui dit quel joueur joue
+        this.aNbDe.setText(this.aEngine.getLancer()+"");
 
         this.aLog = new JTextArea();
         this.aLog.setEditable( false );

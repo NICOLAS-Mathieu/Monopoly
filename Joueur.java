@@ -8,7 +8,6 @@ public class Joueur
 {
     private int aArgent;
     private String aNom;
-    //private Pion aPion;
     private int aPos;
     private ArrayList<Propriete> aProprietes;
     private int aDouble;
@@ -20,10 +19,9 @@ public class Joueur
     public Joueur(final String pNom)//, final String pCouleur)
     {
         // initialisation des variables d'instance
-        int aArgent = 150000;
-        aPos = 0;
-        aNom = pNom;
-        //Pion aPion = new Pion(pCouleur);
+        this.aArgent = 1500;
+        this.aPos = 0;
+        this.aNom = pNom;
         ArrayList<Propriete> aProprietes = new ArrayList<Propriete>();
         this.aDouble=0;
         this.aIsPrison=0;
@@ -33,11 +31,20 @@ public class Joueur
 
     public int getPos() {return this.aPos;}
 
+    public void ajoutePos(int p){
+        this.aPos += p;
+    }
+
+    public void setPos(int p){
+        this.aPos = p;
+    }
+
     /**
      * @return l'argent qu'un joueur possède.
      */
     public int getArgent() {return this.aArgent;}
     //getArgent()
+
 
     /**
      * @return le pion qui représente le joueur.

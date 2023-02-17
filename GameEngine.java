@@ -51,6 +51,8 @@ public class GameEngine {
      */
     public Parser getParser() { return this.aParser; } //getParser()
 
+    public int getLancer() {return this.aNBlancer;}
+
     /**
      * Affichage du message d'acceuil au joueur.
      */
@@ -354,6 +356,7 @@ public class GameEngine {
 
                 this.aGui.println("Le joueur " + vNom + " à bien été ajouter.");
                 this.aGui.println("Il y a actuellement " + aNbActuelJoueur + " joueur(s) dans la partie.");
+                this.aGui.println("");
             }
             else
             {
@@ -365,14 +368,22 @@ public class GameEngine {
             this.aGui.println("Vous ne pouvez pas rajouter de joueur après le début de la partie");
         }
 
-        if(aNbActuelJoueur == 1) {this.aGui.aNom1.setText(aListJoueur.get(0).getNom());}
-        if(aNbActuelJoueur == 2) {this.aGui.aNom2.setText(aListJoueur.get(1).getNom());}
-        if(aNbActuelJoueur == 3) {this.aGui.aNom3.setText(aListJoueur.get(2).getNom());}
-        if(aNbActuelJoueur == 4) {this.aGui.aNom4.setText(aListJoueur.get(3).getNom());}
-        if(aNbActuelJoueur == 5) {this.aGui.aNom5.setText(aListJoueur.get(4).getNom());}
-        if(aNbActuelJoueur == 6) {this.aGui.aNom6.setText(aListJoueur.get(5).getNom());}
-        if(aNbActuelJoueur == 7) {this.aGui.aNom7.setText(aListJoueur.get(6).getNom());}
-        if(aNbActuelJoueur == 8) {this.aGui.aNom8.setText(aListJoueur.get(7).getNom());}
+        if(aNbActuelJoueur == 1) {this.aGui.aNom1.setText(aListJoueur.get(0).getNom());
+            this.aGui.aSom1.setText(""+aListJoueur.get(0).getArgent());}
+        if(aNbActuelJoueur == 2) {this.aGui.aNom2.setText(aListJoueur.get(1).getNom());
+            this.aGui.aSom2.setText(""+aListJoueur.get(1).getArgent());}
+        if(aNbActuelJoueur == 3) {this.aGui.aNom3.setText(aListJoueur.get(2).getNom());
+            this.aGui.aSom3.setText(""+aListJoueur.get(2).getArgent());}
+        if(aNbActuelJoueur == 4) {this.aGui.aNom4.setText(aListJoueur.get(3).getNom());
+            this.aGui.aSom4.setText(""+aListJoueur.get(3).getArgent());}
+        if(aNbActuelJoueur == 5) {this.aGui.aNom5.setText(aListJoueur.get(4).getNom());
+            this.aGui.aSom5.setText(""+aListJoueur.get(4).getArgent());}
+        if(aNbActuelJoueur == 6) {this.aGui.aNom6.setText(aListJoueur.get(5).getNom());
+            this.aGui.aSom6.setText(""+aListJoueur.get(5).getArgent());}
+        if(aNbActuelJoueur == 7) {this.aGui.aNom7.setText(aListJoueur.get(6).getNom());
+            this.aGui.aSom7.setText(""+aListJoueur.get(6).getArgent());}
+        if(aNbActuelJoueur == 8) {this.aGui.aNom8.setText(aListJoueur.get(7).getNom());
+            this.aGui.aSom8.setText(""+aListJoueur.get(7).getArgent());}
     }
 
     /**
@@ -391,6 +402,10 @@ public class GameEngine {
             if(pCommand.equals(i+""));
             {
                 this.aGui.println("Propriétées " + i);
+                ArrayList<Propriete> pro = this.aListJoueur.get(i).getProprietes();
+                for (Propriete p : pro){
+                    this.aGui.println(p.getDescription());
+                }
             }
         }
     }
@@ -417,6 +432,7 @@ public class GameEngine {
         vDe1.lanceDe();
         vDe2.lanceDe();
         this.aNBlancer = vDe1.getNbDe()+vDe2.getNbDe();
+        this.aGui.println("Vous avez fait un score de "+this.aNBlancer);
         this.aGui.showImageDe(vDe1.getNbDe()+".jpg", vDe2.getNbDe()+".jpg");
 
         if(this.aPremiersLancer == 0)
@@ -438,6 +454,7 @@ public class GameEngine {
             this.aGui.println("Vous allez en prison.");
             this.aCurrentPlayer.goPrison();
         }
+        this.avancer();
         this.descriptionPos();
     }//lancer()
 
@@ -453,6 +470,18 @@ public class GameEngine {
             }
             //this.aGui.println("vous avez avancé de "+this.aNBlancer+" case(s).");
         }
+    }
+
+    public void actualiseArgent()
+    {
+        if(aNbActuelJoueur == 1) {this.aGui.aSom1.setText(""+aListJoueur.get(0).getArgent());}
+        if(aNbActuelJoueur == 2) {this.aGui.aSom2.setText(""+aListJoueur.get(1).getArgent());}
+        if(aNbActuelJoueur == 3) {this.aGui.aSom3.setText(""+aListJoueur.get(2).getArgent());}
+        if(aNbActuelJoueur == 4) {this.aGui.aSom4.setText(""+aListJoueur.get(3).getArgent());}
+        if(aNbActuelJoueur == 5) {this.aGui.aSom5.setText(""+aListJoueur.get(4).getArgent());}
+        if(aNbActuelJoueur == 6) {this.aGui.aSom6.setText(""+aListJoueur.get(5).getArgent());}
+        if(aNbActuelJoueur == 7) {this.aGui.aSom7.setText(""+aListJoueur.get(6).getArgent());}
+        if(aNbActuelJoueur == 8) {this.aGui.aSom8.setText(""+aListJoueur.get(7).getArgent());}
     }
 
     private void premierslancer(int NbrLancer)
@@ -519,19 +548,19 @@ public class GameEngine {
     {
         ArrayList<Integer> vListPlusGrand = new ArrayList<Integer>();
 
-        int max = aListLancer.get(0);
+        int max = this.aListLancer.get(0);
 
-        for(int i = 1; i<aListLancer.size(); i++)
+        for(int i = 1; i<this.aListLancer.size(); i++)
         {
-            if(max<aListLancer.get(i))
+            if(max<this.aListLancer.get(i))
             {
-                max = aListLancer.get(i);
+                max = this.aListLancer.get(i);
             }
         }
 
-        for(int i = 0; i<aListLancer.size(); i++)
+        for(int i = 0; i<this.aListLancer.size(); i++)
         {
-            if(max==aListLancer.get(i))
+            if(max==this.aListLancer.get(i))
             {
                 vListPlusGrand.add(i);
             }
