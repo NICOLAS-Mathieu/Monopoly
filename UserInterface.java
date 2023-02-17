@@ -28,14 +28,14 @@ public class UserInterface implements ActionListener
     private JButton    aB_propriete6;
     private JButton    aB_propriete7;
     private JButton    aB_propriete8;
-    private JTextArea  aNom1;
-    private JTextArea  aNom2;
-    private JTextArea  aNom3;
-    private JTextArea  aNom4;
-    private JTextArea  aNom5;
-    private JTextArea  aNom6;
-    private JTextArea  aNom7;
-    private JTextArea  aNom8;
+    public JTextArea  aNom1;
+    public JTextArea  aNom2;
+    public JTextArea  aNom3;
+    public JTextArea  aNom4;
+    public JTextArea  aNom5;
+    public JTextArea  aNom6;
+    public JTextArea  aNom7;
+    public JTextArea  aNom8;
     private JTextArea  aSom1;
     private JTextArea  aSom2;
     private JTextArea  aSom3;
@@ -45,7 +45,7 @@ public class UserInterface implements ActionListener
     private JTextArea  aSom7;
     private JTextArea  aSom8;
     private JTextArea  aNbDe;
-    private JTextArea  aJoueur;
+    public JTextArea  aJoueur;
 
 
     /**
@@ -126,13 +126,6 @@ public class UserInterface implements ActionListener
         }
     } // enable(.)
 
-    public void actualisation(int numero, String somme)
-    {
-        if(numero==1)
-        {
-
-        }
-    }
 
     /**
      * fonction premettant d'afficher a l'ecran

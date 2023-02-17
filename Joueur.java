@@ -11,6 +11,8 @@ public class Joueur
     //private Pion aPion;
     private int aPos;
     private ArrayList<Propriete> aProprietes;
+    private int aDouble;
+    private int aIsPrison;
     
     /**
      * Constructeur d'objets de classe Joueur
@@ -23,7 +25,13 @@ public class Joueur
         aNom = pNom;
         //Pion aPion = new Pion(pCouleur);
         ArrayList<Propriete> aProprietes = new ArrayList<Propriete>();
+        this.aDouble=0;
+        this.aIsPrison=0;
     }
+
+    public String getNom(){return this.aNom;}
+
+    public int getPos() {return this.aPos;}
 
     /**
      * @return l'argent qu'un joueur possède.
@@ -89,4 +97,28 @@ public class Joueur
         }
         return n;
     }//nbGares()
+
+    public void setDouble(){
+        this.aDouble+=1;
+    }
+
+    public int getDouble(){
+        return this.aDouble;
+    }
+
+    public void initDouble(){
+        this.aDouble=0;
+    }
+
+    public void goPrison(){
+        this.aIsPrison=1;
+    }
+
+    public void outPrison(){
+        this.aIsPrison=0;
+    }
+
+    public int IsPrison(){
+        return this.aIsPrison;
+    }
 }
