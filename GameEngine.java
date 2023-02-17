@@ -9,7 +9,6 @@ public class GameEngine {
     private int aNBlancer;
     private Joueur aCurrentPlayer;
     private ArrayList<Joueur> aListJoueur;
-    private int aNbJoueur;
     private int aPosJoueurActuel = 0;
     private int aNbActuelJoueur = 0;
     private int aFiniInit = 0;
@@ -486,47 +485,71 @@ public class GameEngine {
 
     private void premierslancer(int NbrLancer)
     {
-        if(this.aListLancer.size() <= this.aNbActuelJoueur)
+        this.aGui.println("premiers");
+        if(this.aListLancer.size() <= this.aNbActuelJoueur && this.aTestUnique == 0)
         {
-            this.aGui.println("Au joueur suivant de lancer les dés.");
 
+            this.aGui.println("second");
             this.aListLancer.add(NbrLancer);
 
             prochain();
+
+            if(this.aListLancer.size()<this.aNbActuelJoueur)
+            {
+                this.aGui.println("Au joueur " +aCurrentPlayer.getNom()+ " de lancer les dés.");
+            }
         }
+
+        if(this.aTestUnique == 1 || this.aTestUnique == 2)
+        {
+            this.aListLancer.set( this.aPosJoueurActuel, NbrLancer);
+        }
+
         if(this.aListLancer.size() == this.aNbActuelJoueur)
         {
+            this.aGui.println("troisième");
 
-            if(this.aTestUnique==0)
+            if(this.aTestUnique==0 || this.aTestUnique==2)
             {
+                this.aGui.println("quatrième");
                 int vPG;
                 vPG = this.plusgrands();
-                
-                for(int i=0; i<this.aListGrand.size()-1; i++)
+
+                this.aGui.println("");
+
+                for(int i=0; i<this.aListGrand.size(); i++)
                 {
                     this.aGui.println(this.aListJoueur.get(this.aListGrand.get(i)).getNom() + " a obtenu le plus grand nombre");
                 }
 
                 this.aGui.println(vPG + " est le plus grand nombre");
+                this.aGui.println("");
 
                 if (this.aListGrand.size() == 1) {
                     this.lancerPartie();
                 }
                 else
                 {
+                    this.aGui.println("il y a " + this.aListGrand.size() + " joueurs avec le plus grand nombre");
                     this.aTestUnique = 1;
                 }
             }
 
-            if(this.aTestUnique==1)
+            if(this.aTestUnique!=0)
             {
-                this.aCurrentPlayer = this.aListJoueur.get(this.aListGrand.get(0));
+                this.aPosJoueurActuel = this.aListGrand.get(0);
+                this.aCurrentPlayer = this.aListJoueur.get(this.aPosJoueurActuel);
+
+                this.aGui.println("Au joueur " +aCurrentPlayer.getNom()+ " de lancer les dés.");
 
                 this.aListGrand.remove(0);
 
-                if(this.aListGrand.size() == 0)
+                this.aGui.println(aListGrand.toString());
+
+
+                if(this.aListGrand.isEmpty())
                 {
-                    this.aTestUnique = 0;
+                    this.aTestUnique = 2;
                 }
             }
 
@@ -538,6 +561,7 @@ public class GameEngine {
         this.aPremiersLancer = 1;
         this.aPosJoueurActuel = this.aListGrand.get(0);
         this.aCurrentPlayer = this.aListJoueur.get(this.aPosJoueurActuel);
+        this.aGui.println("");
         this.aGui.println(this.aCurrentPlayer.getNom() + " vous commencer a jouer");
         this.aGui.aJoueur.setText("Joueur "+ this.aCurrentPlayer.getNom());
         this.ajouteCouleur();
@@ -583,7 +607,7 @@ public class GameEngine {
 
     private void prochain()
     {
-        if(this.aPosJoueurActuel+1<this.aNbJoueur)
+        if(this.aPosJoueurActuel+1<this.aNbActuelJoueur)
         {
             this.aPosJoueurActuel+= 1;
         }
