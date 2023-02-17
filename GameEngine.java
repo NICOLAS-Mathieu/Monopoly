@@ -388,6 +388,9 @@ public class GameEngine {
         if(aNbActuelJoueur == 8) {this.aGui.aNom8.setText(aListJoueur.get(7).getNom());}
     }
 
+    /**
+     * Fonction retournant les commandes possibles que le joueur peut effefctuer
+     */
     private void printHelp()
     {
         this.aGui.println("Les commandes que tu peux utiliser sont :");
@@ -428,16 +431,17 @@ public class GameEngine {
         vDe2.lanceDe();
         this.aNBlancer = vDe1.getNbDe()+vDe2.getNbDe();
         this.aGui.showImageDe(vDe1.getNbDe()+".jpg", vDe2.getNbDe()+".jpg");
-        //int vPos = this.aJoueur.getPion().getposition();
+
         if(this.aPremiersLancer == 0)
         {
             this.premierslancer(this.aNBlancer);
             return;
         }
+
         if (vDe1.getNbDe() == vDe2.getNbDe())
         {
             this.aCurrentPlayer.setDouble();
-            this.aGui.println("Vous avez fait un double, vous pouvez rejouer!");
+            this.aGui.println("Vous avez fait un double, vous pourrez rejouer !");
             if (this.aCurrentPlayer.IsPrison()==1){
                 this.aCurrentPlayer.outPrison();
             }
@@ -450,8 +454,18 @@ public class GameEngine {
         this.descriptionPos();
     }//lancer()
 
-    int getLancer(){
-        return this.aNBlancer;
+    public void avancer()
+    {
+        if (this.aCurrentPlayer.IsPrison()==0) {
+            this.aCurrentPlayer.ajoutePos(this.aNBlancer);
+            int pos = this.aCurrentPlayer.getPos();
+            if ( pos >= 40) {
+                this.aCurrentPlayer.addArgent(200);
+                this.actualiseArgent();
+                this.aCurrentPlayer.setPos(pos-40);
+            }
+            //this.aGui.println("vous avez avancé de "+this.aNBlancer+" case(s).");
+        }
     }
 
     private void premierslancer(int NbrLancer)
@@ -469,9 +483,7 @@ public class GameEngine {
                 aPosJoueurActuel = aPosJoueurActuel + 1;
             }
 
-            this.aCurrentPlayer = this.aListJoueur.get(aPosJoueurActuel);
-
-            this.aGui.println(aCurrentPlayer + " à toi de lancer les dés.");
+            prochain();
         }
         if(aListLancer.size() == aNbActuelJoueur)
         {
@@ -479,7 +491,7 @@ public class GameEngine {
             {
                 aListGrand = this.plusgrands();
 
-                if (aListGrand.size() == 1) {
+                if (this.aListGrand.size() == 1) {
                     this.lancerPartie();
                 }
             }
@@ -515,18 +527,9 @@ public class GameEngine {
     private void passer()
     {
         this.aCurrentPlayer.initDouble();
-        if(aPosJoueurActuel+1>=aNbJoueur)
-        {
-            aPosJoueurActuel = 0;
-        }
-        else
-        {
-            aPosJoueurActuel = aPosJoueurActuel + 1;
-        }
 
-        this.aCurrentPlayer = this.aListJoueur.get(aPosJoueurActuel);
+        prochain();
 
-        this.aGui.println(aCurrentPlayer.getNom() + " c'est a toi de jouer");
         this.aGui.aJoueur.setText("Joueur "+ this.aCurrentPlayer.getNom());
         this.ajouteCouleur();
         this.debutDeTour();
@@ -537,11 +540,33 @@ public class GameEngine {
         this.aGui.println(this.aCurrentPlayer.getNom() + " doit lancer les dés !");
     }//debutDeTour()
 
+    /**
+     * Décris la case sur laquelle le CurrentPlayer se trouve, soit donne le nom de la case
+     */
     private void descriptionPos()
     {
-        this.aGui.println(this.aCurrentPlayer.getNom() + "arrive sur :");
-        Case vCurrentCase = this.aListCase.get(this.aCurrentPlayer.getPos());
-        this.aGui.println(vCurrentCase.getDescription());
+        this.aGui.println(this.aCurrentPlayer.getNom() + " arrive sur :");
+        this.aGui.println(this.aListCase.get(this.aCurrentPlayer.getPos()).getDescription());
+
+        //Le joueur tombe sur une rue
+        if (this.aListCase.get(this.aCurrentPlayer.getPos()).getClass().equals(Rue.class))
+        {
+
+        }
+
+        //Le joueur tombe sur une gare
+        if (this.aListCase.get(this.aCurrentPlayer.getPos()).getClass().equals(Gare.class))
+        {
+
+        }
+
+        //Le joueur tombe sur une compagnie
+        if (this.aListCase.get(this.aCurrentPlayer.getPos()).getClass().equals(Compagnie.class))
+        {
+
+        }
+        int[] vChanceNum = {7,22,36};
+        //if (this.aListCase.get(this.aCurrentPlayer.getPos())
     }//descriptionPos()
 }
 
