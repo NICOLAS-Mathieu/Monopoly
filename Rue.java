@@ -31,15 +31,17 @@ public class Rue extends Propriete
     /**
      * Getteurs
      */
-    public int getNbMaions()
+    public int getNbMaisons()
     {
         return(this.aNbMaisons);
     }
     
-    public int getNbHotels()
+    public int getNbHotel()
     {
         return(this.aNbHotels);
     }
+
+    public int getPrixConstruction() {return this.aPrixConstruction;}
     
     /**
      * Setteurs

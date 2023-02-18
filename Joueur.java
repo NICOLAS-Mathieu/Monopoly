@@ -117,7 +117,11 @@ public class Joueur
         this.aDouble=0;
     }
 
+    /**
+     * Envoi le joueur en prison
+     */
     public void goPrison(){
+        this.setPos(10);
         this.aIsPrison=1;
     }
 

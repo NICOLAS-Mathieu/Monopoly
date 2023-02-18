@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
@@ -6,12 +7,13 @@ public class GameEngine {
     private Parser aParser;
     private UserInterface aGui;
     private ArrayList<Case> aListCase = new ArrayList<Case>();
-    private int aNBlancer;
-    private Joueur aCurrentPlayer;
-    private ArrayList<Joueur> aListJoueur;
-    private int aPosJoueurActuel = 0;
     private int aNbActuelJoueur = 0;
     private int aFiniInit = 0;
+    private Joueur aCurrentPlayer;
+    private boolean aCurrentPlayerPlay = true;
+    private int aNBlancer;
+    private int aPosJoueurActuel = 0;
+    private ArrayList<Joueur> aListJoueur;
     private int aPremiersLancer = 0;
     private ArrayList<Integer> aListLancer;
     private LinkedList<Carte> aListChance;
@@ -102,7 +104,7 @@ public class GameEngine {
         this.aListCase.add(vPrison);
         Rue vBoulevardDeLaVillette = new Rue(11, "Boulevard de la Villette", "Rose", 140, new int[]{10,50,150,450,625,750}, 100, 70, null);
         this.aListCase.add(vBoulevardDeLaVillette);
-        Compagnie vElectricite = new Compagnie(12, "Compagnie de distribution d'électricité'", 150, new int[]{4,10}, 75, null);
+        Compagnie vElectricite = new Compagnie(12, "Compagnie de distribution d'électricité", 150, new int[]{4,10}, 75, null);
         this.aListCase.add(vElectricite);
         Rue vAvenueDeNeuilly = new Rue(13, "Avenue de Neuilly", "Rose", 140, new int[]{10,50,150,450,625,750}, 100, 70, null);
         this.aListCase.add(vAvenueDeNeuilly);
@@ -248,6 +250,7 @@ public class GameEngine {
         {
             case UNKNOWN :
                 this.aGui.println("Je ne comprends pas ce que vous voulez faire...");
+                this.aGui.println("");
                 break;
 
             case HELP :
@@ -273,7 +276,7 @@ public class GameEngine {
 
             case PROPRIETE :
                 if ( pCommandLine.hasSecondWord() )
-                    this.propieteSelect(vWord2);
+                    this.proprieteSelect(vWord2);
                 else
                 {
                     this.aGui.println( "Quelle propriété ?" );
@@ -329,16 +332,23 @@ public class GameEngine {
 
     private void start()
     {
-        this.aGui.println("Que la partie commence !");
-        aFiniInit += 1;
-        this.aGui.println("");
-        this.aGui.println("Chaque joueur doit lancer les dés,");
-        this.aGui.println("celui qui aura le plus gros score commencera.");
-        this.aGui.println("");
+        if (this.aNbActuelJoueur < 2 ) {
+            this.aGui.println("Il faut au moins 2 joueurs pour commencer la partie !");
+            this.aGui.println("");
+            return;
+        }
+        else {
+            this.aGui.println("Que la partie commence !");
+            aFiniInit += 1;
+            this.aGui.println("");
+            this.aGui.println("Chaque joueur doit lancer les dés, celui qui aura le plus gros");
+            this.aGui.println("score commencera.");
+            this.aGui.println("");
 
-        this.aCurrentPlayer = this.aListJoueur.get(0);
-        this.aGui.println(this.aCurrentPlayer.getNom() + " c'est à toi de lancer");
-
+            this.aCurrentPlayer = this.aListJoueur.get(0);
+            this.aGui.println(this.aCurrentPlayer.getNom() + " c'est à toi de lancer");
+            this.aGui.println("");
+        }
 
     }//start()
 
@@ -404,9 +414,9 @@ public class GameEngine {
         this.aGui.println(this.aParser.getCommandsList());
     }//printHelp()
 
-    private void propieteSelect(final String pCommand)
+    private void proprieteSelect(final String pCommand)
     {
-        for(int i=1; i<9; i++)
+        for(int i=0; i<this.aNbActuelJoueur; i++)
         {
             if(pCommand.equals(i+""));
             {
@@ -414,8 +424,9 @@ public class GameEngine {
                 this.aGui.println("Propriétées de " + j.getNom());
                 ArrayList<Propriete> pro = j.getProprietes();
                 for (Propriete p : pro){
-                    this.aGui.println(p.getDescription());
+                    this.aGui.println("- " + p.getDescription());
                 }
+                this.aGui.println("");
             }
         }
     }
@@ -426,31 +437,85 @@ public class GameEngine {
         Case currentCase = this.aListCase.get(pos);
         if (currentCase.getProprietaire()==null)
         {
-            if (currentCase.getClass().equals(Rue.class))
+            if (currentCase.getClass().equals(Rue.class) || currentCase.getClass().equals(Gare.class) || currentCase.getClass().equals(Compagnie.class))
             {
-                Rue currentRue = (Rue) this.aListCase.get(pos);
-                if (this.aCurrentPlayer.getArgent() > currentRue.getPrixDeVente())
+                Propriete vCurrentPropriete = (Propriete) this.aListCase.get(pos);
+                if (this.aCurrentPlayer.getArgent() > vCurrentPropriete.getPrixDeVente())
                 {
-                    this.aCurrentPlayer.addArgent(-currentRue.getPrixDeVente());
-                    this.aCurrentPlayer.addPropriete(currentRue);
-                    currentRue.setProprietaire(this.aCurrentPlayer);
-                    this.aGui.println("Achat effectué avec succes!");
-                    this.aGui.println("passez si vous avez fini votre tour.");
+                    this.aCurrentPlayer.addArgent( - vCurrentPropriete.getPrixDeVente());
+                    this.aCurrentPlayer.addPropriete(vCurrentPropriete);
+                    vCurrentPropriete.setProprietaire(this.aCurrentPlayer);
+                    this.aGui.println("Achat effectué avec succès !");
+                    this.aGui.println("Taper la commande ''passer'' si vous avez fini votre tour.");
+                    this.aGui.println("");
                 }
                 else{
                     this.aGui.println("Vous n'avez pas assez d'argent,");
-                    this.aGui.println("la proprieté va etre mise au enchere.");
+                    this.aGui.println("la proprieté va être mise aux enchères.");
+                    this.aGui.println("");
                     this.enchere();
                 }
             }
         }
         else{
-            this.aGui.println("Cette proprieté appartient deja à quelqu'un,");
+            this.aGui.println("Cette proprieté appartient déjà à quelqu'un,");
             this.aGui.println("vous ne pouvez pas l'acheter.");
+            this.aGui.println("");
         }
 
         this.actualiseArgent();
-    }
+    }//acheter()
+
+    private void detail()
+    {
+        int pos = this.aCurrentPlayer.getPos();
+        Case vCurrentCase = this.aListCase.get(pos);
+        if (vCurrentCase.getClass().equals(Rue.class) || vCurrentCase.getClass().equals(Gare.class) || vCurrentCase.getClass().equals(Compagnie.class))
+        {
+            Rue vCurrentPropriete = (Rue) this.aListCase.get(pos);
+            this.aGui.println("Loyer : " + vCurrentPropriete.getLoyer(0));
+
+            if (vCurrentCase.getClass().equals(Rue.class)) {
+                Rue vCurrentRue = (Rue) this.aListCase.get(pos);
+                this.aGui.println("Avec 1 Maisons : " + vCurrentRue.getLoyer(1));
+                this.aGui.println("Avec 2 Maisons : " + vCurrentRue.getLoyer(2));
+                this.aGui.println("Avec 3 Maisons : " + vCurrentRue.getLoyer(3));
+                this.aGui.println("Avec 4 Maisons : " + vCurrentRue.getLoyer(4));
+                this.aGui.println("Avec 1 Hôtel : " + vCurrentRue.getLoyer(5));
+                this.aGui.println("");
+                this.aGui.println("Prix des Maisons " + vCurrentRue.getPrixConstruction() + " chacune");
+                this.aGui.println("Prix d'un Hôtel " + vCurrentRue.getPrixConstruction() + " plus 4 Maisons");
+                this.aGui.println("");
+                this.aGui.println("Nombre de Maison(s) : " + vCurrentRue.getNbMaisons());
+                this.aGui.println("Nombre d'Hôtel : " + vCurrentRue.getNbHotel());
+            }
+
+            if (vCurrentCase.getClass().equals(Gare.class))
+            {
+                Gare vCurrentGare = (Gare) this.aListCase.get(pos);
+                this.aGui.println("Si vous avez 2 Gares : " + vCurrentGare.getLoyer(1));
+                this.aGui.println("Si vous avez 3 Gares : " + vCurrentGare.getLoyer(2));
+                this.aGui.println("Si vous avez 4 Gares : " + vCurrentGare.getLoyer(3));
+            }
+
+            if (vCurrentCase.getClass().equals(Compagnie.class))
+            {
+                Compagnie vCurrentGare = (Compagnie) this.aListCase.get(pos);
+                this.aGui.println("Si vous possèdez UNE carte de compagnie de Service Public,");
+                this.aGui.println("le loyer est 4 fois le montant indiqué par les dés.");
+                this.aGui.println("");
+                this.aGui.println("Si vous possèdez les DEUX cartes de compagnie de Service Public,");
+                this.aGui.println("le loyer est 10 fois le montant indiqué par les dés.");
+            }
+            this.aGui.println("");
+            this.aGui.println("Valeur hypothécaire : " + vCurrentPropriete.getPrixHypotheque());
+            this.aGui.println("");
+        }
+        else {
+            this.aGui.println("Il n'y a pas plus de détail à donner pour cette case.");
+            this.aGui.println("");
+        }
+    }//detail()
 
     private void enchere()
     {
@@ -459,7 +524,7 @@ public class GameEngine {
 
     private void quitter()
     {
-        this.aGui.println("Merci. À Bientôt");
+        this.aGui.println("Merci d'avoir jouer au Monopoly. À Bientôt !");
         this.aGui.enable( false );
     }
 
@@ -475,7 +540,7 @@ public class GameEngine {
             vCarteTiree = this.aListChance.pollFirst();
             this.aListChance.addLast(vCarteTiree);
         }
-        this.aGui.println("Vous avez tirée la carte :");
+        this.aGui.println("Vous avez tiré la carte :");
         this.aGui.println(vCarteTiree.getDescription());
 
         if (vCarteTiree.getAction()==0)
@@ -496,6 +561,13 @@ public class GameEngine {
 
     private void lancer()
     {
+        if (!this.aCurrentPlayerPlay && this.aPremiersLancer == 1) //vérifie si le joueur n'a pas déjà lancer ses dés dans son tour
+        {
+            this.aGui.println("Vous avez déjà lancer les dés pour ce tour là !");
+            this.aGui.println("");
+            return;
+        }
+
         De vDe1 = new De();
         De vDe2 = new De();
         vDe1.lanceDe();
@@ -503,6 +575,7 @@ public class GameEngine {
         this.aNBlancer = vDe1.getNbDe()+vDe2.getNbDe();
         this.aGui.println("Vous avez fait un score de "+this.aNBlancer);
         this.aGui.showImageDe(vDe1.getNbDe()+".jpg", vDe2.getNbDe()+".jpg");
+        this.aCurrentPlayerPlay = false;
 
         if(this.aPremiersLancer == 0)
         {
@@ -517,11 +590,13 @@ public class GameEngine {
             if (this.aCurrentPlayer.IsPrison()==1){
                 this.aCurrentPlayer.outPrison();
             }
+            this.aCurrentPlayerPlay = true;
         }
         if (this.aCurrentPlayer.getDouble() == 3){
             this.aGui.println("Dommage, vous avez fait des doubles 3 fois de suite,");
             this.aGui.println("Vous allez en prison.");
             this.aCurrentPlayer.goPrison();
+            return;
         }
         this.avancer();
         this.descriptionPos();
@@ -541,7 +616,7 @@ public class GameEngine {
         else {
             this.aGui.println("Vous etes en prison vous ne pouvez pas avancer.");
         }
-    }
+    }//avancer()
 
     public void actualiseArgent()
     {
@@ -566,7 +641,8 @@ public class GameEngine {
 
             if(this.aListLancer.size()<this.aNbActuelJoueur)
             {
-                this.aGui.println("Au joueur " +aCurrentPlayer.getNom()+ " de lancer les dés.");
+                this.aGui.println("À " +aCurrentPlayer.getNom()+ " de lancer les dés.");
+                this.aGui.println("");
             }
         }
 
@@ -593,11 +669,12 @@ public class GameEngine {
                 this.aGui.println("");
 
                 if (this.aListGrand.size() == 1) {
+                    this.aCurrentPlayerPlay = true;
                     this.lancerPartie();
                 }
                 else
                 {
-                    this.aGui.println("il y a " + this.aListGrand.size() + " joueurs avec le plus grand nombre");
+                    this.aGui.println("Il y a " + this.aListGrand.size() + " joueurs avec le plus grand nombre");
                     this.aTestUnique = 1;
                 }
             }
@@ -607,7 +684,8 @@ public class GameEngine {
                 this.aPosJoueurActuel = this.aListGrand.get(0);
                 this.aCurrentPlayer = this.aListJoueur.get(this.aPosJoueurActuel);
 
-                this.aGui.println("Au joueur " +aCurrentPlayer.getNom()+ " de lancer les dés.");
+                this.aGui.println("À " +aCurrentPlayer.getNom()+ " de lancer les dés.");
+                this.aGui.println("");
 
                 this.aListGrand.remove(0);
 
@@ -663,15 +741,22 @@ public class GameEngine {
 
     private void passer()
     {
+        if(this.aCurrentPlayerPlay) //si le joueur a fait de double le prévenir qu'il peut rejouer
+        {
+            this.aGui.println("Vous aviez fait un double, vous pouvez relancer les dés.");
+            this.aGui.println("");
+            return;}
+
         this.aCurrentPlayer.initDouble();
         this.actualiseArgent();
+        this.aCurrentPlayerPlay = true;
 
         prochain();
 
         this.aGui.aJoueur.setText("Joueur "+ this.aCurrentPlayer.getNom());
         this.ajouteCouleur();
         this.debutDeTour();
-    }
+    }//passer()
 
     private void prochain()
     {
@@ -689,7 +774,9 @@ public class GameEngine {
 
     private void debutDeTour()
     {
+        this.aGui.println("");
         this.aGui.println(this.aCurrentPlayer.getNom() + " doit lancer les dés !");
+        this.aGui.println("");
     }//debutDeTour()
 
     /**
@@ -699,39 +786,141 @@ public class GameEngine {
     {
         this.aGui.println(this.aCurrentPlayer.getNom() + " arrive sur la case :");
         int pos = this.aCurrentPlayer.getPos();
-        Case currentCase = this.aListCase.get(pos);
-        this.aGui.println(currentCase.getDescription());
+        Case vCurrentCase = this.aListCase.get(pos);
+        this.aGui.println(vCurrentCase.getDescription());
 
         //Le joueur tombe sur une rue
-        if (currentCase.getClass().equals(Rue.class))
+        if (vCurrentCase.getClass().equals(Rue.class))
         {
-            this.aGui.println("Vous etes sur une rue.");
-            if (currentCase.getProprietaire() == null)
+            Rue vCurrentRue = (Rue) this.aListCase.get(pos);
+            if (vCurrentRue.getProprietaire() == null)
             {
-                this.aGui.println("Cette proprietée n'appartient à personne,");
-                this.aGui.println("vous pouvez l'acheter, ou lancer les encheres.");
+                this.aGui.println("Cette proprietée n'appartient à personne, vous pouvez l'acheter");
+                this.aGui.println("ou lancer les enchères.");
+                this.aGui.println("Prix de vente : " + vCurrentRue.getPrixDeVente());
+                this.aGui.println("");
             }
             else {
-                int prixLoyer = ((Rue) currentCase).getLoyer();
-                Joueur j = currentCase.getProprietaire();
-                this.aGui.println("Vous devez payer un loyer de "+prixLoyer+" à "+j.getNom());
-                this.payer(prixLoyer,j);
+                int prixLoyer = vCurrentRue.getLoyer(vCurrentRue.getNbMaisons()+ vCurrentRue.getNbHotel());
+                Joueur j = vCurrentRue.getProprietaire();
+                if (j.getNom().equals(this.aCurrentPlayer.getNom())){
+                    this.aGui.println("Cette proprietée vous appartient.");
+                    this.aGui.println("Vous pouvez y ajouter une maison ou un hotel,");
+                    this.aGui.println("ou vous pouvez passer votre tour.");
+                    this.aGui.println("");
+                }
+                else {
+                    this.aGui.println("Vous devez payer un loyer de "+prixLoyer+" à "+j.getNom());
+                    this.payer(prixLoyer,j);
+                }
             }
         }
 
         //Le joueur tombe sur une gare
-        if (currentCase.getClass().equals(Gare.class))
+        if (vCurrentCase.getClass().equals(Gare.class))
         {
-            this.aGui.println("Vous etes sur une gare.");
+            Gare vCurrentGare = (Gare) this.aListCase.get(pos);
+            if (vCurrentGare.getProprietaire() == null)
+            {
+                this.aGui.println("Cette gare n'appartient à personne, vous pouvez l'acheter");
+                this.aGui.println("ou lancer les enchères.");
+                this.aGui.println("Prix de vente : " + vCurrentGare.getPrixDeVente());
+                this.aGui.println("");
+            }
+            else
+            {
+                Joueur vProprio = vCurrentGare.getProprietaire();
+                if (vProprio.getNom().equals(this.aCurrentPlayer.getNom()))
+                {
+                    this.aGui.println("Cette gare vous appartient.");
+                    this.aGui.println("");
+                    if(!this.aCurrentPlayerPlay) //le joueur n'a pas fait de double et ne peut pas rejouer
+                    { this.passer();}
+                }
+                else
+                    {
+                        int i = vProprio.nbGares();
+                        int vPrixLoyer = vCurrentGare.getLoyer(i);
+                        this.aGui.println("Vous devez payer un loyer de " + vPrixLoyer + " à " + vProprio.getNom());
+                        this.payer(vPrixLoyer, vProprio);
+                    }
+            }
         }
 
         //Le joueur tombe sur une compagnie
-        if (currentCase.getClass().equals(Compagnie.class))
+        if (vCurrentCase.getClass().equals(Compagnie.class))
         {
-            this.aGui.println("Vous etes sur une compagnie.");
+            Compagnie vCurrentCompagnie = (Compagnie) this.aListCase.get(pos);
+            if (vCurrentCompagnie.getProprietaire() == null)
+            {
+                this.aGui.println("Cette compagnie de distribution n'appartient à personne, vous");
+                this.aGui.println("pouvez l'acheter ou lancer les enchères.");
+                this.aGui.println("Prix de vente : " + vCurrentCompagnie.getPrixDeVente());
+                this.aGui.println("");
+            }
+            else
+            {
+                Joueur vProprio = vCurrentCompagnie.getProprietaire();
+                if (vProprio.getNom().equals(this.aCurrentPlayer.getNom())){
+                    this.aGui.println("Cette compagnie de distribution vous appartient.");
+                    this.aGui.println("");
+                    if(!this.aCurrentPlayerPlay) //le joueur n'a pas fait de double et ne peut pas rejouer
+                    { this.passer();}
+                }
+                else {
+                    int i = vProprio.nbCompagnies();
+                    int vPrixLoyer = vCurrentCompagnie.getLoyer(i) * this.aNBlancer;
+                    this.aGui.println("Vous devez payer un loyer de " + vPrixLoyer + " à " + vProprio.getNom());
+                    this.payer(vPrixLoyer, vProprio);
+                }
+            }
         }
-        int[] vChanceNum = {7,22,36};
-        //if (this.aListCase.get(this.aCurrentPlayer.getPos())
+
+        //Le joueur tombe sur les cases Impôt sur le Revenu ou Taxe de Luxe
+        if (this.aCurrentPlayer.getPos() == (4|38))
+        {
+            int vPrix;
+            if (this.aCurrentPlayer.getPos() == 4) {vPrix = 200;}
+            else {vPrix = 100;}
+            this.aGui.println("Vous etes sur la case" + vCurrentCase.getDescription() + ".");
+            this.aGui.println("Vous payer" + vPrix);
+            if (this.aCurrentPlayer.getArgent() > vPrix)
+            {
+                this.aCurrentPlayer.addArgent(-vPrix);
+                this.aGui.println("Payement effectué avec succès!");
+                this.actualiseArgent();
+                if(!this.aCurrentPlayerPlay) //le joueur n'a pas fait de double et ne peut pas rejouer
+                { this.passer();}
+            }
+            else
+            {
+                this.aGui.println("Vous n'avez pas assez d'argent,");
+                this.aGui.println("vous pouvez hypothèquer une propriété ou déclarer faillite.");
+            }
+        }
+
+
+        if (this.aCurrentPlayer.getPos()==(2|7|17|22|33|36))
+        {
+            this.aGui.println("Vous devez piocher une carte.");
+        }
+
+        //Le joueur tombe sur la case Prison
+        if (this.aCurrentPlayer.getPos() == 10)
+        {
+            this.aGui.println("Vous visitez la prison.");
+            if(!this.aCurrentPlayerPlay) //le joueur n'a pas fait de double et ne peut pas rejouer
+            { this.passer();}
+        }
+
+        //Le joueur tombe sur la case Allez en Prison
+        if (this.aCurrentPlayer.getPos() == 30)
+        {
+            this.aGui.println("Allez en prison.");
+            this.aCurrentPlayer.goPrison();
+            this.passer();
+        }
+
     }//descriptionPos()
 
     public void payer(int loyer, Joueur joueur)
@@ -740,14 +929,18 @@ public class GameEngine {
         {
             this.aCurrentPlayer.addArgent(-loyer);
             joueur.addArgent(loyer);
-            this.aGui.println("Payement effectué avec succes!");
+            this.aGui.println("Payement effectué avec succès!");
+            this.aGui.println("");
             this.actualiseArgent();
+            if(!this.aCurrentPlayerPlay) //le joueur n'a pas fait de double et ne peut pas rejouer
+            { this.passer();}
         }
         else{
             this.aGui.println("Vous n'avez pas assez d'argent,");
-            this.aGui.println("vous pouvez hypothequer une propriete ou declarer faillite.");
+            this.aGui.println("vous pouvez hypothèquer une propriété ou déclarer faillite.");
+            this.aGui.println("");
         }
-    }
+    }//payer()
 
     private void faillite()
     {
