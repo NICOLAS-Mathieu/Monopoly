@@ -38,5 +38,7 @@ public class Carte
         return this.aDescription;
     }
 
+    public int getAction() { return this.aAction; }
+
 
 }

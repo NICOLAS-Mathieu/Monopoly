@@ -316,6 +316,12 @@ public class GameEngine {
             case ACHETER :
                 this.acheter();
                 break;
+
+            case DETAIL :
+                this.detail();
+                break;
+
+                //il faut ajouter hypothequer, maison et hotel.
         }
 
 
@@ -448,8 +454,8 @@ public class GameEngine {
 
     private void enchere()
     {
-
-    }
+        //a faire
+    }//enchere()
 
     private void quitter()
     {
@@ -471,7 +477,22 @@ public class GameEngine {
         }
         this.aGui.println("Vous avez tirée la carte :");
         this.aGui.println(vCarteTiree.getDescription());
-    }
+
+        if (vCarteTiree.getAction()==0)
+        {
+            if (vCarteTiree.getDeplacement()>=0)
+            {
+                this.aCurrentPlayer.setPos(vCarteTiree.getDeplacement());
+                this.aGui.println("Vous avez été déplacé sur la case "+this.aListCase.get(vCarteTiree.getDeplacement()).getDescription());
+                if (vCarteTiree.getDeplacement()==0){this.aCurrentPlayer.addArgent(200);}
+            }
+            else
+            {
+                //a continuer
+            }
+        }
+
+    }//carte()
 
     private void lancer()
     {
@@ -730,7 +751,7 @@ public class GameEngine {
 
     private void faillite()
     {
-
-    }
+        //a faire
+    }//faillite()
 }
 
