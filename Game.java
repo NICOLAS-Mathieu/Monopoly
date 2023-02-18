@@ -1,7 +1,7 @@
 /**
  * La classe Game permet la création du jeu.
  *
- * @author NICOLAS Mathieu
+ * @author NICOLAS Mathieu, ALEXANDRE Orlane, FOURNIER Goulven, MUZEAU Amael
  * @version 02/01/2022
  */
 public class Game

@@ -22,7 +22,7 @@ public class Joueur
         this.aArgent = 1500;
         this.aPos = 0;
         this.aNom = pNom;
-        ArrayList<Propriete> aProprietes = new ArrayList<Propriete>();
+        this.aProprietes = new ArrayList<Propriete>();
         this.aDouble=0;
         this.aIsPrison=0;
     }

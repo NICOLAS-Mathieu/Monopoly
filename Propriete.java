@@ -11,7 +11,8 @@ public class Propriete extends Case
     private int aPrixDeVente;
     private int[] aLoyer;
     private int aPrixHypotheque;
-    private Joueur aProprietaire;
+    private int aIndex;
+    //private Joueur aProprietaire;
 
     /**
      * Constructeur d'objets de classe Propriete
@@ -20,11 +21,12 @@ public class Propriete extends Case
                      final int[] pLoyer, final int pPrixHypotheque, final Joueur pProprietaire)
     {
         // initialisation des variables d'instance
-        super(pNum, pDescription);
+        super(pNum, pDescription, pProprietaire);
         this.aPrixDeVente = pPrixDeVente;
         this.aLoyer = pLoyer;
         this.aPrixHypotheque = pPrixHypotheque;
-        this.aProprietaire = pProprietaire;
+        this.aIndex  =0;
+        //this.aProprietaire = pProprietaire;
     }
     
     /**
@@ -35,15 +37,12 @@ public class Propriete extends Case
         return this.aPrixDeVente;
     }
     
-    public int getLoyer(final int pIndex)
+    public int getLoyer()
     {
-        return this.aLoyer[pIndex];
+        return this.aLoyer[this.aIndex];
     }
     
-    public Joueur getProprietaire()
-    {
-        return this.aProprietaire;
-    }
+    //public Joueur getProprietaire() { return this.aProprietaire; }
     
     /**
      * Setteurs
@@ -53,13 +52,10 @@ public class Propriete extends Case
         this.aPrixDeVente = pPrixDeVente;
     }
     
-    public void setLoyer(final int pIndex, final int pLoyer)
+    public void setLoyer(final int pIndex)
     {
-        this.aLoyer[pIndex] = pLoyer;
+        this.aIndex = pIndex;
     }
 
-    public void setProprietaire(final Joueur pProprietaire)
-    {
-        this.aProprietaire = pProprietaire;
-    }
+    //public void setProprietaire(final Joueur pProprietaire) { this.aProprietaire = pProprietaire; }
 }

@@ -78,27 +78,27 @@ public class GameEngine {
      */
     private void createCase()
     {
-        Case vDepart = new Case(0, "Départ");
+        Case vDepart = new Case(0, "Départ", null);
         this.aListCase.add(vDepart);
         Rue vBoulevardDeBelleville = new Rue(1, "Boulevard de Belleville", "Marron", 60, new int[]{2, 10, 30, 90, 160, 250}, 50, 30, null);
         this.aListCase.add(vBoulevardDeBelleville);
-        Case vCaisseDeCommunaute1 = new Case(2, "Caisse de Communauté");
+        Case vCaisseDeCommunaute1 = new Case(2, "Caisse de Communauté", null);
         this.aListCase.add(vCaisseDeCommunaute1);
         Rue vRueLecourbe = new Rue(3, "Rue Lecourbe", "Marron", 60, new int[]{4,20,60,180,320,450}, 50, 30, null);
         this.aListCase.add(vRueLecourbe);
-        Case vImpot = new Case(4, "Impôt sur le revenu");
+        Case vImpot = new Case(4, "Impôt sur le revenu", null);
         this.aListCase.add(vImpot);
         Gare vGareMontparnasse = new Gare(5, "Gare Montparnasse", 200, new int[]{25,50,100,200}, 100, null);
         this.aListCase.add(vGareMontparnasse);
         Rue vRueDeVaugirard = new Rue(6, "Rue de Vaugirard", "Bleu ciel", 100, new int[]{5,30,90,270,400,550}, 50, 50, null);
         this.aListCase.add(vRueDeVaugirard);
-        Case vChance1 = new Case(7, "Chance");
+        Case vChance1 = new Case(7, "Chance", null);
         this.aListCase.add(vChance1);
         Rue vRueDeCourcelles = new Rue(8, "Rue de Courcelles", "Bleu ciel", 100, new int[]{5,30,90,270,400,550}, 50, 50, null);
         this.aListCase.add(vRueDeCourcelles);
         Rue vAvenueDeLaRepublique = new Rue(9, "Avenue de la République","Bleu ciel", 120, new int[]{8,40,100,300,450,600}, 50, 60, null);
         this.aListCase.add(vAvenueDeLaRepublique);
-        Case vPrison = new Case(10, "Prison");
+        Case vPrison = new Case(10, "Prison", null);
         this.aListCase.add(vPrison);
         Rue vBoulevardDeLaVillette = new Rue(11, "Boulevard de la Villette", "Rose", 140, new int[]{10,50,150,450,625,750}, 100, 70, null);
         this.aListCase.add(vBoulevardDeLaVillette);
@@ -112,17 +112,17 @@ public class GameEngine {
         this.aListCase.add(vGareDeLyon);
         Rue vAvenueMozart = new Rue(16, "Avenue Mozart", "Orange", 180, new int[]{14,70,200,550,700,900}, 100, 90, null);
         this.aListCase.add(vAvenueMozart);
-        Case vCaisseDeCommunaute2 = new Case(17, "Caisse de Communauté");
+        Case vCaisseDeCommunaute2 = new Case(17, "Caisse de Communauté", null);
         this.aListCase.add(vCaisseDeCommunaute2);
         Rue vBoulevardSaintMichel = new Rue(18, "Boulevard Saint-Michel", "Orange", 180, new int[]{14,70,200,550,700,950}, 100, 90, null);
         this.aListCase.add(vBoulevardSaintMichel);
         Rue vPlacePigalle = new Rue(19, "Place Pigalle", "Orange", 200, new int[]{16,80,220,600,800,1000}, 100, 100, null);
         this.aListCase.add(vPlacePigalle);
-        Case vParcGratuit = new Case(20, "Parc Gratuit");
+        Case vParcGratuit = new Case(20, "Parc Gratuit", null);
         this.aListCase.add(vParcGratuit);
         Rue vAvenueMatignon = new Rue(21, "Avenue  Matignon", "Rouge", 220, new int[]{18,90,250,700,875,1050}, 150,110, null);
         this.aListCase.add(vAvenueMatignon);
-        Case vChance2 = new Case(22, "Chance");
+        Case vChance2 = new Case(22, "Chance", null);
         this.aListCase.add(vChance2);
         Rue vBoulevardMalesherbes = new Rue(23, "Boulevard Malesherbes", "Rouge", 220, new int[]{18,90,250,700,875,1050}, 150, 110, null);
         this.aListCase.add(vBoulevardMalesherbes);
@@ -138,23 +138,23 @@ public class GameEngine {
         this.aListCase.add(vEau);
         Rue vRueLaFayette= new Rue(29, "Rue La Fayette", "Jaune", 280, new int[]{24,120,360,850,1025,1200}, 150, 140, null);
         this.aListCase.add(vRueLaFayette);
-        Case vAllezEnPrison = new Case(30, "Allez en Prison");
+        Case vAllezEnPrison = new Case(30, "Allez en Prison", null);
         this.aListCase.add(vAllezEnPrison);
         Rue vAvenueDeBreteuil = new Rue(31, "Avenue de Breteuil", "Vert", 300,  new int[]{26,130,390,900,1100,1275}, 200, 150, null);
         this.aListCase.add(vAvenueDeBreteuil);
         Rue vAvenueFoch = new Rue(32, "Avenue Foch", "Vert", 300, new int[]{26,130,390,900,1100,1275}, 200, 150,null);
         this.aListCase.add(vAvenueFoch);
-        Case vCaisseDeCommunaute3 = new Case(33, "Caisse de Communauté");
+        Case vCaisseDeCommunaute3 = new Case(33, "Caisse de Communauté", null);
         this.aListCase.add(vCaisseDeCommunaute3);
         Rue vBoulevardDesCapucines = new Rue(34, "Boulevard des Capucines", "Vert", 320, new int[]{28,150,450,1000,1200,1400}, 200, 160, null);
         this.aListCase.add(vBoulevardDesCapucines);
         Gare vGareSaintLazare = new Gare(35, "Gare Saint-Lazare", 200, new int[]{25,50,100,200}, 100, null);
         this.aListCase.add(vGareSaintLazare);
-        Case vChance3 = new Case(36, "Chance");
+        Case vChance3 = new Case(36, "Chance", null);
         this.aListCase.add(vChance3);
         Rue vAvenueChampsElisees = new Rue(37, "Avenue Champs-Élysées", "BleuFonce", 350, new int[]{35,175,500,1100,1300,1500}, 200, 175, null);
         this.aListCase.add(vAvenueChampsElisees);
-        Case vTaxeDeLuxe = new Case(38, "Taxe de Luxe");
+        Case vTaxeDeLuxe = new Case(38, "Taxe de Luxe", null);
         this.aListCase.add(vTaxeDeLuxe);
         Rue vRueDeLaPaix = new Rue(39, "Rue de la  Paix", "BleuFonce", 400, new int[]{50,200,600,1400,1700,2000}, 200, 200, null);
         this.aListCase.add(vRueDeLaPaix);
@@ -312,6 +312,10 @@ public class GameEngine {
                     this.aGui.println("passer ne prend pas de second mot");
                 }
                 break;
+
+            case ACHETER :
+                this.acheter();
+                break;
         }
 
 
@@ -400,13 +404,50 @@ public class GameEngine {
         {
             if(pCommand.equals(i+""));
             {
-                this.aGui.println("Propriétées " + i);
+                this.aGui.println("Propriétées de " + this.aListJoueur.get(i).getNom());
                 ArrayList<Propriete> pro = this.aListJoueur.get(i).getProprietes();
                 for (Propriete p : pro){
                     this.aGui.println(p.getDescription());
                 }
             }
         }
+    }
+
+    private void acheter()
+    {
+        int pos = this.aCurrentPlayer.getPos();
+        Case currentCase = this.aListCase.get(pos);
+        if (currentCase.getProprietaire()==null)
+        {
+            if (currentCase.getClass().equals(Rue.class))
+            {
+                Rue currentRue = (Rue) this.aListCase.get(pos);
+                if (this.aCurrentPlayer.getArgent() > currentRue.getPrixDeVente())
+                {
+                    this.aCurrentPlayer.addArgent(-currentRue.getPrixDeVente());
+                    this.aCurrentPlayer.addPropriete(currentRue);
+                    currentRue.setProprietaire(this.aCurrentPlayer);
+                    this.aGui.println("Achat effectué avec succes!");
+                    this.aGui.println("passez si vous avez fini votre tour.");
+                }
+                else{
+                    this.aGui.println("Vous n'avez pas assez d'argent,");
+                    this.aGui.println("la proprieté va etre mise au enchere.");
+                    this.enchere();
+                }
+            }
+        }
+        else{
+            this.aGui.println("Cette proprieté appartient deja à quelqu'un,");
+            this.aGui.println("vous ne pouvez pas l'acheter.");
+        }
+
+        this.actualiseArgent();
+    }
+
+    private void enchere()
+    {
+
     }
 
     private void quitter()
@@ -417,11 +458,18 @@ public class GameEngine {
 
     private void carte()
     {
-        if (this.aCurrentPlayer.getPos()==(2|17|33)) {Carte vCarteTiree = this.aListCom.poll(); this.aListCom.push(vCarteTiree);}
-        else {Carte vCarteTiree = this.aListChance.poll(); this.aListChance.push(vCarteTiree);}
-        this.aGui.println("ceci est une carte");
-
-
+        Carte vCarteTiree;
+        if (this.aCurrentPlayer.getPos()==(2|17|33))
+        {
+            vCarteTiree = this.aListCom.poll();
+            this.aListCom.push(vCarteTiree);
+        }
+        else {
+            vCarteTiree = this.aListChance.poll();
+            this.aListChance.push(vCarteTiree);
+        }
+        this.aGui.println("Vous avez tirée la carte :");
+        this.aGui.println(vCarteTiree.getDescription());
     }
 
     private void lancer()
@@ -467,29 +515,28 @@ public class GameEngine {
                 this.actualiseArgent();
                 this.aCurrentPlayer.setPos(pos-40);
             }
-            //this.aGui.println("vous avez avancé de "+this.aNBlancer+" case(s).");
+        }
+        else {
+            this.aGui.println("Vous etes en prison vous ne pouvez pas avancer.");
         }
     }
 
     public void actualiseArgent()
     {
-        if(aNbActuelJoueur == 1) {this.aGui.aSom1.setText(""+aListJoueur.get(0).getArgent());}
-        if(aNbActuelJoueur == 2) {this.aGui.aSom2.setText(""+aListJoueur.get(1).getArgent());}
-        if(aNbActuelJoueur == 3) {this.aGui.aSom3.setText(""+aListJoueur.get(2).getArgent());}
-        if(aNbActuelJoueur == 4) {this.aGui.aSom4.setText(""+aListJoueur.get(3).getArgent());}
-        if(aNbActuelJoueur == 5) {this.aGui.aSom5.setText(""+aListJoueur.get(4).getArgent());}
-        if(aNbActuelJoueur == 6) {this.aGui.aSom6.setText(""+aListJoueur.get(5).getArgent());}
-        if(aNbActuelJoueur == 7) {this.aGui.aSom7.setText(""+aListJoueur.get(6).getArgent());}
-        if(aNbActuelJoueur == 8) {this.aGui.aSom8.setText(""+aListJoueur.get(7).getArgent());}
+        this.aGui.aSom1.setText(""+aListJoueur.get(0).getArgent());
+        this.aGui.aSom2.setText(""+aListJoueur.get(1).getArgent());
+        this.aGui.aSom3.setText(""+aListJoueur.get(2).getArgent());
+        this.aGui.aSom4.setText(""+aListJoueur.get(3).getArgent());
+        this.aGui.aSom5.setText(""+aListJoueur.get(4).getArgent());
+        this.aGui.aSom6.setText(""+aListJoueur.get(5).getArgent());
+        this.aGui.aSom7.setText(""+aListJoueur.get(6).getArgent());
+        this.aGui.aSom8.setText(""+aListJoueur.get(7).getArgent());
     }
 
     private void premierslancer(int NbrLancer)
     {
-        this.aGui.println("premiers");
         if(this.aListLancer.size() <= this.aNbActuelJoueur && this.aTestUnique == 0)
         {
-
-            this.aGui.println("second");
             this.aListLancer.add(NbrLancer);
 
             prochain();
@@ -507,11 +554,9 @@ public class GameEngine {
 
         if(this.aListLancer.size() == this.aNbActuelJoueur)
         {
-            this.aGui.println("troisième");
 
             if(this.aTestUnique==0 || this.aTestUnique==2)
             {
-                this.aGui.println("quatrième");
                 int vPG;
                 vPG = this.plusgrands();
 
@@ -519,10 +564,9 @@ public class GameEngine {
 
                 for(int i=0; i<this.aListGrand.size(); i++)
                 {
-                    this.aGui.println(this.aListJoueur.get(this.aListGrand.get(i)).getNom() + " a obtenu le plus grand nombre");
+                    this.aGui.println(this.aListJoueur.get(this.aListGrand.get(i)).getNom() + " a obtenu "+vPG+" et c'est le plus grand nombre.");
                 }
 
-                this.aGui.println(vPG + " est le plus grand nombre");
                 this.aGui.println("");
 
                 if (this.aListGrand.size() == 1) {
@@ -562,7 +606,7 @@ public class GameEngine {
         this.aPosJoueurActuel = this.aListGrand.get(0);
         this.aCurrentPlayer = this.aListJoueur.get(this.aPosJoueurActuel);
         this.aGui.println("");
-        this.aGui.println(this.aCurrentPlayer.getNom() + " vous commencer a jouer");
+        this.aGui.println(this.aCurrentPlayer.getNom() + ", vous commencez à jouer");
         this.aGui.aJoueur.setText("Joueur "+ this.aCurrentPlayer.getNom());
         this.ajouteCouleur();
         this.debutDeTour();
@@ -597,6 +641,7 @@ public class GameEngine {
     private void passer()
     {
         this.aCurrentPlayer.initDouble();
+        this.actualiseArgent();
 
         prochain();
 
@@ -629,28 +674,61 @@ public class GameEngine {
      */
     private void descriptionPos()
     {
-        this.aGui.println(this.aCurrentPlayer.getNom() + " arrive sur :");
-        this.aGui.println(this.aListCase.get(this.aCurrentPlayer.getPos()).getDescription());
+        this.aGui.println(this.aCurrentPlayer.getNom() + " arrive sur la case :");
+        int pos = this.aCurrentPlayer.getPos();
+        Case currentCase = this.aListCase.get(pos);
+        this.aGui.println(currentCase.getDescription());
 
         //Le joueur tombe sur une rue
-        if (this.aListCase.get(this.aCurrentPlayer.getPos()).getClass().equals(Rue.class))
+        if (currentCase.getClass().equals(Rue.class))
         {
-
+            this.aGui.println("Vous etes sur une rue.");
+            if (currentCase.getProprietaire() == null)
+            {
+                this.aGui.println("Cette proprietée n'appartient à personne,");
+                this.aGui.println("vous pouvez l'acheter, ou lancer les encheres.");
+            }
+            else {
+                int prixLoyer = ((Rue) currentCase).getLoyer();
+                Joueur j = currentCase.getProprietaire();
+                this.aGui.println("Vous devez payer un loyer de "+prixLoyer+" à "+j.getNom());
+                this.payer(prixLoyer,j);
+            }
         }
 
         //Le joueur tombe sur une gare
-        if (this.aListCase.get(this.aCurrentPlayer.getPos()).getClass().equals(Gare.class))
+        if (currentCase.getClass().equals(Gare.class))
         {
-
+            this.aGui.println("Vous etes sur une gare.");
         }
 
         //Le joueur tombe sur une compagnie
-        if (this.aListCase.get(this.aCurrentPlayer.getPos()).getClass().equals(Compagnie.class))
+        if (currentCase.getClass().equals(Compagnie.class))
         {
-
+            this.aGui.println("Vous etes sur une compagnie.");
         }
         int[] vChanceNum = {7,22,36};
         //if (this.aListCase.get(this.aCurrentPlayer.getPos())
     }//descriptionPos()
+
+    public void payer(int loyer, Joueur joueur)
+    {
+        if (this.aCurrentPlayer.getArgent() > loyer)
+        {
+            this.aCurrentPlayer.addArgent(-loyer);
+            joueur.addArgent(loyer);
+            this.aGui.println("Payement effectué avec succes!");
+            this.actualiseArgent();
+        }
+        else{
+            this.aGui.println("Vous n'avez pas assez d'argent,");
+            this.aGui.println("vous pouvez hypothequer une propriete ou declarer faillite.");
+        }
+    }
+
+    private void faillite()
+    {
+
+    }
 }
 

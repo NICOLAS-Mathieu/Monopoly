@@ -10,21 +10,31 @@ public class Case
     // variables d'instance - remplacez l'exemple qui suit par le vôtre
     private int aNumero;
     private String aDescription;
+    private Joueur aProprietaire;
 
     /**
      * Constructeur d'objets de classe Case
      */
-    public Case(final int pNum, final String pDescription)
+    public Case(final int pNum, final String pDescription, Joueur pProprietaire)
     {
         // initialisation des variables d'instance
         this.aNumero = pNum;
         this.aDescription = pDescription;
+        this.aProprietaire= pProprietaire;
     }//Case(.)
 
     public String getDescription() {return this.aDescription;}
     public int getNumero()
     {
-        // Insérez votre code ici
         return this.aNumero;
     }//getNumero()
+
+    public Joueur getProprietaire(){
+        return this.aProprietaire;
+    }
+
+    public void setProprietaire(final Joueur pProprietaire)
+    {
+        this.aProprietaire = pProprietaire;
+    }
 }
