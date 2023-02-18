@@ -390,7 +390,7 @@ public class GameEngine {
     }
 
     /**
-     * Fonction retournant les commandes possibles que le joueur peut effefctuer
+     * Fonction retournant les commandes possibles que le joueur peut effectuer
      */
     private void printHelp()
     {
@@ -404,8 +404,9 @@ public class GameEngine {
         {
             if(pCommand.equals(i+""));
             {
-                this.aGui.println("Propriétées de " + this.aListJoueur.get(i).getNom());
-                ArrayList<Propriete> pro = this.aListJoueur.get(i).getProprietes();
+                Joueur j = this.aListJoueur.get(i);
+                this.aGui.println("Propriétées de " + j.getNom());
+                ArrayList<Propriete> pro = j.getProprietes();
                 for (Propriete p : pro){
                     this.aGui.println(p.getDescription());
                 }
@@ -461,12 +462,12 @@ public class GameEngine {
         Carte vCarteTiree;
         if (this.aCurrentPlayer.getPos()==(2|17|33))
         {
-            vCarteTiree = this.aListCom.poll();
-            this.aListCom.push(vCarteTiree);
+            vCarteTiree = this.aListCom.pollFirst();
+            this.aListCom.addLast(vCarteTiree);
         }
         else {
-            vCarteTiree = this.aListChance.poll();
-            this.aListChance.push(vCarteTiree);
+            vCarteTiree = this.aListChance.pollFirst();
+            this.aListChance.addLast(vCarteTiree);
         }
         this.aGui.println("Vous avez tirée la carte :");
         this.aGui.println(vCarteTiree.getDescription());
@@ -523,14 +524,15 @@ public class GameEngine {
 
     public void actualiseArgent()
     {
-        this.aGui.aSom1.setText(""+aListJoueur.get(0).getArgent());
-        this.aGui.aSom2.setText(""+aListJoueur.get(1).getArgent());
-        this.aGui.aSom3.setText(""+aListJoueur.get(2).getArgent());
-        this.aGui.aSom4.setText(""+aListJoueur.get(3).getArgent());
-        this.aGui.aSom5.setText(""+aListJoueur.get(4).getArgent());
-        this.aGui.aSom6.setText(""+aListJoueur.get(5).getArgent());
-        this.aGui.aSom7.setText(""+aListJoueur.get(6).getArgent());
-        this.aGui.aSom8.setText(""+aListJoueur.get(7).getArgent());
+        int nbJoueur = this.aListJoueur.size();
+        if (nbJoueur >=1 ) {this.aGui.aSom1.setText(""+this.aListJoueur.get(0).getArgent());}
+        if (nbJoueur >=2 ) {this.aGui.aSom2.setText(""+this.aListJoueur.get(1).getArgent());}
+        if (nbJoueur >=3 ) {this.aGui.aSom3.setText(""+this.aListJoueur.get(2).getArgent());}
+        if (nbJoueur >=4 ) {this.aGui.aSom4.setText(""+this.aListJoueur.get(3).getArgent());}
+        if (nbJoueur >=5 ) {this.aGui.aSom5.setText(""+this.aListJoueur.get(4).getArgent());}
+        if (nbJoueur >=6 ) {this.aGui.aSom6.setText(""+this.aListJoueur.get(5).getArgent());}
+        if (nbJoueur >=7 ) {this.aGui.aSom7.setText(""+this.aListJoueur.get(6).getArgent());}
+        if (nbJoueur >=8 ) {this.aGui.aSom8.setText(""+this.aListJoueur.get(7).getArgent());}
     }
 
     private void premierslancer(int NbrLancer)
