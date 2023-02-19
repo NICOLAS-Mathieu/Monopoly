@@ -13,6 +13,7 @@ public class Parser {
     public Command getCommand(final String pInputLine) {
         String vWord1 = null;
         String vWord2 = null;
+        String vWord3 = null;
 
         StringTokenizer vTokenizer = new StringTokenizer(pInputLine);
 
@@ -20,11 +21,14 @@ public class Parser {
             vWord1 = vTokenizer.nextToken();      // recupere le premier mot
             if (vTokenizer.hasMoreTokens()) {
                 vWord2 = vTokenizer.nextToken();  // recupere le deuxieme mot
+                if(vTokenizer.hasMoreTokens()){
+                    vWord3 = vTokenizer.nextToken(); //recupere le deuxieme mot
+                    }
                     // note : on ignore tout le reste de la ligne tapee !
                 }
             } // if
 
-        return new Command(this.aValidCommands.getCommandWord(vWord1), vWord2);
+        return new Command(this.aValidCommands.getCommandWord(vWord1), vWord2, vWord3);
     } // getCommand(.)
 
     /**

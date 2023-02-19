@@ -22,6 +22,12 @@ public class GameEngine {
     private int aTestUnique = 0;
     private ArrayList<Integer> aListGrand;
 
+    private int aPasAcheter = 0;
+    private boolean aPendantEnchere = false;
+
+    private int aMaxEnchere = -1;
+    private Joueur aJoueurEnchere;
+
 
     /**
      * Constructeur pour les objets de la classe GameEngine
@@ -235,8 +241,13 @@ public class GameEngine {
 
         String vWord1 = pCommandLine.getCommandWord().toString();
         String vWord2 = pCommandLine.getSecondWord();
+        String vWord3 = pCommandLine.getThirdWord();
 
         if(vWord2 != null)
+        {
+            this.aGui.println( "> " + vWord1 + " " + vWord2 + " " + vWord3);
+        }
+        else if(vWord2 != null)
         {
             this.aGui.println( "> " + vWord1 + " " + vWord2);
         }
@@ -317,11 +328,19 @@ public class GameEngine {
                 break;
 
             case ACHETER :
-                this.acheter();
+                this.acheter(this.aCurrentPlayer);
                 break;
 
             case DETAIL :
                 this.detail();
+                break;
+
+            case ENCHERE :
+                this.enchere();
+                break;
+
+            case MISER :
+                this.miser(vWord2, vWord3);
                 break;
 
                 //il faut ajouter hypothequer, maison et hotel.
@@ -431,7 +450,7 @@ public class GameEngine {
         }
     }
 
-    private void acheter()
+    private void acheter(Joueur joueurAcheteur)
     {
         int pos = this.aCurrentPlayer.getPos();
         Case currentCase = this.aListCase.get(pos);
@@ -440,14 +459,23 @@ public class GameEngine {
             if (currentCase.getClass().equals(Rue.class) || currentCase.getClass().equals(Gare.class) || currentCase.getClass().equals(Compagnie.class))
             {
                 Propriete vCurrentPropriete = (Propriete) this.aListCase.get(pos);
-                if (this.aCurrentPlayer.getArgent() > vCurrentPropriete.getPrixDeVente())
+                if (joueurAcheteur.getArgent() > vCurrentPropriete.getPrixDeVente())
                 {
-                    this.aCurrentPlayer.addArgent( - vCurrentPropriete.getPrixDeVente());
-                    this.aCurrentPlayer.addPropriete(vCurrentPropriete);
-                    vCurrentPropriete.setProprietaire(this.aCurrentPlayer);
+                    if(aPendantEnchere)
+                    {
+
+                        joueurAcheteur.addArgent( - this.aMaxEnchere);
+                    }
+                    else {
+                        joueurAcheteur.addArgent( - vCurrentPropriete.getPrixDeVente());
+                    }
+                    joueurAcheteur.addPropriete(vCurrentPropriete);
+                    vCurrentPropriete.setProprietaire(joueurAcheteur);
                     this.aGui.println("Achat effectué avec succès !");
                     this.aGui.println("Taper la commande ''passer'' si vous avez fini votre tour.");
                     this.aGui.println("");
+
+                    this.aPasAcheter = 0;
                 }
                 else{
                     this.aGui.println("Vous n'avez pas assez d'argent,");
@@ -519,8 +547,82 @@ public class GameEngine {
 
     private void enchere()
     {
-        //a faire
+        if(this.aPendantEnchere)
+        {
+            if(this.aMaxEnchere == -1)
+            {
+                this.aGui.println("Il faut que quelqu'un mise avant de finir les encheres");
+                return;
+            }
+
+            this.aGui.println("Les Enchères sont close");
+            this.aGui.println(this.aJoueurEnchere.getNom() + " obtient la propriete pour " + this.aMaxEnchere);
+            this.acheter(this.aJoueurEnchere);
+
+            aMaxEnchere = -1;
+            this.aPasAcheter = 0;
+            this.aPendantEnchere = false;
+
+            return;
+
+        }
+
+        this.aGui.println("Que les enchères commence!");
+        this.aGui.println("");
+        this.aGui.println("Pour miser entrer miser, le nom du joueur puis le montant");
+        this.aGui.println("Si vous voulez finir les enchères entrer enchere");
+
+        this.aPendantEnchere = true;
+
+
     }//enchere()
+
+    private void miser(String joueurMise, String mise)
+    {
+        if(this.aPendantEnchere)
+        {
+            int vmise = Integer.parseInt(mise);
+
+            if(vmise <= aMaxEnchere)
+            {
+                this.aGui.println(joueurMise + " ne mise pas assez haut");
+            }
+            else
+            {
+                Joueur vJoueurMise = takejoueurNom(joueurMise);
+
+                if(vJoueurMise.equals(null))
+                {
+                    this.aGui.println("Joueur non reconnue");
+                }
+
+                if(vJoueurMise.getArgent() < vmise)
+                {
+                    this.aGui.println("Vous n'avez pas assez d'argent pour miser");
+                    return;
+                }
+                this.aGui.println(vJoueurMise.getNom() + " vient de miser " + vmise);
+                this.aMaxEnchere = vmise;
+                this.aJoueurEnchere = vJoueurMise;
+            }
+        }
+        else
+        {
+            this.aGui.println("il n'y a pas d'enchère en cours");
+        }
+    }
+
+    private Joueur takejoueurNom(String nomJoueur)
+    {
+        for(int i=0; i<this.aNbActuelJoueur; i++)
+        {
+            if(this.aListJoueur.get(i).getNom().equals(nomJoueur))
+            {
+                return this.aListJoueur.get(i);
+            }
+        }
+        return null;
+    }
 
     private void quitter()
     {
@@ -561,12 +663,19 @@ public class GameEngine {
 
     private void lancer()
     {
+
+        if (this.testEnchere())
+        {
+            return;
+        }
+
         if (!this.aCurrentPlayerPlay && this.aPremiersLancer == 1) //vérifie si le joueur n'a pas déjà lancer ses dés dans son tour
         {
             this.aGui.println("Vous avez déjà lancer les dés pour ce tour là !");
             this.aGui.println("");
             return;
         }
+
 
         De vDe1 = new De();
         De vDe2 = new De();
@@ -739,13 +848,41 @@ public class GameEngine {
         return max;
     }
 
+    private boolean testEnchere()
+    {
+        boolean vTest = false;
+        if(this.aPasAcheter == 1)
+        {
+            if(this.aPendantEnchere)
+            {
+                this.aGui.println("Des Enchères sont en cours");
+                return true;
+            }
+            this.aGui.println("Vous n'avez pas acheté de maison la maison va être mise au enchères");
+
+            this.enchere();
+
+            vTest = true;
+
+        }
+
+        return vTest;
+    }
+
     private void passer()
     {
+        if (this.testEnchere())
+        {
+            return;
+        }
+
         if(this.aCurrentPlayerPlay) //si le joueur a fait de double le prévenir qu'il peut rejouer
         {
             this.aGui.println("Vous aviez fait un double, vous pouvez relancer les dés.");
             this.aGui.println("");
             return;}
+
+
 
         this.aCurrentPlayer.initDouble();
         this.actualiseArgent();
@@ -799,6 +936,8 @@ public class GameEngine {
                 this.aGui.println("ou lancer les enchères.");
                 this.aGui.println("Prix de vente : " + vCurrentRue.getPrixDeVente());
                 this.aGui.println("");
+
+                this.aPasAcheter = 1;
             }
             else {
                 int prixLoyer = vCurrentRue.getLoyer(vCurrentRue.getNbMaisons()+ vCurrentRue.getNbHotel());
@@ -826,6 +965,8 @@ public class GameEngine {
                 this.aGui.println("ou lancer les enchères.");
                 this.aGui.println("Prix de vente : " + vCurrentGare.getPrixDeVente());
                 this.aGui.println("");
+
+                this.aPasAcheter = 1;
             }
             else
             {
@@ -857,6 +998,8 @@ public class GameEngine {
                 this.aGui.println("pouvez l'acheter ou lancer les enchères.");
                 this.aGui.println("Prix de vente : " + vCurrentCompagnie.getPrixDeVente());
                 this.aGui.println("");
+
+                this.aPasAcheter = 1;
             }
             else
             {
