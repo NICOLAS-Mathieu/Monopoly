@@ -12,7 +12,9 @@ public class Joueur
     private int aPos;
     private ArrayList<Propriete> aProprietes;
     private int aDouble;
-    private int aIsPrison;
+    private boolean aIsPrison;
+    private ArrayList aCartefreePrison;
+    private boolean aFaillite;
     
     /**
      * Constructeur d'objets de classe Joueur
@@ -25,7 +27,9 @@ public class Joueur
         this.aNom = pNom;
         this.aProprietes = new ArrayList<Propriete>();
         this.aDouble=0;
-        this.aIsPrison=0;
+        this.aIsPrison=false;
+        this.aCartefreePrison=new ArrayList();
+        this.aFaillite=false;
     }
 
     public String getNom(){return this.aNom;}
@@ -46,12 +50,6 @@ public class Joueur
     public int getArgent() {return this.aArgent;}
     //getArgent()
 
-
-    /**
-     * @return le pion qui représente le joueur.
-     */
-    //public Pion getPion(){return this.aPion;}
-    //getPion()
 
     /**
      * @return la liste des proprietes du joueur.
@@ -135,14 +133,38 @@ public class Joueur
      */
     public void goPrison(){
         this.setPos(10);
-        this.aIsPrison=1;
+        this.aIsPrison=true;
     }
 
     public void outPrison(){
-        this.aIsPrison=0;
+        this.aIsPrison=false;
     }
 
-    public int IsPrison(){
+    public boolean IsPrison(){
         return this.aIsPrison;
+    }
+
+    public void addCarteFreePrison(final int pNum) { this.aCartefreePrison.add(pNum);}
+
+    public void supCarteFreePrison() { this.aCartefreePrison.remove(0);}
+
+    public int getCarteFreePrison() { return this.aCartefreePrison;}
+
+    public boolean getFaillite() { return this.aFaillite;}
+
+    public void removePropriete() { this.aProprietes.remove(0);}
+
+    public ArrayList<Propriete> setFailliteJoueur()
+    {
+        ArrayList<Propriete> vListPropriete = aProprietes;
+
+        this.aArgent = -1;
+        this.aFaillite = true;
+        while(!aProprietes.isEmpty())
+        {
+            this.removePropriete();
+        }
+
+        return vListPropriete;
     }
 }

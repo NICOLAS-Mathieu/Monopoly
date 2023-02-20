@@ -271,7 +271,7 @@ public class GameEngine {
         String vWord2 = pCommandLine.getSecondWord();
         String vWord3 = pCommandLine.getThirdWord();
 
-        if(vWord2 != null)
+        if(vWord3 != null)
         {
             this.aGui.println( "> " + vWord1 + " " + vWord2 + " " + vWord3);
         }
@@ -506,11 +506,11 @@ public class GameEngine {
 
     private void proprieteSelect(final String pCommand)
     {
-        for(int i=0; i<this.aNbActuelJoueur; i++)
+        for(int i=1; i<this.aNbActuelJoueur+1; i++)
         {
-            if(pCommand.equals(i+""));
+            if(pCommand.equals(i+""))
             {
-                Joueur j = this.aListJoueur.get(i);
+                Joueur j = this.aListJoueur.get(i-1);
                 this.aGui.println("Propriétées de " + j.getNom());
                 ArrayList<Propriete> pro = j.getProprietes();
                 for (Propriete p : pro){
@@ -721,21 +721,169 @@ public class GameEngine {
             this.aGui.println(vCarteTiree.getDescription());
             this.aGui.println("");
 
-        if (vCarteTiree.getAction()==0)
-        {
-            if (vCarteTiree.getDeplacement()>=0)
-            {
-                this.aCurrentPlayer.setPos(vCarteTiree.getDeplacement());
-                this.aGui.println("Vous avez été déplacé sur la case "+this.aListCase.get(vCarteTiree.getDeplacement()).getDescription());
-                if (vCarteTiree.getDeplacement()==0){this.aCurrentPlayer.addArgent(200);}
+            if (vCarteTiree.getAction() == 0) {
+                if (vCarteTiree.getDeplacement() != -1) {
+                    this.aCurrentPlayer.setPos(vCarteTiree.getDeplacement());
+                    this.aGui.println("Vous avez été déplacé sur la case " + this.aListCase.get(vCarteTiree.getDeplacement()).getDescription());
+                    if (vCarteTiree.getDeplacement() == 0) {
+                        this.aCurrentPlayer.addArgent(200);
+                    }
+                    this.descriptionPos();
+                } else {
+                    if (this.aCurrentPlayer.getArgent() > -vCarteTiree.getPrix()) {
+                        this.aCurrentPlayer.addArgent(vCarteTiree.getPrix());
+                        this.aGui.println("Transaction effectuée avec succès!");
+                        this.aGui.println("");
+                        this.actualiseArgent();
+                        if (!this.aCurrentPlayerPlay) //le joueur n'a pas fait de double et ne peut pas rejouer
+                        {
+                            this.passer();
+                        }
+                        if (vCarteTiree.getPrix() < 0) {
+                            this.aArgentCentral += -vCarteTiree.getPrix();
+                            this.aGui.aCagnotte.setText("Cagnotte = " + this.aArgentCentral);
+                        }
+                    } else {
+                        if(compteFaillite(aCurrentPlayer) < -vCarteTiree.getPrix())
+                        {
+                            faillite(aCurrentPlayer);
+                            return;
+                        }
+                        this.pasAssezArgent();
+                    }
+                }
             }
-            else
-            {
-                //a continuer
+            //imposé pour les réparations de voirie à raison de 40€ par maison et 115€ par hotêl
+            if (vCarteTiree.getAction() == 1) {
+                int vNbMaison = this.getNbMaisonPlayer(this.aCurrentPlayer);
+                int vPrixMaison = 40 * vNbMaison;
+                int vNbHotel = this.getNbHotelPlayer(this.aCurrentPlayer);
+                int vPrixHotel = 115 * vNbHotel;
+                int vPrix = vPrixHotel + vPrixMaison;
+                if (this.aCurrentPlayer.getArgent() > vPrix) {
+                    this.aCurrentPlayer.addArgent(-vPrix);
+                    this.aGui.println("Transaction effectuée avec succès!");
+                    this.aGui.println("");
+                    this.actualiseArgent();
+                    this.aArgentCentral += vPrix;
+                    this.aGui.aCagnotte.setText("Cagnotte = " + this.aArgentCentral);
+                    if (!this.aCurrentPlayerPlay) //le joueur n'a pas fait de double et ne peut pas rejouer
+                    {
+                        this.passer();
+                    }
+                } else {
+                    if(compteFaillite(aCurrentPlayer) < vPrix)
+                    {
+                        faillite(aCurrentPlayer);
+                        return;
+                    }
+                    this.pasAssezArgent();
+                }
             }
+            //Vous êtes libéré de prison
+            if (vCarteTiree.getAction() == 2 | vCarteTiree.getAction() == 6) {
+                this.aCurrentPlayer.addCarteFreePrison(vCarteTiree.getAction());
+                this.aGui.println("Votre carte est mise de coté et pourra etre utilisée");
+                this.aGui.println("automatiquement si vous allez en prison.");
+            }
+            //Reculez de trois cases
+            if (vCarteTiree.getAction() == 3) {
+                int vNewPos = this.aCurrentPlayer.getPos() - 3;
+                if (vNewPos < 0) {
+                    vNewPos += 40;
+                }
+                this.aCurrentPlayer.setPos(vNewPos);
+                this.descriptionPos();
+            }
+            //Allez en prison
+            if (vCarteTiree.getAction() == 4 | vCarteTiree.getAction() == 7) {
+                this.aCurrentPlayer.goPrison();
+                this.aGui.println("Vous etes en prison");
+                this.aGui.println("");
+                if (this.aCurrentPlayer.getCarteFreePrison() > 0) {
+                    this.aGui.println("Vous avez une carte 'sortie de prison',");
+                    this.aGui.println("la carte a été utilisé, vous etes donc libre.");
+                    this.aGui.println("");
+                    this.aCurrentPlayer.outPrison();
+                    this.aCurrentPlayer.supCarteFreePrison();
+                    this.aGui.println("Si vous avez terminé, vous pouvez passer votre tour.");
+                    this.aGui.println("");
+                } else {
+                    this.aGui.println("Vous ne pouvez plus jouer, vous passez votre tour.");
+                    this.aGui.println("");
+                    this.passer();
+                }
+            }
+            //Versez pour chaque maison 25€. Versez pour chaque hôtel 100€
+            if (vCarteTiree.getAction() == 5)
+            {
+                int vNbMaison = this.getNbMaisonPlayer(this.aCurrentPlayer);
+                int vNbHotel = this.getNbHotelPlayer(this.aCurrentPlayer);
+                int vPrix = 25 * vNbMaison + 100 * vNbHotel;
+                if (this.aCurrentPlayer.getArgent() > vPrix) {
+                    this.aCurrentPlayer.addArgent(-vPrix);
+                    this.aGui.println("Transaction effectuée avec succès!");
+                    this.aGui.println("");
+                    this.actualiseArgent();
+                    this.aArgentCentral += vPrix;
+                    this.aGui.aCagnotte.setText("Cagnotte = " + this.aArgentCentral);
+                    if (!this.aCurrentPlayerPlay) //le joueur n'a pas fait de double et ne peut pas rejouer
+                    {
+                        this.passer();
+                    }
+                } else {
+                    if(compteFaillite(aCurrentPlayer) < vPrix)
+                    {
+                        faillite(aCurrentPlayer);
+                        return;
+                    }
+                    this.pasAssezArgent();
+                }
+            }
+        }
+        else{
+            this.aGui.println("Vous ne pouvez pas piocher de carte.");
+            this.aGui.println("");
         }
 
     }//carte()
+
+    public int getNbMaisonPlayer(Joueur pJoueur)
+    {
+        int vNbMaison = 0;
+        ArrayList<Propriete> pro = pJoueur.getProprietes();
+        for (Propriete vCurrentPropriete : pro){
+            if(vCurrentPropriete.getClass().equals(Rue.class))
+            {
+                Rue vCurrentPro = (Rue)vCurrentPropriete;
+                vNbMaison += vCurrentPro.getNbMaisons();
+            }
+        }
+        return vNbMaison;
+    }
+
+    public int getNbHotelPlayer(Joueur pJoueur)
+    {
+        int vNbHotel = 0;
+        ArrayList<Propriete> pro = pJoueur.getProprietes();
+        for (Propriete vCurrentPropriete : pro){
+            if(vCurrentPropriete.getClass().equals(Rue.class))
+            {
+                Rue vCurrentPro = (Rue)vCurrentPropriete;
+                vNbHotel += vCurrentPro.getNbHotel();
+            }
+        }
+        return vNbHotel;
+    }
+
+    public void pasAssezArgent()
+    {
+        this.aGui.println("Vous n'avez pas assez d'argent,");
+        this.aGui.println("vous pouvez hypothèquer une propriété, ou revendre vos maison ou déclarer faillite.");
+        this.aGui.println("");
+
+        this.aPasAssez = true;
+    }
 
     private void lancer()
     {
@@ -779,7 +927,7 @@ public class GameEngine {
         {
             this.aCurrentPlayer.setDouble();
             this.aGui.println("Vous avez fait un double, vous pourrez rejouer !");
-            if (this.aCurrentPlayer.IsPrison()==1){
+            if (this.aCurrentPlayer.IsPrison()==true){
                 this.aCurrentPlayer.outPrison();
             }
             this.aCurrentPlayerPlay = true;
@@ -787,8 +935,20 @@ public class GameEngine {
         if (this.aCurrentPlayer.getDouble() == 3){
             this.aGui.println("Dommage, vous avez fait des doubles 3 fois de suite,");
             this.aGui.println("Vous allez en prison.");
+            this.aGui.println("");
             this.aCurrentPlayer.goPrison();
-            return;
+            if(this.aCurrentPlayer.getCarteFreePrison()>0)
+            {
+                this.aGui.println("Vous avez une carte 'sortie de prison',");
+                this.aGui.println("la carte a été utilisé, vous etes donc libre.");
+                this.aGui.println("");
+                this.aCurrentPlayer.outPrison();
+                this.aCurrentPlayer.supCarteFreePrison();
+            }
+            else
+            {
+                return;
+            }
         }
         this.avancer();
         this.descriptionPos();
@@ -796,7 +956,8 @@ public class GameEngine {
 
     public void avancer()
     {
-        if (this.aCurrentPlayer.IsPrison()==0) {
+        if (this.aCurrentPlayer.IsPrison() == false)
+        {
             this.aCurrentPlayer.ajoutePos(this.aNBlancer);
             int pos = this.aCurrentPlayer.getPos();
             if ( pos >= 40)
@@ -810,6 +971,7 @@ public class GameEngine {
         else
         {
             this.aGui.println("Vous etes en prison vous ne pouvez pas avancer.");
+            this.aGui.println("");
         }
     }//avancer()
 
@@ -957,7 +1119,7 @@ public class GameEngine {
         return vTest;
     }
 
-    private void passer()
+    public void passer()
     {
         if(aPasAssez)
         {
@@ -1047,7 +1209,11 @@ public class GameEngine {
             }
             //S'il y a un propriétaire
             else {
-                int prixLoyer = vCurrentRue.getLoyer(vCurrentRue.getNbMaisons()+ vCurrentRue.getNbHotel());
+                int vNbMaison = vCurrentRue.getNbMaisons();
+                int vNbHotel = vCurrentRue.getNbHotel();
+                int vPrixLoyer = 0;
+                if (vNbHotel==0) {vPrixLoyer = vCurrentRue.getLoyer(vNbMaison);}
+                else { vPrixLoyer = vCurrentRue.getLoyer(4); }
                 Joueur j = vCurrentRue.getProprietaire();
                 //La propriété appartient au CurrentPlayer
                 if (j.getNom().equals(this.aCurrentPlayer.getNom())){
@@ -1059,8 +1225,8 @@ public class GameEngine {
                 }
                 //La propriété appartient à un autre joueur
                 else {
-                    this.aGui.println("Vous devez payer un loyer de "+prixLoyer+" à "+j.getNom());
-                    this.payer(prixLoyer,j);
+                    this.aGui.println("Vous devez payer un loyer de "+vPrixLoyer+" à "+j.getNom());
+                    this.payer(vPrixLoyer,j);
                 }
             }
         }
@@ -1155,8 +1321,12 @@ public class GameEngine {
             }
             else
             {
-                this.aGui.println("Vous n'avez pas assez d'argent,");
-                this.aGui.println("vous pouvez hypothèquer une propriété ou déclarer faillite.");
+                if(compteFaillite(aCurrentPlayer) < vPrix)
+                {
+                    faillite(aCurrentPlayer);
+                    return;
+                }
+                this.pasAssezArgent();
             }
         }
 
@@ -1208,9 +1378,12 @@ public class GameEngine {
             { this.passer();}
         }
         else{
-            this.aGui.println("Vous n'avez pas assez d'argent,");
-            this.aGui.println("vous pouvez hypothèquer une propriété ou déclarer faillite.");
-            this.aGui.println("");
+            if(compteFaillite(aCurrentPlayer) < loyer)
+            {
+                faillite(aCurrentPlayer);
+                return;
+            }
+            this.pasAssezArgent();
         }
     }//payer()
 

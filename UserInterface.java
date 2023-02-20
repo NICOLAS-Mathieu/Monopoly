@@ -46,6 +46,7 @@ public class UserInterface implements ActionListener
     public JTextArea  aSom8;
     private JTextArea  aNbDe;
     public JTextArea  aJoueur;
+    public JTextArea  aCagnotte;
 
 
     /**
@@ -164,6 +165,7 @@ public class UserInterface implements ActionListener
         this.aSom8 = new JTextArea("150000");
         this.aNbDe = new JTextArea("0");
         this.aJoueur = new JTextArea("Joueur1");
+        this.aCagnotte = new JTextArea("Cagnotte");
 
         this.aNom1.setBackground(Color.PINK);
         this.aNom2.setBackground(Color.BLUE);
@@ -272,6 +274,7 @@ public class UserInterface implements ActionListener
         vPanel_Gauche2.add( this.aB_help, BorderLayout.WEST);
         vPanel_Gauche2.add( this.aB_carte, BorderLayout.EAST);
         vPanel_Gauche2.add( this.aJoueur, BorderLayout.NORTH);
+        vPanel_Gauche2.add( this.aCagnotte, BorderLayout.SOUTH);
 
         vPanel_Bas1.add( this.aNom1, BorderLayout.NORTH);
         vPanel_Bas2.add( this.aNom2, BorderLayout.NORTH);
