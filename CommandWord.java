@@ -13,7 +13,8 @@ public enum CommandWord
     CARTE("carte"), PROPRIETE("propriete"), UNKNOWN("?"),
     ACHETER("acheter"), VENDRE("vendre"), JOUEUR("joueur"), 
     START("start"), PASSER("passer"), DETAIL("detail"),
-    ENCHERE("enchere"), MISER("miser");
+    ENCHERE("enchere"), MISER("miser"), MAISON("maison"),
+    HOTEL("hotel");
 
     //Le mot de commande.
     private String aCommandWord;

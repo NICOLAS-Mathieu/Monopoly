@@ -21,10 +21,8 @@ public class GameEngine {
 
     private int aTestUnique = 0;
     private ArrayList<Integer> aListGrand;
-
     private int aPasAcheter = 0;
     private boolean aPendantEnchere = false;
-
     private int aMaxEnchere = -1;
     private Joueur aJoueurEnchere;
 
@@ -40,6 +38,8 @@ public class GameEngine {
         this.aListJoueur = new ArrayList<Joueur>();
         this.aListLancer = new ArrayList<Integer>();
         this.aListGrand = new ArrayList<Integer>();
+        this.aNbTotalMaison = 32;
+        this.aNbTotalHotel = 12;
 
     }//GameEngine()
 
@@ -59,6 +59,33 @@ public class GameEngine {
     public Parser getParser() { return this.aParser; } //getParser()
 
     public int getLancer() {return this.aNBlancer;}
+
+
+    /**
+     * @return si le aCurrentPlayer possède le monopole sur lequel il se trouve
+     */
+    public boolean getMonopole()
+    {
+        boolean vMonopole = false;
+        int vPos = this.aCurrentPlayer.getPos();
+        Rue vCurrentRue = (Rue) this.aListCase.get(vPos);
+        String vRueCouleur = vCurrentRue.getCouleur();
+
+        for(int i = 0; i < 39 ; i++)
+        {
+            if(this.aListCase.get(i).getClass().equals(Rue.class)) //Regarde seulement les Rues
+            {
+                Rue vRue = (Rue) this.aListCase.get(i);
+                //Regarde si le CurrentPlayer possède le monopole avant de construire
+                if(vRue.getProprietaire() == this.aCurrentPlayer && vRue.getCouleur().equalsIgnoreCase(vRueCouleur))
+                {
+                    vMonopole = true;
+                }
+                else { vMonopole = false;}
+            }
+        }
+        return vMonopole;
+    }
 
     /**
      * Affichage du message d'acceuil au joueur.
@@ -230,7 +257,6 @@ public class GameEngine {
     }//createCarte
 
 
-
     /**
      * Exécute la commande donné
      * @return true Si la commande termine le jeu, false dans le cas contraire.
@@ -265,7 +291,10 @@ public class GameEngine {
                 break;
 
             case HELP :
-                this.printHelp();
+                if ( pCommandLine.hasThirdWord() ) {this.thirdWord();}
+                else if ( pCommandLine.hasSecondWord() ) {this.secondWord();}
+                else {
+                    this.printHelp(); }
                 break;
 
             case QUITTER :
@@ -278,16 +307,23 @@ public class GameEngine {
                 break;
 
             case LANCER :
-                this.lancer();
+                if ( pCommandLine.hasThirdWord() ) {this.thirdWord();}
+                else if ( pCommandLine.hasSecondWord() ) {this.secondWord();}
+                else {
+                    this.lancer();}
                 break;
 
             case CARTE :
-                this.carte();
+                if ( pCommandLine.hasThirdWord() ) {this.thirdWord();}
+                else if ( pCommandLine.hasSecondWord() ) {this.secondWord();}
+                else {
+                    this.carte();}
                 break;
 
             case PROPRIETE :
-                if ( pCommandLine.hasSecondWord() )
+                if ( pCommandLine.hasSecondWord() ){
                     this.proprieteSelect(vWord2);
+                }
                 else
                 {
                     this.aGui.println( "Quelle propriété ?" );
@@ -306,48 +342,81 @@ public class GameEngine {
                 break;
 
             case START :
-                if(!pCommandLine.hasSecondWord())
-                {
-                    this.start();
-                }
-                else
-                {
-                    this.aGui.println("start ne prend pas de second mot");
-                }
+                if ( pCommandLine.hasThirdWord() ) {this.thirdWord();}
+                else if ( pCommandLine.hasSecondWord() ) {this.secondWord();}
+                else {
+                    this.start();}
                 break;
 
             case PASSER :
-                if(!pCommandLine.hasSecondWord())
-                {
-                    this.passer();
-                }
-                else
-                {
-                    this.aGui.println("passer ne prend pas de second mot");
-                }
+                if ( pCommandLine.hasThirdWord() ) {this.thirdWord();}
+                else if ( pCommandLine.hasSecondWord() ) {this.secondWord();}
+                else {
+                    this.passer();}
                 break;
 
             case ACHETER :
-                this.acheter(this.aCurrentPlayer);
+                if ( pCommandLine.hasThirdWord() ) {this.thirdWord();}
+                else if ( pCommandLine.hasSecondWord() ) {this.secondWord();}
+                else {
+                    this.acheter(this.aCurrentPlayer);}
                 break;
 
             case DETAIL :
-                this.detail();
+                if ( pCommandLine.hasThirdWord() ) {this.thirdWord();}
+                else if ( pCommandLine.hasSecondWord() ) {this.secondWord();}
+                else {
+                    this.detail();}
                 break;
 
             case ENCHERE :
-                this.enchere();
+                if ( pCommandLine.hasThirdWord() ) {this.thirdWord();}
+                else if ( pCommandLine.hasSecondWord() ) {this.secondWord();}
+                else {
+                    this.enchere();}
                 break;
 
             case MISER :
                 this.miser(vWord2, vWord3);
                 break;
 
-                //il faut ajouter hypothequer, maison et hotel.
+            case MAISON :
+                if ( pCommandLine.hasThirdWord() ) {this.thirdWord();}
+                if(pCommandLine.hasSecondWord())
+                {
+                    this.maison(vWord2);
+                }
+                else
+                {
+                    this.aGui.println("Vous devez entrer le nombre de maison souhaitée,");
+                    this.aGui.println("Exemple : ''maison 2''.");
+                    this.aGui.println("");
+                }
+                break;
+
+            case HOTEL :
+                if ( pCommandLine.hasThirdWord() ) {this.thirdWord();}
+                else if ( pCommandLine.hasSecondWord() ) {this.secondWord();}
+                else {
+                    this.hotel();}
+                break;
+                //il faut ajouter hypothequer
         }
 
 
     }//interpretCommand(.)
+
+    private void secondWord()
+    {
+        this.aGui.println("Cette commande ne prend pas de second mot");
+        this.aGui.println("");
+    }
+
+    private void thirdWord()
+    {
+        this.aGui.println("Cette commande ne prend pas de troisième mot");
+        this.aGui.println("");
+    }
 
     private void start()
     {
@@ -500,7 +569,7 @@ public class GameEngine {
         Case vCurrentCase = this.aListCase.get(pos);
         if (vCurrentCase.getClass().equals(Rue.class) || vCurrentCase.getClass().equals(Gare.class) || vCurrentCase.getClass().equals(Compagnie.class))
         {
-            Rue vCurrentPropriete = (Rue) this.aListCase.get(pos);
+            Propriete vCurrentPropriete = (Propriete) this.aListCase.get(pos);
             this.aGui.println("Loyer : " + vCurrentPropriete.getLoyer(0));
 
             if (vCurrentCase.getClass().equals(Rue.class)) {
@@ -551,12 +620,12 @@ public class GameEngine {
         {
             if(this.aMaxEnchere == -1)
             {
-                this.aGui.println("Il faut que quelqu'un mise avant de finir les encheres");
+                this.aGui.println("Il faut que quelqu'un mise avant de finir les enchères");
                 return;
             }
 
-            this.aGui.println("Les Enchères sont close");
-            this.aGui.println(this.aJoueurEnchere.getNom() + " obtient la propriete pour " + this.aMaxEnchere);
+            this.aGui.println("Les Enchères sont closes");
+            this.aGui.println(this.aJoueurEnchere.getNom() + " obtient la propriété pour " + this.aMaxEnchere);
             this.acheter(this.aJoueurEnchere);
 
             aMaxEnchere = -1;
@@ -567,10 +636,10 @@ public class GameEngine {
 
         }
 
-        this.aGui.println("Que les enchères commence!");
+        this.aGui.println("Que les enchères commencent!");
         this.aGui.println("");
-        this.aGui.println("Pour miser entrer miser, le nom du joueur puis le montant");
-        this.aGui.println("Si vous voulez finir les enchères entrer enchere");
+        this.aGui.println("Pour miser, entrez ''miser'' + le nom du joueur + le montant");
+        this.aGui.println("Si vous voulez finir les enchères entrer ''enchere''");
 
         this.aPendantEnchere = true;
 
@@ -608,7 +677,7 @@ public class GameEngine {
         }
         else
         {
-            this.aGui.println("il n'y a pas d'enchère en cours");
+            this.aGui.println("il n'y a pas d'enchères en cours");
         }
     }
 
@@ -632,18 +701,21 @@ public class GameEngine {
 
     private void carte()
     {
-        Carte vCarteTiree;
-        if (this.aCurrentPlayer.getPos()==(2|17|33))
+        if (this.aCurrentPlayer.getPos()==(2|17|33|7|22|36))
         {
-            vCarteTiree = this.aListCom.pollFirst();
-            this.aListCom.addLast(vCarteTiree);
-        }
-        else {
-            vCarteTiree = this.aListChance.pollFirst();
-            this.aListChance.addLast(vCarteTiree);
-        }
-        this.aGui.println("Vous avez tiré la carte :");
-        this.aGui.println(vCarteTiree.getDescription());
+            Carte vCarteTiree;
+            if (this.aCurrentPlayer.getPos() == (2 | 17 | 33)) {
+                vCarteTiree = this.aListCom.pollFirst();
+                if (vCarteTiree.getAction() != 6) this.aListCom.addLast(vCarteTiree);
+                this.aGui.println("Vous avez pioché une carte communauté.");
+            } else {
+                vCarteTiree = this.aListChance.pollFirst();
+                if (vCarteTiree.getAction() != 2) this.aListChance.addLast(vCarteTiree);
+                this.aGui.println("Vous avez pioché une carte chance.");
+            }
+            this.aGui.println("Vous avez tiré la carte :");
+            this.aGui.println(vCarteTiree.getDescription());
+            this.aGui.println("");
 
         if (vCarteTiree.getAction()==0)
         {
@@ -858,7 +930,9 @@ public class GameEngine {
                 this.aGui.println("Des Enchères sont en cours");
                 return true;
             }
-            this.aGui.println("Vous n'avez pas acheté de maison la maison va être mise au enchères");
+            this.aGui.println("Vous n'avez pas acheté la prorpiété : ");
+            this.aGui.println(this.aListCase.get(this.aCurrentPlayer.getPos()).getDescription());
+            this.aGui.println("Elle va donc être mise aux enchères");
 
             this.enchere();
 
@@ -930,6 +1004,8 @@ public class GameEngine {
         if (vCurrentCase.getClass().equals(Rue.class))
         {
             Rue vCurrentRue = (Rue) this.aListCase.get(pos);
+
+            //Il n'y a pas de propriétaire
             if (vCurrentRue.getProprietaire() == null)
             {
                 this.aGui.println("Cette proprietée n'appartient à personne, vous pouvez l'acheter");
@@ -939,15 +1015,19 @@ public class GameEngine {
 
                 this.aPasAcheter = 1;
             }
+            //S'il y a un propriétaire
             else {
                 int prixLoyer = vCurrentRue.getLoyer(vCurrentRue.getNbMaisons()+ vCurrentRue.getNbHotel());
                 Joueur j = vCurrentRue.getProprietaire();
+                //La propriété appartient au CurrentPlayer
                 if (j.getNom().equals(this.aCurrentPlayer.getNom())){
                     this.aGui.println("Cette proprietée vous appartient.");
-                    this.aGui.println("Vous pouvez y ajouter une maison ou un hotel,");
+                    this.aGui.println("Vous pouvez y ajouter une maison ou un hôtel,");
+                    this.aGui.println("avec les commandes ''maison'' + nombre de maison souhaitée et ''hotel'',");
                     this.aGui.println("ou vous pouvez passer votre tour.");
                     this.aGui.println("");
                 }
+                //La propriété appartient à un autre joueur
                 else {
                     this.aGui.println("Vous devez payer un loyer de "+prixLoyer+" à "+j.getNom());
                     this.payer(prixLoyer,j);
@@ -959,6 +1039,8 @@ public class GameEngine {
         if (vCurrentCase.getClass().equals(Gare.class))
         {
             Gare vCurrentGare = (Gare) this.aListCase.get(pos);
+
+            //Il n'y a pas de propriétaire
             if (vCurrentGare.getProprietaire() == null)
             {
                 this.aGui.println("Cette gare n'appartient à personne, vous pouvez l'acheter");
@@ -968,6 +1050,7 @@ public class GameEngine {
 
                 this.aPasAcheter = 1;
             }
+            //S'il y a un propriétaire
             else
             {
                 Joueur vProprio = vCurrentGare.getProprietaire();
@@ -992,6 +1075,8 @@ public class GameEngine {
         if (vCurrentCase.getClass().equals(Compagnie.class))
         {
             Compagnie vCurrentCompagnie = (Compagnie) this.aListCase.get(pos);
+
+            //Il n'y a pas de propriétaire
             if (vCurrentCompagnie.getProprietaire() == null)
             {
                 this.aGui.println("Cette compagnie de distribution n'appartient à personne, vous");
@@ -1001,6 +1086,7 @@ public class GameEngine {
 
                 this.aPasAcheter = 1;
             }
+            //S'il y a un propriétaire
             else
             {
                 Joueur vProprio = vCurrentCompagnie.getProprietaire();
@@ -1066,7 +1152,7 @@ public class GameEngine {
 
     }//descriptionPos()
 
-    public void payer(int loyer, Joueur joueur)
+    public void payer(final int loyer, final Joueur joueur)
     {
         if (this.aCurrentPlayer.getArgent() > loyer)
         {
@@ -1085,7 +1171,152 @@ public class GameEngine {
         }
     }//payer()
 
-    private void faillite()
+    public void maison(final String pNbAddMaison)
+    {
+        int vNbAddMaison = Integer.parseInt(pNbAddMaison);
+        int vPos = this.aCurrentPlayer.getPos();
+        Case vCurrentCase = this.aListCase.get(vPos);
+
+        if (vCurrentCase.getClass().equals(Rue.class))
+        {
+            Rue vCurrentRue = (Rue) this.aListCase.get(vPos);
+            //Regarde si le joueur possède le monopole
+            if (this.getMonopole())
+            {
+                int vNbMaison = vCurrentRue.getNbMaisons();
+                if (vNbMaison + vNbAddMaison > 4)
+                {
+                    this.aGui.println("Le nombre de Maison sur une propriété est limité à 4.");
+                    this.aGui.println("");
+                    return;
+                }
+                //Regarde si le CurrentPlayer possède l'argent pour constuire la/les maison(s)
+                if (this.aCurrentPlayer.getArgent() >= vNbAddMaison * vCurrentRue.getPrixConstruction())
+                {
+
+                    //Regarde si on ne se trouve pas dans une crise du bâtiment
+                    if (this.aNbTotalMaison - vNbAddMaison >= 0) {
+                        vCurrentRue.addMaison(vNbAddMaison);
+                        this.aNbTotalMaison -= vNbAddMaison;
+                        this.aCurrentPlayer.addArgent(-vNbAddMaison * vCurrentRue.getPrixConstruction());
+
+                        if (vNbMaison == 1) {
+                            this.aGui.println(vNbAddMaison + "Maison vient d'être construite sur :");
+                        } else {
+                            this.aGui.println(vNbAddMaison + "Maisons viennent d'être construites sur :");
+                        }
+                        this.aGui.println(vCurrentRue.getDescription());
+                        this.aGui.println("");
+                        this.passer();
+                    }
+                    else {
+                        this.aGui.println("Nous sommes dans une crise du bâtiment !");
+                        this.aGui.println("Il ne reste plus que " + this.aNbTotalMaison + " Maison(s).");
+                    }
+                }
+                else {
+                    this.aGui.println("Vous ne possèdez pas assez d'argent pour construire cette/ces Maison(s).");
+                }
+            }
+            else {
+                this.aGui.println("Vous ne possèdez pas ce monopole.");
+            }
+        }
+        else {
+            this.aGui.println("Vous ne pouvez construire des Maisons que sur des rues.");
+        }
+        this.aGui.println("");
+    }//maison()
+
+    public void hotel()
+    {
+        int vPos = this.aCurrentPlayer.getPos();
+        Case vCurrentCase = this.aListCase.get(vPos);
+
+        if (vCurrentCase.getClass().equals(Rue.class))
+        {
+            Rue vCurrentRue = (Rue) this.aListCase.get(vPos);
+            //Regarde si le joueur possède le monopole
+            if (this.getMonopole()) {
+
+                //Regarde s'il y a déjà un hôtel sur cette rue
+                if(vCurrentRue.getNbHotel() == 0){
+
+                    //Regarde s'il y a 4 maisons sur la rue
+                    if(vCurrentRue.getNbMaisons() == 4) {
+
+                        //Regarde si le CurrentPlayer possède l'argent pour construire l'hôtel
+                        if (this.aCurrentPlayer.getArgent() >= vCurrentRue.getPrixConstruction()) {
+
+                            //Regarde si on ne se trouve pas dans une crise du bâtiment
+                            if (this.aNbTotalMaison >= 1) {
+                                vCurrentRue.addMaison(-4);
+                                this.aNbTotalMaison -= 4;
+                                vCurrentRue.addHotel();
+                                this.aNbTotalHotel -= 1;
+                                this.aCurrentPlayer.addArgent(-vCurrentRue.getPrixConstruction());
+                                this.aGui.println("Un Hôtel vient d'être construit sur : ");
+                                this.aGui.println(vCurrentRue.getDescription());
+                                this.aGui.println("");
+                                this.passer();
+                            }
+                            else {
+                                this.aGui.println("Nous sommes dans une crise du bâtiment !");
+                                this.aGui.println("Il ne reste plus d'Hôtel.");
+                            }
+                        }
+                        else {
+                            this.aGui.println("Vous ne possèdez pas assez d'argent pour construire un Hôtel.");
+                        }
+                    }
+                    else {
+                        this.aGui.println("Pour construire un Hôtel sur une rue, elle doit déjà possèder 4 maisons.");
+                    }
+                }
+                else{
+                    this.aGui.println("Il y a déjà un Hôtel sur cette rue.");
+                }
+            }
+            else {
+                this.aGui.println("Vous ne possèdez pas ce monopole.");
+            }
+        }
+        else {
+            this.aGui.println("Vous ne pouvez construire un Hôtel que sur des rues.");
+        }
+        this.aGui.println("");
+    }//hotel()
+
+    private int compteFaillite(Joueur pJoueurFaillite)
+    {
+        int vCapitalJoueur = 0;
+
+        vCapitalJoueur+= pJoueurFaillite.getArgent();
+
+
+        int vNbMaison = 0;
+        int vNbHotel  = 0;
+
+        ArrayList<Propriete> pro = pJoueurFaillite.getProprietes();
+
+        for (Propriete vCurrentPropriete : pro){
+            if(vCurrentPropriete.getClass().equals(Rue.class))
+            {
+                Rue vCurrentPro = (Rue)vCurrentPropriete;
+
+                vNbMaison = vCurrentPro.getNbMaisons();
+                vNbHotel = vCurrentPro.getNbHotel();
+
+                vCapitalJoueur+= vNbMaison*vCurrentPro.getPrixConstruction() + vNbHotel*vCurrentPro.getPrixConstruction();
+                vCapitalJoueur+= vCurrentPro.getPrixDeVente();
+            }
+        }
+
+
+        return vCapitalJoueur;
+    }
+
+    private void faillite(Joueur pJoueurFaillite)
     {
         //a faire
     }//faillite()

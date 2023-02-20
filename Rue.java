@@ -42,17 +42,19 @@ public class Rue extends Propriete
     }
 
     public int getPrixConstruction() {return this.aPrixConstruction;}
+
+    public String getCouleur() {return this.aCouleur;}
     
     /**
      * Setteurs
      */
-    public void setNbMaisons(final int pNbMaisons)
+    public void addMaison(final int pNbMaisons)
     {
-        this.aNbMaisons = pNbMaisons;
+        this.aNbMaisons += pNbMaisons;
     }
     
-    public void setNbHotels(final int pNbHotels)
+    public void addHotel()
     {
-        this.aNbHotels = pNbHotels;
+        this.aNbHotels++;
     }
 }
