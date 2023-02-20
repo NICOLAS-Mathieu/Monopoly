@@ -1,0 +1,29 @@
+joueur 1
+joueur 2
+start
+lancerTest 6 1
+lancerTest 1 1
+lancerTest 37 0
+detail
+acheter
+passer
+lancerTest 1 0
+acheter
+passer
+lancerTest 2 0
+acheter
+maison 3
+lancerTest 2 0
+acheter
+maison 2
+lancerTest 40 0
+maison 1
+lancerTest 37 0
+passer
+lancerTest 40 0
+passer
+lancerTest 40 0
+passer
+lancerTest 40 0
+passer
+lancerTest 39 0

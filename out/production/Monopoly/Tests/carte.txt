@@ -1,0 +1,61 @@
+joueur 1
+joueur 2
+start
+lancerTest 2 0
+lancerTest 1 0
+lancerTest 1 0
+acheter
+passer
+lancerTest 40 0
+passer
+lancerTest 42 0
+acheter
+maison 4
+lancerTest 7 0
+carte
+passer
+lancerTest 44 0
+carte
+passer
+lancerTest 40 0
+carte
+passer
+lancerTest 40 0
+carte
+passer
+lancerTest 40 0
+carte
+passer
+lancerTest 40 0
+carte
+passer
+lancerTest 40 0
+carte
+passer
+lancerTest 40 0
+carte
+passer
+lancerTest 40 0
+carte
+passer
+lancerTest 40 0
+carte
+passer
+lancerTest 40 0
+carte
+passer
+lancerTest 40 0
+carte
+passer
+lancerTest 40 0
+carte
+passer
+lancerTest 40 0
+carte
+passer
+lancerTest 40 0
+carte
+passer
+lancerTest 40 0
+carte
+passer

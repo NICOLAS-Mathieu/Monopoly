@@ -1,0 +1,17 @@
+joueur 1
+joueur 2
+start
+lancerTest 2 0
+lancerTest 1 0
+lancerTest 30 0
+lancerTest 40 0
+passer
+lancerTest 1 2
+lancerTest 40 0
+passer
+lancerTest 1 2
+lancerTest 40 0
+passer
+lancerTest 1 2
+lancerTest 10 0
+passer

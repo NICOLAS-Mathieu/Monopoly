@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=Propriete
+comment0.text=\r\n\ D\u00E9crivez\ votre\ classe\ Propriete\ ici.\r\n\r\n\ @author\ (votre\ nom)\r\n\ @version\ (un\ num\u00E9ro\ de\ version\ ou\ une\ date)\r\n
+comment1.params=pPrixDeVente\ pLoyer\ pProprietaire
+comment1.target=Propriete(int,\ int,\ Joueur)
+comment1.text=\r\n\ Constructeur\ d'objets\ de\ classe\ Propriete\r\n
+comment2.params=
+comment2.target=int\ getPrixDeVente()
+comment2.text=\r\n\ Getteurs\r\n
+comment3.params=
+comment3.target=int\ getLoyer()
+comment4.params=
+comment4.target=Joueur\ getProprietaire()
+comment5.params=pPrixDeVente
+comment5.target=void\ setPrixDeVente(int)
+comment5.text=\r\n\ Setteurs\r\n
+comment6.params=pLoyer
+comment6.target=void\ setLoyer(int)
+comment7.params=pProprietaire
+comment7.target=void\ setProprietaire(Joueur)
+numComments=8
