@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -78,6 +79,18 @@ public class Joueur
         this.aProprietes.add(pPropriete);
     }
     //addPropriete(.)
+
+    /**
+     * @param pPropriete Propriete à enlever au joueur.
+     */
+    public Propriete popPropriete(Propriete pPropriete)
+    {
+        Propriete vPropiete = pPropriete;
+        this.aProprietes.remove(pPropriete);
+        return vPropiete;
+    }
+    //addPropriete(.)
+
 
     /**
      * @return Le nombre de gare qu'un joueur possède.

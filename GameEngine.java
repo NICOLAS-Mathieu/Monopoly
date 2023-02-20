@@ -25,7 +25,9 @@ public class GameEngine {
     private boolean aPendantEnchere = false;
     private int aMaxEnchere = -1;
     private Joueur aJoueurEnchere;
-
+    private boolean aPasAssez = false;
+    private int aNbTotalMaison;
+    private int aNbTotalHotel;
 
     /**
      * Constructeur pour les objets de la classe GameEngine
@@ -646,23 +648,37 @@ public class GameEngine {
 
     }//enchere()
 
-    private void miser(String joueurMise, String mise)
+    private void miser(String pJoueurMise, String pMise)
     {
         if(this.aPendantEnchere)
         {
-            int vmise = Integer.parseInt(mise);
+            int vmise = Integer.parseInt(pMise);
 
             if(vmise <= aMaxEnchere)
             {
-                this.aGui.println(joueurMise + " ne mise pas assez haut");
+                this.aGui.println(pJoueurMise + " ne mise pas assez haut");
             }
             else
             {
-                Joueur vJoueurMise = takejoueurNom(joueurMise);
+                Joueur vJoueurMise = null;
+                boolean vPasAccepter = true;
+                for(int i=0; i<this.aNbActuelJoueur; i++)
+                {
+                    if(this.aListJoueur.get(i).getNom().equals(pJoueurMise))
+                    {
+                        vJoueurMise = this.aListJoueur.get(i);
+                        if(vJoueurMise.getFaillite())
+                        {
+                            this.aGui.println("le joueur a fait faillite !");
+                        }
+                        vPasAccepter = false;
+                    }
+                }
 
-                if(vJoueurMise.equals(null))
+                if(vPasAccepter)
                 {
                     this.aGui.println("Joueur non reconnue");
+                    return;
                 }
 
                 if(vJoueurMise.getArgent() < vmise)
@@ -679,18 +695,6 @@ public class GameEngine {
         {
             this.aGui.println("il n'y a pas d'enchères en cours");
         }
-    }
-
-    private Joueur takejoueurNom(String nomJoueur)
-    {
-        for(int i=0; i<this.aNbActuelJoueur; i++)
-        {
-            if(this.aListJoueur.get(i).getNom().equals(nomJoueur))
-            {
-                return this.aListJoueur.get(i);
-            }
-        }
-        return null;
     }
 
     private void quitter()
@@ -735,6 +739,13 @@ public class GameEngine {
 
     private void lancer()
     {
+
+        if(this.aPasAssez)
+        {
+            this.aGui.println("Vous n'avez pas assez d'argent il faut hypothequer, vendre ou faire faillite");
+            this.aGui.println("Vous ne pouvez pas passer.");
+            return;
+        }
 
         if (this.testEnchere())
         {
@@ -948,6 +959,12 @@ public class GameEngine {
 
     private void passer()
     {
+        if(aPasAssez)
+        {
+            this.aGui.println("Vous n'avez pas assez d'argent il faut hypothequer, vendre ou faire faillite");
+            return;
+        }
+
         if (this.testEnchere())
         {
             return;
@@ -990,6 +1007,10 @@ public class GameEngine {
         }
 
         this.aCurrentPlayer = this.aListJoueur.get(this.aPosJoueurActuel);
+        if(this.aCurrentPlayer.getFaillite())
+        {
+            prochain();
+        }
     }
 
     private void debutDeTour()
@@ -1340,6 +1361,18 @@ public class GameEngine {
 
     private void faillite(Joueur pJoueurFaillite)
     {
+        ArrayList<Propriete> vListPropieteFaillite;
+
+        vListPropieteFaillite = pJoueurFaillite.setFailliteJoueur();
+
+
+
+        for(int i = 0; i < vListPropieteFaillite.size(); i++)
+        {
+            this.aNbTotalMaison+= getNbMaisonPlayer(pJoueurFaillite);
+            this.aNbTotalHotel+= getNbHotelPlayer(pJoueurFaillite);
+            vListPropieteFaillite.get(0).setProprietaire(null);
+        }
         //a faire
     }//faillite()
 
