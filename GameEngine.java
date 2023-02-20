@@ -18,7 +18,7 @@ public class GameEngine {
     private ArrayList<Integer> aListLancer;
     private LinkedList<Carte> aListChance;
     private LinkedList<Carte> aListCom;
-
+    private int aArgentCentral = 0;
     private int aTestUnique = 0;
     private ArrayList<Integer> aListGrand;
     private int aPasAcheter = 0;
@@ -788,13 +788,16 @@ public class GameEngine {
         if (this.aCurrentPlayer.IsPrison()==0) {
             this.aCurrentPlayer.ajoutePos(this.aNBlancer);
             int pos = this.aCurrentPlayer.getPos();
-            if ( pos >= 40) {
+            if ( pos >= 40)
+            {
                 this.aCurrentPlayer.addArgent(200);
+                this.aGui.println("Vous passez par la case départ, recevez 200€.");
                 this.actualiseArgent();
                 this.aCurrentPlayer.setPos(pos-40);
             }
         }
-        else {
+        else
+        {
             this.aGui.println("Vous etes en prison vous ne pouvez pas avancer.");
         }
     }//avancer()
@@ -971,6 +974,12 @@ public class GameEngine {
 
     private void prochain()
     {
+        //On teste si la partie se finit ou non
+        if(this.finPartie())
+        {
+            this.aGui.println("Il ne reste qu'un joueur la partie est finie");
+            this.quitter();
+        }
         if(this.aPosJoueurActuel+1<this.aNbActuelJoueur)
         {
             this.aPosJoueurActuel+= 1;
@@ -1116,6 +1125,8 @@ public class GameEngine {
             if (this.aCurrentPlayer.getArgent() > vPrix)
             {
                 this.aCurrentPlayer.addArgent(-vPrix);
+                this.aArgentCentral += vPrix;
+                this.aGui.aCagnotte.setText("Cagnotte = "+this.aArgentCentral);
                 this.aGui.println("Payement effectué avec succès!");
                 this.actualiseArgent();
                 if(!this.aCurrentPlayerPlay) //le joueur n'a pas fait de double et ne peut pas rejouer
@@ -1148,6 +1159,17 @@ public class GameEngine {
             this.aGui.println("Allez en prison.");
             this.aCurrentPlayer.goPrison();
             this.passer();
+        }
+
+        //Le joueur tombe sur la case Parc Gratuit
+        if (this.aCurrentPlayer.getPos() == 20)
+        {
+            this.aGui.println("Vous visitez le Parc Gratuit.");
+            this.aCurrentPlayer.addArgent(this.aArgentCentral);
+            this.aGui.println("Vous avez reçu l'argent au milieu du plateau.");
+            this.aArgentCentral = 0;
+            this.aGui.aCagnotte.setText("Cagnotte = "+this.aArgentCentral);
+            this.actualiseArgent();
         }
 
     }//descriptionPos()
@@ -1320,5 +1342,19 @@ public class GameEngine {
     {
         //a faire
     }//faillite()
+
+    /**
+     * Test si 1 seul joueur n'est pas en faillite
+     * @return un booléen qui indique si la partie se finit ou non
+     */
+    public boolean finPartie()
+    {
+        int vNbNonFaillite = 0;
+        for(Joueur vJoueur : this.aListJoueur)
+        {
+            if(!vJoueur.getFaillite()) vNbNonFaillite += 1;
+        }
+        return(vNbNonFaillite==1);
+    }
 }
 
