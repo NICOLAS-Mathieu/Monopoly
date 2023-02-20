@@ -1,3 +1,6 @@
+import pkg_game.GameEngine;
+import pkg_game.UserInterface;
+
 /**
  * La classe Game permet la création du jeu.
  *
